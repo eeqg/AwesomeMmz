@@ -20,7 +20,7 @@ public interface ImageLoader {
 	 * @param imageView
 	 * @param imageUrl  类型为Object原因：因为你的图片链接可以是string、uri、file等多中类型
 	 */
-	void load(ImageView imageView, Object imageUrl);
+	void load(ImageView imageView, String imageUrl);
 	
 	/**
 	 * 图片加载方法
@@ -31,13 +31,25 @@ public interface ImageLoader {
 	 * @param imageUrl
 	 * @param defaultImage
 	 */
-	void load(ImageView imageView, Object imageUrl, int defaultImage);
+	void load(ImageView imageView, String imageUrl, int defaultImage);
 	
-	void loadBlur();
+	/**
+	 * 模糊
+	 * @param imageView
+	 * @param imageUrl
+	 * @param radius
+	 */
+	void loadBlur(ImageView imageView, String imageUrl, int radius, int sampling);
 	
-	void loadCircle();
+	/**
+	 * 圆形图片
+	 */
+	void loadCircle(ImageView imageView, String imageUrl);
 	
-	void loadRound();
+	/**
+	 * 圆角图片
+	 */
+	void loadRound(ImageView imageView, String imageUrl, int radius);
 	
 	/**
 	 * 加载不同形状图片
@@ -46,5 +58,5 @@ public interface ImageLoader {
 	 * @param imageUrl
 	 * @param transformation 传入你要加载的图片形状实现类
 	 */
-	void load(ImageView imageView, Object imageUrl, Object transformation);
+	void load(ImageView imageView, String imageUrl, Object transformation);
 }
