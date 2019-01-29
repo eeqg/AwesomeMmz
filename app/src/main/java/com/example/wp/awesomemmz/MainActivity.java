@@ -17,7 +17,7 @@ public class MainActivity extends BaseActivity {
 		TitleBar titleBar = findViewById(R.id.titleBar);
 		titleBar.setBack(this)
 				.setTitle(R.string.index)
-				.setTextAction(R.string.app_name, R.color.colorAccent, new View.OnClickListener() {
+				.setTextAction(R.string.edit, R.color.colorAccent, new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						promptMessage("action");

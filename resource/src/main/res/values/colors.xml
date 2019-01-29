@@ -28,4 +28,6 @@
 	<color name="colorThemeDivider">#E5E5E5</color>
 	
 	<color name="colorWhite">#FFFFFFFF</color>
+	
+	<color name="background_tab_pressed">#6633B5E5</color>
 </resources>
