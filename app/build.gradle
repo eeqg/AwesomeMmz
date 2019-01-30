@@ -31,6 +31,7 @@ dependencies {
 	
 	implementation(rootProject.ext.libAppcompatV7)
 	implementation(rootProject.ext.libRecyclerView)
+	implementation(rootProject.ext.libDesign)
 	
 	//easy recycler view.
 	implementation 'com.jude:easyrecyclerview:4.4.2'
