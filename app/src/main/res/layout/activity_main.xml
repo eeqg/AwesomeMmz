@@ -5,11 +5,30 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:orientation="vertical"
 	tools:context=".MainActivity">
 	
 	<com.example.wp.resource.base.TitleBar
 		android:id="@+id/titleBar"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"/>
-
+	
+	<android.support.constraint.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="200dp">
+		
+		<com.example.wp.resource.widget.LoopViewPager
+			android:id="@+id/loopView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+		
+		<com.example.wp.resource.widget.CircleIndicator
+			android:id="@+id/indicatorView"
+			android:layout_width="match_parent"
+			android:layout_height="20dp"
+			android:background="#4000"
+			app:ci_normalRadiusColor="#FFF"
+			app:ci_selectedRadiusColor="#F00"
+			app:layout_constraintBottom_toBottomOf="parent"/>
+	</android.support.constraint.ConstraintLayout>
 </LinearLayout>

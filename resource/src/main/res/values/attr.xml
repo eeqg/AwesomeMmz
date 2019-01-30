@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<declare-styleable name="LoopViewPager">
+	<declare-styleable name="LoopViewPager2">
 		<attr name="lvp_isAutoLoop" format="boolean"/>
 		<attr name="lvp_delayTime" format="integer"/>
 	</declare-styleable>
