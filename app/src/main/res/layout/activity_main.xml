@@ -5,6 +5,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:fitsSystemWindows="false"
 	android:orientation="vertical"
 	tools:context=".MainActivity">
 	
@@ -14,37 +15,82 @@
 	<!--android:layout_height="wrap_content"/>-->
 	
 	<android.support.design.widget.AppBarLayout
+		android:id="@+id/appBar"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 		
-		<!--<android.support.v7.widget.Toolbar-->
-		<!--android:id="@+id/toolbar"-->
-		<!--android:layout_width="match_parent"-->
-		<!--android:layout_height="?attr/actionBarSize"-->
-		<!--android:background="@color/colorPrimaryDark"-->
-		<!--android:title="@string/app_name"-->
-		<!--app:layout_scrollFlags="scroll|snap|enterAlways"-->
-		<!--app:titleTextColor="@android:color/white">-->
-		<!--</android.support.v7.widget.Toolbar>-->
-		
-		<android.support.constraint.ConstraintLayout
+		<android.support.design.widget.CollapsingToolbarLayout
 			android:layout_width="match_parent"
-			android:layout_height="200dp">
+			android:layout_height="wrap_content"
+			app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 			
-			<com.example.wp.resource.widget.LoopViewPager
-				android:id="@+id/loopView"
+			<android.support.constraint.ConstraintLayout
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"/>
+				android:layout_height="200dp"
+				android:visibility="visible"
+				app:layout_collapseMode="parallax"
+				app:layout_collapseParallaxMultiplier="0.7">
+				
+				<com.example.wp.resource.widget.LoopViewPager
+					android:id="@+id/loopView"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"/>
+				
+				<com.example.wp.resource.widget.CircleIndicator
+					android:id="@+id/indicatorView"
+					android:layout_width="match_parent"
+					android:layout_height="20dp"
+					android:background="#4000"
+					app:ci_normalRadiusColor="#FFF"
+					app:ci_selectedRadiusColor="#F00"
+					app:layout_constraintBottom_toBottomOf="parent"/>
+			</android.support.constraint.ConstraintLayout>
 			
-			<com.example.wp.resource.widget.CircleIndicator
-				android:id="@+id/indicatorView"
+			<android.support.v7.widget.Toolbar
+				android:id="@+id/toolbar"
 				android:layout_width="match_parent"
-				android:layout_height="20dp"
-				android:background="#4000"
-				app:ci_normalRadiusColor="#FFF"
-				app:ci_selectedRadiusColor="#F00"
-				app:layout_constraintBottom_toBottomOf="parent"/>
-		</android.support.constraint.ConstraintLayout>
+				android:layout_height="wrap_content"
+				android:background="#345"
+				app:contentInsetEnd="0dp"
+				app:contentInsetLeft="0dp"
+				app:contentInsetRight="0dp"
+				app:contentInsetStart="0dp"
+				app:layout_collapseMode="pin">
+				
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+					
+					<View
+						android:id="@+id/viewStatusFix"
+						android:layout_width="match_parent"
+						android:layout_height="0dp"/>
+					
+					<RelativeLayout
+						android:layout_width="match_parent"
+						android:layout_height="?attr/actionBarSize">
+						
+						<ImageView
+							android:layout_width="?attr/actionBarSize"
+							android:layout_height="?attr/actionBarSize"
+							android:layout_alignParentLeft="true"
+							android:layout_alignParentStart="true"
+							android:scaleType="centerInside"
+							android:src="@mipmap/ic_back_white"/>
+						
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_centerHorizontal="true"
+							android:layout_centerVertical="true"
+							android:text="Index"
+							android:textColor="@color/colorWhite"
+							android:textSize="@dimen/dimenTextMark"/>
+					</RelativeLayout>
+				</LinearLayout>
+			</android.support.v7.widget.Toolbar>
+		</android.support.design.widget.CollapsingToolbarLayout>
 		
 		<com.example.wp.resource.widget.PagerSlidingTabStrip
 			android:id="@+id/tabs"
@@ -60,15 +106,9 @@
 			app:pstsUnderlineHeight="2dp"/>
 	</android.support.design.widget.AppBarLayout>
 	
-	<!--<android.support.v7.widget.RecyclerView-->
-	<!--android:id="@+id/recycleView"-->
-	<!--android:layout_width="match_parent"-->
-	<!--android:layout_height="match_parent"-->
-	<!--android:scrollbars="none"-->
-	<!--app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
-	
 	<android.support.v4.view.ViewPager
 		android:id="@+id/viewPager"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"/>
+		android:layout_height="match_parent"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 </android.support.design.widget.CoordinatorLayout>

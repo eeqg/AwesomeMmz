@@ -13,9 +13,12 @@ import android.widget.Toast;
 public class HeaderAdapter extends PagerAdapter {
 	
 	private final Context context;
+	// public int[] images = new int[]{
+	// 		R.mipmap.ic_test_1, R.mipmap.ic_test_2, R.mipmap.ic_test_3,
+	// 		R.mipmap.ic_test_4, R.mipmap.ic_test_5};
 	public int[] images = new int[]{
-			R.mipmap.ic_test_1, R.mipmap.ic_test_2, R.mipmap.ic_test_3,
-			R.mipmap.ic_test_4, R.mipmap.ic_test_5};
+			R.mipmap.image1, R.mipmap.image2, R.mipmap.image3,
+			R.mipmap.image4, R.mipmap.image5};
 	
 	public HeaderAdapter(Context context) {
 		this.context = context;

@@ -15,7 +15,7 @@
 		android:layout_gravity="center_vertical"
 		android:contentDescription="@string/app_name"
 		android:padding="10dp"
-		android:src="@mipmap/ic_fanhui"
+		android:src="@mipmap/ic_back_black"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintTop_toTopOf="parent"/>
 	
@@ -71,7 +71,7 @@
 		android:layout_marginLeft="10dp"
 		android:layout_marginRight="10dp"
 		android:padding="5dp"
-		android:src="@mipmap/ic_fanhui"
+		android:src="@mipmap/ic_back_black"
 		android:visibility="gone"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintRight_toRightOf="parent"
@@ -85,7 +85,7 @@
 		android:layout_marginLeft="10dp"
 		android:layout_marginRight="10dp"
 		android:padding="5dp"
-		android:src="@mipmap/ic_fanhui"
+		android:src="@mipmap/ic_back_black"
 		android:visibility="gone"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintRight_toLeftOf="@+id/ivAction1"

@@ -47,7 +47,7 @@ public class TitleBar extends FrameLayout {
 	
 	public TitleBar setBack(final Activity activity, int resId) {
 		if (resId == 0) {
-			resId = R.mipmap.ic_fanhui;
+			resId = R.mipmap.ic_back_black;
 		}
 		
 		ImageView ivBack = findViewById(R.id.ivBack);
