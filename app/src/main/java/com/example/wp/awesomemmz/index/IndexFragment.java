@@ -77,7 +77,7 @@ public class IndexFragment extends Fragment {
 		data.add(new ClassInfoBean("scroll", OverScrollActivity.class.getName()));
 		data.add(new ClassInfoBean("image", ImageActivity.class.getName()));
 		data.add(new ClassInfoBean("SpecView", SpecActivity.class.getName()));
-		data.add(new ClassInfoBean("sample", ""));
+		data.add(new ClassInfoBean("recovery", ""));
 		data.add(new ClassInfoBean("sample", ""));
 		data.add(new ClassInfoBean("sample", ""));
 	}
