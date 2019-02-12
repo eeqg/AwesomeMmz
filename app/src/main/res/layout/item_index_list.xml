@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:background="@color/colorWhite"
-	android:padding="10dp">
-
+	android:paddingLeft="15dp"
+	android:paddingRight="15dp">
+	
 	<TextView
 		android:id="@+id/tvIndex"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:textSize="@dimen/dimenTextSecondary"
+		android:layout_marginBottom="15dp"
+		android:layout_marginTop="15dp"
+		android:text="1"
 		android:textColor="@color/colorAccent"
-		android:text="1"/>
+		android:textSize="@dimen/dimenTextSecondary"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintTop_toTopOf="parent"/>
 	
 	<TextView
 		android:id="@+id/tvTitle"
@@ -20,7 +26,15 @@
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="10dp"
 		android:layout_marginRight="10dp"
+		android:text="example"
 		android:textColor="@color/colorTextPrimary"
 		android:textSize="@dimen/dimenTextPrimary"
-		android:text="example"/>
-</LinearLayout>
+		app:layout_constraintBaseline_toBaselineOf="@+id/tvIndex"
+		app:layout_constraintLeft_toRightOf="@+id/tvIndex"/>
+	
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:background="#5282"
+		app:layout_constraintBottom_toBottomOf="parent"/>
+</android.support.constraint.ConstraintLayout>

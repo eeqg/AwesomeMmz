@@ -5,7 +5,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/titleBar"
 	android:layout_width="match_parent"
-	android:layout_height="?android:attr/actionBarSize"
+	android:layout_height="@dimen/dimenTitleBar"
 	android:background="@color/colorWhite">
 	
 	<ImageView

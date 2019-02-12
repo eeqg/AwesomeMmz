@@ -2,6 +2,7 @@ package com.example.wp.awesomemmz;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -23,17 +24,6 @@ public class MainActivity extends BaseTintStatusBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		// TitleBar titleBar = findViewById(R.id.titleBar);
-		// titleBar.setBack(this)
-		// 		.setTitle(R.string.index)
-		// 		.setTextAction(R.string.edit, R.color.colorAccent, new View.OnClickListener() {
-		// 			@Override
-		// 			public void onClick(View v) {
-		// 				promptMessage("action");
-		// 			}
-		// 		})
-		// 		.showDivider();
-		
 		observeAppBar();
 		
 		observeHeadView();
@@ -48,11 +38,16 @@ public class MainActivity extends BaseTintStatusBarActivity {
 	}
 	
 	private void observeTab() {
-		PagerSlidingTabStrip tabs = findViewById(R.id.tabs);
 		ViewPager viewPager = findViewById(R.id.viewPager);
 		PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
 		viewPager.setAdapter(pagerAdapter);
-		tabs.setViewPager(viewPager);
+		
+		// PagerSlidingTabStrip tabs = findViewById(R.id.tabs);
+		// tabs.setViewPager(viewPager);
+		// tabs.setIndicatorinFollower(true);
+		
+		TabLayout tabLayout = findViewById(R.id.tabLayout);
+		tabLayout.setupWithViewPager(viewPager);
 	}
 	
 	/**

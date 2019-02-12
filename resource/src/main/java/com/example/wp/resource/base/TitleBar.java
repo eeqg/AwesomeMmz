@@ -62,17 +62,24 @@ public class TitleBar extends FrameLayout {
 		return this;
 	}
 	
-	public TitleBar setTitle(int resId) {
-		setTvTitle(resId, -1);
-		return this;
+	public TitleBar setTitle(String title) {
+		return setTitle(title, -1);
 	}
 	
-	public TitleBar setTvTitle(int resId, int colorId) {
-		tvTitle.setText(getResources().getString(resId));
+	public TitleBar setTitle(int resId) {
+		return setTitle(resId, -1);
+	}
+	
+	public TitleBar setTitle(String title, int colorId) {
+		tvTitle.setText(title);
 		if (colorId != -1) {
 			tvTitle.setTextColor(getResources().getColor(colorId));
 		}
 		return this;
+	}
+	
+	public TitleBar setTitle(int resId, int colorId) {
+		return setTitle(getResources().getString(resId), colorId);
 	}
 	
 	public TitleBar setTextAction(int resId, View.OnClickListener listener) {
@@ -123,8 +130,8 @@ public class TitleBar extends FrameLayout {
 		return this;
 	}
 	
-	public TitleBar showDivider() {
-		findViewById(R.id.viewDivider).setVisibility(VISIBLE);
+	public TitleBar showDivider(boolean show) {
+		findViewById(R.id.viewDivider).setVisibility(show ? VISIBLE : GONE);
 		return this;
 	}
 	

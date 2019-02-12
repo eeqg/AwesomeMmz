@@ -5,13 +5,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.wp.awesomemmz.R;
+import com.example.wp.awesomemmz.index.bean.ClassInfoBean;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+
+import java.util.Locale;
 
 /**
  * Created by wp on 2019/1/30.
  */
-public class IndexAdapter extends RecyclerArrayAdapter<String> {
+public class IndexAdapter extends RecyclerArrayAdapter<ClassInfoBean> {
 	public IndexAdapter(Context context) {
 		super(context);
 	}
@@ -21,7 +24,7 @@ public class IndexAdapter extends RecyclerArrayAdapter<String> {
 		return new ItemViewHolder(parent);
 	}
 	
-	private class ItemViewHolder extends BaseViewHolder<String> {
+	private class ItemViewHolder extends BaseViewHolder<ClassInfoBean> {
 		
 		private TextView tvIndex, tvTitle;
 		
@@ -32,9 +35,9 @@ public class IndexAdapter extends RecyclerArrayAdapter<String> {
 		}
 		
 		@Override
-		public void setData(String data) {
-			tvIndex.setText(String.valueOf(getDataPosition() + 1));
-			tvTitle.setText(getItem(getDataPosition()));
+		public void setData(ClassInfoBean data) {
+			tvIndex.setText(String.format(Locale.CHINA, "%02d", getDataPosition() + 1));
+			tvTitle.setText(getItem(getDataPosition()).title);
 		}
 	}
 	
