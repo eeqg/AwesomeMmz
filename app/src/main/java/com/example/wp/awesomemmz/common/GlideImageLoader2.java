@@ -12,8 +12,6 @@ import com.example.wp.resource.widget.banner.loader.ImageLoader;
 public class GlideImageLoader2 extends ImageLoader {
 	@Override
 	public void displayImage(Context context, Object path, ImageView imageView) {
-		Glide.with(context.getApplicationContext())
-				.load(path)
-				.into(imageView);
+		new GlideImageLoader(context).load(imageView, (String) path);
 	}
 }

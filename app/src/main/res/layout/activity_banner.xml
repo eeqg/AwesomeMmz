@@ -13,7 +13,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"/>
 	
-	<com.example.wp.resource.widget.scroll.ElasticScrollView
+	<android.support.v4.widget.NestedScrollView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
@@ -46,15 +46,16 @@
 			
 			<View
 				style="@style/ViewDividerHorizontal"
-				android:layout_marginTop="15dp"/>
+				android:layout_marginTop="25dp"/>
 			
 			<View
 				style="@style/ViewDividerHorizontal"
-				android:layout_marginTop="3dp"/>
+				android:layout_marginTop="5dp"/>
 			
 			<android.support.constraint.ConstraintLayout
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
+				android:layout_height="wrap_content"
+				android:padding="10dp">
 				
 				<com.example.wp.resource.widget.banner.Banner
 					android:id="@+id/banner"
@@ -62,17 +63,33 @@
 					android:layout_height="240dp"/>
 				
 				<TextView
+					android:id="@+id/tvStart"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:background="@drawable/gray_radius"
+					android:padding="10dp"
+					android:text="start/stop"
+					android:textColor="@color/colorWhite"
+					app:layout_constraintTop_toBottomOf="@+id/banner"/>
+				
+				<TextView
 					android:id="@+id/title1"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
+					android:layout_marginTop="15dp"
 					android:text="切换方式: "
-					app:layout_constraintTop_toBottomOf="@+id/banner"/>
+					app:layout_constraintTop_toBottomOf="@+id/tvStart"/>
 				
 				<Spinner
 					android:id="@+id/spinnerStyle"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:entries="@array/style"
+					android:background="@color/colorWhite"
+					android:dropDownWidth="280dp"
+					android:entries="@array/anim"
+					android:gravity="center"
+					android:spinnerMode="dropdown"
 					app:layout_constraintBaseline_toBaselineOf="@+id/title1"
 					app:layout_constraintLeft_toRightOf="@+id/title1"/>
 				
@@ -91,7 +108,23 @@
 					android:entries="@array/indicator"
 					app:layout_constraintBaseline_toBaselineOf="@+id/title2"
 					app:layout_constraintLeft_toRightOf="@+id/title2"/>
+				
+				<TextView
+					android:id="@+id/title3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:text="indicator Style: "
+					app:layout_constraintTop_toBottomOf="@+id/title2"/>
+				
+				<Spinner
+					android:id="@+id/spinnerIndicatorStyle"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:entries="@array/style"
+					app:layout_constraintBaseline_toBaselineOf="@+id/title3"
+					app:layout_constraintLeft_toRightOf="@+id/title3"/>
 			</android.support.constraint.ConstraintLayout>
 		</LinearLayout>
-	</com.example.wp.resource.widget.scroll.ElasticScrollView>
+	</android.support.v4.widget.NestedScrollView>
 </LinearLayout>

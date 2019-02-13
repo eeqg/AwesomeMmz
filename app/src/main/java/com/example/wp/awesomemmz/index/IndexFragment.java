@@ -16,6 +16,7 @@ import com.example.wp.awesomemmz.image.ImageActivity;
 import com.example.wp.awesomemmz.index.bean.ClassInfoBean;
 import com.example.wp.awesomemmz.other.BannerActivity;
 import com.example.wp.awesomemmz.other.OverScrollActivity;
+import com.example.wp.awesomemmz.other.PageSlideActivity;
 import com.example.wp.awesomemmz.other.SpecActivity;
 import com.example.wp.resource.utils.LaunchUtil;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -75,10 +76,11 @@ public class IndexFragment extends Fragment {
 	private void initData() {
 		data.add(new ClassInfoBean("banner", BannerActivity.class.getName()));
 		data.add(new ClassInfoBean("scroll", OverScrollActivity.class.getName()));
+		data.add(new ClassInfoBean("pageSlide", PageSlideActivity.class.getName()));
 		data.add(new ClassInfoBean("image", ImageActivity.class.getName()));
 		data.add(new ClassInfoBean("SpecView", SpecActivity.class.getName()));
 		data.add(new ClassInfoBean("recovery", ""));
-		data.add(new ClassInfoBean("sample", ""));
-		data.add(new ClassInfoBean("sample", ""));
+		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("...", ""));
 	}
 }
