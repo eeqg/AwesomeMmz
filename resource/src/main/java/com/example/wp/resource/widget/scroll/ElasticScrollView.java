@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -14,6 +15,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.OverScroller;
 import android.widget.ScrollView;
+
+import com.example.wp.resource.utils.LogUtils;
 
 /**
  * 多点触控的弹性ScrollView
@@ -128,13 +131,31 @@ public class ElasticScrollView extends ScrollView {
 		// LogUtils.d("test_wp", "onTouchEvent()--canChildScrollUp : " + canChildScrollUp(this));
 		// LogUtils.d("test_wp", "onTouchEvent()--canChildScrollDown : " + canChildScrollDown(this));
 		float dy = event.getY(0) - startY;
-		// LogUtils.d("test_wp", "onTouchEvent()--dy : " + dy);
-		if ((canChildScrollUp(this) && dy > 0)
-				|| (canChildScrollDown(this) && dy < 0)) {
+		android.util.Log.d("test_wp", "onTouchEvent()--dy : " + dy);
+		// if ((canChildScrollUp(this) && dy > 0)
+		// 		|| (canChildScrollDown(this) && dy < 0)) {
+		// 	return super.onTouchEvent(event);
+		// }
+		// android.util.Log.d("test_wp", "isTop() : " + isTop());
+		// android.util.Log.d("test_wp", "isBottom() : " + isBottom());
+		//
+		// android.util.Log.d("test_wp", "getScrollY() : " + getScrollY());
+		// android.util.Log.d("test_wp", "getHeight() : " + getHeight());
+		// android.util.Log.d("test_wp", "computeVerticalScrollExtent() : " + computeVerticalScrollExtent());
+		// android.util.Log.d("test_wp", "computeVerticalScrollOffset() : " + computeVerticalScrollOffset());
+		// android.util.Log.d("test_wp", "computeVerticalScrollRange() : " + computeVerticalScrollRange());
+		
+		boolean blocked = false;
+		if ((isTop() && dy >= 0) || (isBottom() && dy <= 0)) {
+			blocked = true;
+		}
+		if (!blocked) {
+			activePointerId = event.getPointerId(event.getActionIndex());
+			mLastY = event.getY(event.getActionIndex());
 			return super.onTouchEvent(event);
 		}
 		
-		// LogUtils.d("test_wp", "onTouchEvent()--mTargetView : " + mTargetView);
+		// android.util.Log.d("test_wp", "onTouchEvent()--mTargetView : " + mTargetView);
 		if (mTargetView == null) {
 			return false;
 		}
@@ -180,19 +201,25 @@ public class ElasticScrollView extends ScrollView {
 				final int pointerIndex = event.findPointerIndex(activePointerId);
 				float currentY = event.getY(pointerIndex);
 				// 假如是下拉, currentY > perY, offset > 0
+				Log.d("test_wp", "-----currentY: " + currentY);
+				Log.d("test_wp", "-----mLastY: " + mLastY);
 				int offset = (int) (currentY - mLastY);
+				Log.d("test_wp", "-----offset: " + offset);
 				mLastY = currentY;
 				int deltaY = Math.abs(mTargetView.getTop() - mOriginPos.y);
-				if (isNeedMove()) {
-					if (normal.isEmpty()) {
-						normal.set(mTargetView.getLeft(), mTargetView.getTop(), mTargetView.getRight(), mTargetView.getBottom());
-					}
-					int offset1 = calcateNewOffset(deltaY, offset);
-					ViewCompat.offsetTopAndBottom(mTargetView, offset1);
-					if (mOnPullListener != null) {
-						mOnPullListener.onPullOffset(mTargetView.getTop());
-					}
+				// Log.d("test_wp", "isNeedMove(): " + isNeedMove());
+				// if (isNeedMove()) {
+				if (normal.isEmpty()) {
+					normal.set(mTargetView.getLeft(), mTargetView.getTop(), mTargetView.getRight(), mTargetView.getBottom());
 				}
+				Log.d("test_wp", "-----deltaY: " + deltaY);
+				int offset1 = calcateNewOffset(deltaY, offset);
+				Log.d("test_wp", "-----offset1: " + offset1);
+				ViewCompat.offsetTopAndBottom(mTargetView, offset1);
+				if (mOnPullListener != null) {
+					mOnPullListener.onPullOffset(mTargetView.getTop());
+				}
+				// }
 			default:
 				break;
 		}
@@ -241,6 +268,22 @@ public class ElasticScrollView extends ScrollView {
 		}
 	}
 	
+	public boolean isTop() {
+		if (Build.VERSION.SDK_INT >= 14) {
+			return !canScrollVertically(-1);
+		} else {
+			return computeVerticalScrollOffset() <= 0;
+		}
+	}
+	
+	public boolean isBottom() {
+		if (Build.VERSION.SDK_INT >= 14) {
+			return !canScrollVertically(1);
+		} else {
+			return computeVerticalScrollOffset() + computeVerticalScrollExtent() >= computeVerticalScrollRange();
+		}
+	}
+	
 	/**
 	 * 每隔多少距离就开始增大阻力系数, 数值越小阻力就增大的越快
 	 */
@@ -274,12 +317,16 @@ public class ElasticScrollView extends ScrollView {
 	}
 	
 	public boolean isNeedMove() {
-		int offset = mTargetView.getMeasuredHeight() - getHeight();
-		int scrollY = getScrollY();
-		if (scrollY == 0 || scrollY == offset) {
-			return true;
-		}
-		return false;
+		// int offset = mTargetView.getMeasuredHeight() - getHeight();
+		// int scrollY = getScrollY();
+		// Log.d("test_wp", "-----offset= "+offset);
+		// Log.d("test_wp", "-----scrollY= "+scrollY);
+		// if (scrollY == 0 || scrollY == offset) {
+		// 	return true;
+		// }
+		// return false;
+		
+		return isTop() || isBottom();
 	}
 	
 	public interface OnPullListener {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
@@ -16,98 +16,109 @@
 	<com.example.wp.resource.widget.scroll.VerticalSlideView
 		android:id="@+id/SlideView"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
 		app:layout_constraintTop_toBottomOf="@+id/titleBar">
 		
-		<com.example.wp.resource.widget.scroll.VerticalScrollView
+		<FrameLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 			
-			<LinearLayout
+			<com.example.wp.resource.widget.scroll.VerticalScrollView
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:orientation="vertical">
-				
-				<ImageView
-					android:layout_width="match_parent"
-					android:layout_height="200dp"
-					android:scaleType="centerCrop"
-					android:src="@mipmap/image3"/>
-				
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="100dp"
-					android:background="#20830980"/>
-				
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="100dp"
-					android:background="#2023090f"/>
-				
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="100dp"
-					android:background="#30830950"/>
-				
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="100dp"
-					android:background="#30383090"/>
-				
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="100dp"
-					android:background="#20830980"/>
-				
-				<!--<View-->
-				<!--android:layout_width="match_parent"-->
-				<!--android:layout_height="100dp"-->
-				<!--android:background="#2023090f"/>-->
-				
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="100dp"
-					android:background="#30830950"/>
-				
-				<View
-					android:layout_width="match_parent"
-					android:layout_height="0dp"
-					android:layout_weight="1"/>
+				android:layout_height="match_parent">
 				
 				<LinearLayout
 					android:layout_width="match_parent"
-					android:layout_height="60dp"
-					android:background="#fafafa"
-					android:gravity="center_vertical"
-					android:orientation="horizontal">
+					android:layout_height="match_parent"
+					android:orientation="vertical">
+					
+					<ImageView
+						android:layout_width="match_parent"
+						android:layout_height="200dp"
+						android:scaleType="centerCrop"
+						android:src="@mipmap/image3"/>
 					
 					<View
-						android:layout_width="0dp"
-						android:layout_height="1px"
-						android:layout_weight="1"
-						android:background="#ddd"/>
-					
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:paddingLeft="5dp"
-						android:paddingRight="5dp"
-						android:text="继续拖动，查看图文详情"
-						android:textColor="#777"
-						android:textSize="13sp"/>
+						android:layout_width="match_parent"
+						android:layout_height="100dp"
+						android:background="#20830980"/>
 					
 					<View
-						android:layout_width="0dp"
-						android:layout_height="1px"
-						android:layout_weight="1"
-						android:background="#ddd"/>
+						android:layout_width="match_parent"
+						android:layout_height="100dp"
+						android:background="#2023090f"/>
+					
+					<View
+						android:layout_width="match_parent"
+						android:layout_height="100dp"
+						android:background="#30830950"/>
+					
+					<View
+						android:layout_width="match_parent"
+						android:layout_height="100dp"
+						android:background="#30383090"/>
+					
+					<View
+						android:layout_width="match_parent"
+						android:layout_height="100dp"
+						android:background="#20830980"/>
+					
+					<!--<View-->
+					<!--android:layout_width="match_parent"-->
+					<!--android:layout_height="100dp"-->
+					<!--android:background="#2023090f"/>-->
+					
+					<View
+						android:layout_width="match_parent"
+						android:layout_height="100dp"
+						android:background="#30830950"/>
+					
+					<View
+						android:layout_width="match_parent"
+						android:layout_height="0dp"
+						android:layout_weight="1"/>
+					
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="60dp"
+						android:background="#fafafa"
+						android:gravity="center_vertical"
+						android:orientation="horizontal">
+						
+						<View
+							android:layout_width="0dp"
+							android:layout_height="1px"
+							android:layout_weight="1"
+							android:background="#ddd"/>
+						
+						<TextView
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:paddingLeft="5dp"
+							android:paddingRight="5dp"
+							android:text="继续拖动，查看图文详情"
+							android:textColor="#777"
+							android:textSize="13sp"/>
+						
+						<View
+							android:layout_width="0dp"
+							android:layout_height="1px"
+							android:layout_weight="1"
+							android:background="#ddd"/>
+					</LinearLayout>
 				</LinearLayout>
-			</LinearLayout>
-		</com.example.wp.resource.widget.scroll.VerticalScrollView>
+			</com.example.wp.resource.widget.scroll.VerticalScrollView>
+		</FrameLayout>
 		
-		<com.example.wp.resource.widget.scroll.VerticalRecyclerView
-			android:id="@+id/recyclerView"
+		<FrameLayout
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"/>
+			android:layout_height="match_parent">
+			
+			<com.example.wp.resource.widget.scroll.VerticalRecyclerView
+				android:id="@+id/recyclerView"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"/>
+		</FrameLayout>
 	</com.example.wp.resource.widget.scroll.VerticalSlideView>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
