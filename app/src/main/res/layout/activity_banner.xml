@@ -13,7 +13,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"/>
 	
-	<android.support.v4.widget.NestedScrollView
+	<com.example.wp.resource.widget.scroll.ElasticScrollView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
@@ -126,5 +126,5 @@
 					app:layout_constraintLeft_toRightOf="@+id/title3"/>
 			</android.support.constraint.ConstraintLayout>
 		</LinearLayout>
-	</android.support.v4.widget.NestedScrollView>
+	</com.example.wp.resource.widget.scroll.ElasticScrollView>
 </LinearLayout>

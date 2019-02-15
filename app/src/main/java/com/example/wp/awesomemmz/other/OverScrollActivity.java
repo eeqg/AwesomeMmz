@@ -25,7 +25,7 @@ public class OverScrollActivity extends BaseActivity {
 		
 		TextView idTest = findViewById(R.id.idTest);
 		idTest.setTextColor(ColorUtil.generateBeautifulColor());
-		// observeBanner();
+		observeBanner();
 	}
 	
 	private void observeBanner() {
