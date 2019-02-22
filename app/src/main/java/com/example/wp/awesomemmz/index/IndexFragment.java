@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.wp.awesomemmz.R;
+import com.example.wp.awesomemmz.custom.CustomViewActivity;
 import com.example.wp.awesomemmz.image.ImageActivity;
 import com.example.wp.awesomemmz.index.bean.ClassInfoBean;
 import com.example.wp.awesomemmz.other.BannerActivity;
@@ -80,7 +81,7 @@ public class IndexFragment extends Fragment {
 		data.add(new ClassInfoBean("image", ImageActivity.class.getName()));
 		data.add(new ClassInfoBean("SpecView", SpecActivity.class.getName()));
 		data.add(new ClassInfoBean("recovery", ""));
-		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("customView", CustomViewActivity.class.getName()));
 		data.add(new ClassInfoBean("...", ""));
 	}
 }
