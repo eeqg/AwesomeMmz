@@ -25,8 +25,8 @@ public class BezierTestActivity2 extends AppCompatActivity {
 		ButterKnife.bind(this);
 		
 		bezierView2.setPointsNum(5)
-				.setRadius(38)
-				.setStrokeColor(Color.parseColor("#5022ff55"));
+				.setRadius(35)
+				.setStrokeColor(Color.parseColor("#9022ff55"));
 	}
 	
 	@OnClick({R.id.btnLast, R.id.btnNext, R.id.btnSet})

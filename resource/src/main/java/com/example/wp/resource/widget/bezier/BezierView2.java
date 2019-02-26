@@ -12,17 +12,18 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
+import android.graphics.Xfermode;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import com.example.wp.resource.utils.LogUtils;
-import com.example.wp.resource.utils.ScreenUtils;
+
+import java.util.Arrays;
 
 /**
  * Created by wp on 2019/2/22.
@@ -60,9 +61,15 @@ public class BezierView2 extends View {
 	private Matrix matrixBounceL;//将向右弹的动画改为向左
 	
 	private ValueAnimator backAnimator;
+	private ValueAnimator rippleAnimator;
+	private Xfermode clearXfermode = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
 	
+	private boolean rippleAniming = false;
+	private RectF rippleScope = new RectF();
+	private Paint ripplePaint;
 	private boolean isSliding = false;
 	private float animatedValue;
+	private float rippleAnimatedValue;
 	private float interval;
 	
 	private int radius = 35;
@@ -89,7 +96,6 @@ public class BezierView2 extends View {
 		mPaint = new Paint();
 		mPaint.setColor(fillColor);
 		mPaint.setStyle(Paint.Style.FILL);
-		mPaint.setStrokeWidth(2);
 		bezierPath = new Path();
 		
 		mCirclePaint = new Paint();
@@ -97,8 +103,10 @@ public class BezierView2 extends View {
 		mCirclePaint.setStyle(Paint.Style.STROKE);
 		mCirclePaint.setStrokeWidth(2);
 		
-		//reverse
-		// mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+		ripplePaint = new Paint();
+		ripplePaint.setColor(0xF0FFFFFF);
+		ripplePaint.setStyle(Paint.Style.FILL);
+		
 		matrixBounceL = new Matrix();
 		matrixBounceL.preScale(-1, 1);
 		
@@ -133,13 +141,14 @@ public class BezierView2 extends View {
 	 */
 	private void initPointsCoordinate() {
 		bezPos = new float[pointNum];
+		xPivotPos = new float[pointNum];
 		interval = 1f * width / pointNum;
 		// LogUtils.d("-----getScreenWidth : " + ScreenUtils.getScreenWidth(getContext()));
 		// LogUtils.d("-----width : " + width);
 		// LogUtils.d("-----interval : " + interval);
 		for (int i = 0; i < pointNum; i++) {
 			bezPos[i] = interval / 2 + interval * i;
-			// LogUtils.d("-----bezPos[i] : " + bezPos[i]);
+			xPivotPos[i] = bezPos[i] + radius;
 		}
 	}
 	
@@ -154,6 +163,24 @@ public class BezierView2 extends View {
 		//绘制圆框
 		for (int i = 0; i < pointNum; i++) {
 			canvas.drawCircle(bezPos[i], 0, radius - 2, mCirclePaint);
+		}
+		
+		//实现 触摸反馈
+		// LogUtils.d("-----rippleAniming : " + rippleAniming);
+		if (rippleAniming) {
+			int count = canvas.saveLayer(rippleScope, ripplePaint, Canvas.ALL_SAVE_FLAG);
+			canvas.drawCircle(bezPos[nextPoint], 0, rippleAnimatedValue, ripplePaint);//white circle
+			
+			ripplePaint.setXfermode(clearXfermode);//clear
+			
+			canvas.drawCircle(bezPos[nextPoint], 0, radius * 0.7f, ripplePaint);//transparent circle
+			if (rippleAnimatedValue > radius) {
+				canvas.drawCircle(bezPos[nextPoint], 0, (rippleAnimatedValue - radius) / 0.5f * 1.4f, ripplePaint);
+			}
+			
+			ripplePaint.setXfermode(null);
+			
+			canvas.restoreToCount(count);
 		}
 		
 		canvas.translate(bezPos[currentPoint], 0);
@@ -229,17 +256,19 @@ public class BezierView2 extends View {
 	@SuppressLint("ClickableViewAccessibility")
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		float x = event.getX();
+		float y = event.getY();
 		switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:
-				
-				break;
-			case MotionEvent.ACTION_MOVE:
-				break;
-			case MotionEvent.ACTION_CANCEL:
-			case MotionEvent.ACTION_UP:
+				if (y > height / 2 - radius && y < height / 2 + radius && !isSliding) {
+					int index = -Arrays.binarySearch(xPivotPos, x) - 1;
+					if (index >= 0 && index < pointNum && x > bezPos[index] - radius) {
+						bounceTo(index, true);
+					}
+				}
 				break;
 		}
-		return true;
+		return super.onTouchEvent(event);
 	}
 	
 	/**
@@ -273,18 +302,66 @@ public class BezierView2 extends View {
 				}
 			});
 			
+			backAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+				@Override
+				public void onAnimationUpdate(ValueAnimator animation) {
+					animatedValue = (float) animation.getAnimatedValue();
+					invalidate();
+				}
+			});
 		}
 		if (backAnimator.isRunning()) {
 			return;
 		}
-		backAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-			@Override
-			public void onAnimationUpdate(ValueAnimator animation) {
-				animatedValue = (float) animation.getAnimatedValue();
-				invalidate();
-			}
-		});
 		backAnimator.start();
+	}
+	
+	private void setTouchAnimation() {
+		float offset = radius * 1.5f;
+		//设置触摸动画范围
+		rippleScope.set(bezPos[nextPoint] - offset, -offset, bezPos[nextPoint] + offset, offset);
+		
+		if (rippleAnimator == null) {
+			rippleAnimator = ValueAnimator.ofFloat(0, radius * 1.5f).setDuration(300);
+			rippleAnimator.setInterpolator(new DecelerateInterpolator());
+			rippleAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+				@Override
+				public void onAnimationUpdate(ValueAnimator animation) {
+					rippleAnimatedValue = (float) animation.getAnimatedValue();
+					LogUtils.d("-----rippleAnimatedValue : " + rippleAnimatedValue);
+					if (rippleAnimatedValue == radius * 1.5f) {
+						rippleAniming = false;
+					}
+				}
+			});
+			
+			rippleAnimator.addListener(new Animator.AnimatorListener() {
+				@Override
+				public void onAnimationStart(Animator animation) {
+					rippleAniming = true;
+				}
+				
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					rippleAniming = false;
+				}
+				
+				@Override
+				public void onAnimationCancel(Animator animation) {
+					rippleAniming = false;
+				}
+				
+				@Override
+				public void onAnimationRepeat(Animator animation) {
+				
+				}
+			});
+		}
+		if (rippleAnimator.isRunning()) {
+			return;
+		}
+		rippleAniming = true;
+		rippleAnimator.start();
 	}
 	
 	public BezierView2 setPointsNum(int num) {
@@ -317,26 +394,34 @@ public class BezierView2 extends View {
 	}
 	
 	public void bounceNext() {
-		nextPoint = currentPoint + 1;
-		if (nextPoint == pointNum) {
-			nextPoint = 0;
-		}
-		startBounceAnimation();
+		bounceTo(currentPoint + 1);
 	}
 	
 	public void bounceLast() {
-		nextPoint = currentPoint - 1;
-		if (nextPoint < 0) {
-			nextPoint = 0;
-		}
-		startBounceAnimation();
+		bounceTo(currentPoint - 1);
 	}
 	
 	public void bounceTo(int position) {
+		bounceTo(position, false);
+	}
+	
+	private void bounceTo(int position, boolean showRipple) {
+		if (position < 0) {
+			position = 0;
+		}
+		if (position >= pointNum) {
+			position = pointNum - 1;
+		}
+		if (position == currentPoint) {
+			return;
+		}
 		if (position < 0 || position >= pointNum) {
 			throw new IndexOutOfBoundsException("index out of bounds.");
 		}
 		nextPoint = position;
 		startBounceAnimation();
+		if (showRipple) {
+			setTouchAnimation();
+		}
 	}
 }
