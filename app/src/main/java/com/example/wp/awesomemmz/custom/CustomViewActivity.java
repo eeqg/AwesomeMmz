@@ -33,7 +33,7 @@ public class CustomViewActivity extends BaseActivity {
 				LaunchUtil.launchActivity(this, BezierTestActivity.class);
 				break;
 			case R.id.btnBezier2:
-				
+				LaunchUtil.launchActivity(this, BezierTestActivity2.class);
 				break;
 		}
 	}
