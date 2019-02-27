@@ -30,4 +30,8 @@
 	<color name="colorWhite">#FFFFFFFF</color>
 	
 	<color name="background_tab_pressed">#6633B5E5</color>
+	
+	<color name="custom_shadow_start_color">#44000000</color>
+	<color name="custom_shadow_mid_color">#14000000</color>
+	<color name="custom_shadow_end_color">#00000000</color>
 </resources>

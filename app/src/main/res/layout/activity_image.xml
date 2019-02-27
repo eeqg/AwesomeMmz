@@ -5,10 +5,67 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:background="@color/colorWhite"
 	tools:context=".image.ImageActivity">
 	
 	<com.example.wp.resource.base.TitleBar
 		android:id="@+id/titleBar"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"/>
+	
+	<android.support.v4.widget.NestedScrollView
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/titleBar">
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			android:padding="6dp">
+			
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="1, 阴影"/>
+			
+			<TextView
+				android:id="@+id/ivShadow"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="8dp"
+				android:padding="5dp"
+				android:text="shadow"/>
+			
+			<ImageView
+				android:id="@+id/ivShadow2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/ic_shadow"
+				android:scaleType="fitXY"
+				android:src="@mipmap/image4"/>
+			
+			<View
+				android:id="@+id/ivShadow3"
+				android:layout_width="150dp"
+				android:layout_height="150dp"
+				android:padding="2dp"/>
+			
+			<com.dd.ShadowLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				app:sl_shadowRadius="10dp"
+				app:sl_dx="2dp"
+				app:sl_dy="2dp"
+				app:sl_shadowColor="#44FF1234">
+			
+				<ImageView
+					android:layout_width="150dp"
+					android:layout_height="150dp"
+					android:scaleType="fitXY"
+					android:src="@mipmap/image4"/>
+			</com.dd.ShadowLayout>
+		</LinearLayout>
+	</android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>
