@@ -1,5 +1,6 @@
 package com.example.wp.awesomemmz;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
