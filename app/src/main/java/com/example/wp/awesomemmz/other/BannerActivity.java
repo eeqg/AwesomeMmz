@@ -3,20 +3,29 @@ package com.example.wp.awesomemmz.other;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.wp.awesomemmz.HeaderAdapter;
 import com.example.wp.awesomemmz.R;
+import com.example.wp.awesomemmz.common.GlideImageLoader;
 import com.example.wp.awesomemmz.common.GlideImageLoader2;
 import com.example.wp.resource.base.BaseActivity;
+import com.example.wp.resource.utils.ColorUtil;
 import com.example.wp.resource.utils.LogUtils;
+import com.example.wp.resource.utils.ScreenUtils;
 import com.example.wp.resource.widget.CircleIndicator;
 import com.example.wp.resource.widget.LoopViewPager;
 import com.example.wp.resource.widget.banner.Banner;
@@ -39,9 +48,10 @@ import com.example.wp.resource.widget.banner.transformer.TabletTransformer;
 import com.example.wp.resource.widget.banner.transformer.ZoomInTransformer;
 import com.example.wp.resource.widget.banner.transformer.ZoomOutSlideTransformer;
 import com.example.wp.resource.widget.banner.transformer.ZoomOutTranformer;
+import com.example.wp.resource.widget.banner2.callback.BindViewCallBack;
+import com.example.wp.resource.widget.banner2.callback.CreateViewCaller;
+import com.example.wp.resource.widget.banner2.callback.OnClickBannerListener;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,8 +64,14 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 	View bannerContainer2;
 	@BindView(R.id.banner2)
 	Banner banner2;
+	@BindView(R.id.banner3)
+	com.example.wp.resource.widget.banner2.Banner banner3;
+	@BindView(R.id.bannerContainer3)
+	View bannerContainer3;
 	
 	Banner banner;
+	GlideImageLoader glideImageLoader;
+	String[] colorsStr;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +81,13 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 		
 		setupTitleBar("Banner");
 		
+		glideImageLoader = new GlideImageLoader(this);
+		colorsStr = getResources().getStringArray(R.array.colorsStr);
+		
 		observeLooperView();
 		observeBannerView();
 		observerBannerBg();
+		observeBannerPower();
 	}
 	
 	private void observeLooperView() {
@@ -241,81 +261,64 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 				.start();
 		// banner2.setOffscreenPageLimit(5);
 		
-		final String[] colorsStr = getResources().getStringArray(R.array.colorsStr);
-		
 		banner2.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-			int dtRed, dtGreen, dtBlue;
 			ValueAnimator valueAnimator;
+			int dtColor;
 			
 			@Override
 			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-				Log.d("test_wp", "---------" + position + "--------");
-				Log.d("test_wp", "positionOffset = " + positionOffset);
 				int curColor = Color.parseColor(colorsStr[position]);
-				Log.d("test_wp", "curColor = " + curColor);
-				int curRed = Color.red(curColor);
-				int curGreen = Color.green(curColor);
-				int curBlue = Color.blue(curColor);
 				int nextColor = Color.parseColor(colorsStr[(position + 1 == colorsStr.length ? 0 : position + 1)]);
-				Log.d("test_wp", "nextColor = " + nextColor);
-				int nextRed = Color.red(nextColor);
-				int nextGreen = Color.green(nextColor);
-				int nextBlue = Color.blue(nextColor);
-				
-				Log.d("test_wp", String.format("cur: %s, %s, %s", curRed, curGreen, curBlue));
-				Log.d("test_wp", String.format("next: %s, %s, %s", nextRed, nextGreen, nextBlue));
-				
-				dtRed = (int) (curRed + (nextRed - curRed) * positionOffset);
-				dtGreen = (int) (curGreen + (nextGreen - curGreen) * positionOffset);
-				dtBlue = (int) (curBlue + (nextBlue - curBlue) * positionOffset);
-				Log.d("test_wp", String.format("dt: %s, %s, %s", dtRed, dtGreen, dtBlue));
-				bannerContainer2.setBackgroundColor(Color.rgb(dtRed, dtGreen, dtBlue));
+				dtColor = ColorUtil.calculateGradientColor(curColor, nextColor, positionOffset);
+				bannerContainer2.setBackgroundColor(dtColor);
 			}
 			
 			@Override
 			public void onPageSelected(final int position) {
 				// bannerContainer2.setBackgroundColor(Color.parseColor(colorsStr[position]));
 				
-				int curColor = Color.parseColor(colorsStr[position]);
-				Log.d("test_wp", "curColor = " + curColor);
-				final int curRed = Color.red(curColor);
-				final int curGreen = Color.green(curColor);
-				final int curBlue = Color.blue(curColor);
-				if (valueAnimator != null && valueAnimator.isRunning()) {
-					valueAnimator.end();
-				}
-				valueAnimator = ValueAnimator.ofFloat(0, 1f).setDuration(200);
-				valueAnimator.setInterpolator(new DecelerateInterpolator());
-				valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-					@Override
-					public void onAnimationUpdate(ValueAnimator animation) {
-						float animatedValue = (float) animation.getAnimatedValue();
-						bannerContainer2.setBackgroundColor(Color.rgb((int) (dtRed + (curRed - dtRed) * animatedValue),
-								(int) (dtGreen + (curGreen - dtGreen) * animatedValue),
-								(int) (dtBlue + (curBlue - dtBlue) * animatedValue)));
-					}
-				});
-				valueAnimator.addListener(new Animator.AnimatorListener() {
-					@Override
-					public void onAnimationStart(Animator animation) {
-					
-					}
-					
-					@Override
-					public void onAnimationEnd(Animator animation) {
-						bannerContainer2.setBackgroundColor(Color.parseColor(colorsStr[position]));
-					}
-					
-					@Override
-					public void onAnimationCancel(Animator animation) {
-					
-					}
-					
-					@Override
-					public void onAnimationRepeat(Animator animation) {
-					
-					}
-				});
+				ColorUtil.startGradientColorAnimator(dtColor, Color.parseColor(colorsStr[position]), bannerContainer2);
+				
+				// int curColor = Color.parseColor(colorsStr[position]);
+				// Log.d("test_wp", "curColor = " + curColor);
+				// final int curRed = Color.red(curColor);
+				// final int curGreen = Color.green(curColor);
+				// final int curBlue = Color.blue(curColor);
+				// if (valueAnimator != null && valueAnimator.isRunning()) {
+				// 	valueAnimator.end();
+				// }
+				// valueAnimator = ValueAnimator.ofFloat(0, 1f).setDuration(200);
+				// valueAnimator.setInterpolator(new DecelerateInterpolator());
+				// valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+				// 	@Override
+				// 	public void onAnimationUpdate(ValueAnimator animation) {
+				// 		float animatedValue = (float) animation.getAnimatedValue();
+				// 		bannerContainer2.setBackgroundColor(Color.rgb((int) (dtRed + (curRed - dtRed) * animatedValue),
+				// 				(int) (dtGreen + (curGreen - dtGreen) * animatedValue),
+				// 				(int) (dtBlue + (curBlue - dtBlue) * animatedValue)));
+				// 	}
+				// });
+				// valueAnimator.addListener(new Animator.AnimatorListener() {
+				// 	@Override
+				// 	public void onAnimationStart(Animator animation) {
+				//
+				// 	}
+				//
+				// 	@Override
+				// 	public void onAnimationEnd(Animator animation) {
+				// 		bannerContainer2.setBackgroundColor(Color.parseColor(colorsStr[position]));
+				// 	}
+				//
+				// 	@Override
+				// 	public void onAnimationCancel(Animator animation) {
+				//
+				// 	}
+				//
+				// 	@Override
+				// 	public void onAnimationRepeat(Animator animation) {
+				//
+				// 	}
+				// });
 			}
 			
 			@Override
@@ -325,8 +328,95 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 		});
 	}
 	
+	private void observeBannerPower() {
+		String[] urls = getResources().getStringArray(R.array.url);
+		List<String> images = Arrays.asList(urls);
+		
+		// // 设置banner的尺寸
+		// int screenWidth = ScreenUtils.getScreenWidth(this);
+		// int bannerHeight = (int) (screenWidth * 0.5f);
+		// RelativeLayout.LayoutParams bannerLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, bannerHeight);
+		// banner3.setLayoutParams(bannerLp);
+		// setLayoutParams(bannerLp);
+		
+		banner3.setViewIndex(1)
+				.createView(CreateViewCaller.build())
+				.bindView(new BindViewCallBack<View, String>() {
+					@Override
+					public void bindView(View frameLayout, String data, int position) {
+						FrameLayout view = (FrameLayout) CreateViewCaller.findFrameLayout(frameLayout);
+						view.removeAllViews();
+						View bannerRooter = LayoutInflater.from(mActivity).inflate(R.layout.view_home_banner, null);
+						view.addView(bannerRooter);
+						ImageView ivBanner = bannerRooter.findViewById(R.id.ivBanner);
+						glideImageLoader.load(ivBanner, data);
+					}
+				})
+				.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+					int dtColor;
+					@Override
+					public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+						int curColor = Color.parseColor(colorsStr[position]);
+						int nextColor = Color.parseColor(colorsStr[(position + 1 == colorsStr.length ? 0 : position + 1)]);
+						dtColor = ColorUtil.calculateGradientColor(curColor, nextColor, positionOffset);
+						bannerContainer3.setBackgroundColor(dtColor);
+					}
+					
+					@Override
+					public void onPageSelected(int position) {
+						ColorUtil.startGradientColorAnimator(dtColor, Color.parseColor(colorsStr[position]), bannerContainer3);
+					}
+					
+					@Override
+					public void onPageScrollStateChanged(int i) {
+					
+					}
+				})
+				.setOnClickBannerListener(new OnClickBannerListener<View, String>() {
+					@Override
+					public void onClickBanner(View view, String data, int position) {
+						LogUtils.d("onClickBanner()---" + data);
+					}
+				})
+				.execute(images);
+	}
+	
 	@Override
 	public void OnBannerClick(int position) {
 		Toast.makeText(getApplicationContext(), "你点击了：" + position, Toast.LENGTH_SHORT).show();
+	}
+	
+	private void startGradientColorAnimator(final int startColor, final int endColor, View view) {
+		final View targetView = view;
+		ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 1f).setDuration(200);
+		valueAnimator.setInterpolator(new DecelerateInterpolator());
+		valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+			@Override
+			public void onAnimationUpdate(ValueAnimator animation) {
+				float animatedValue = (float) animation.getAnimatedValue();
+				targetView.setBackgroundColor(ColorUtil.calculateGradientColor(startColor, endColor, animatedValue));
+			}
+		});
+		valueAnimator.addListener(new Animator.AnimatorListener() {
+			@Override
+			public void onAnimationStart(Animator animation) {
+			
+			}
+			
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				targetView.setBackgroundColor(endColor);
+			}
+			
+			@Override
+			public void onAnimationCancel(Animator animation) {
+			
+			}
+			
+			@Override
+			public void onAnimationRepeat(Animator animation) {
+			
+			}
+		});
 	}
 }
