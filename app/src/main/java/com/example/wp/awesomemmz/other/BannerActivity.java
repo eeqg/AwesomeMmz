@@ -1,7 +1,9 @@
 package com.example.wp.awesomemmz.other;
 
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -9,9 +11,9 @@ import android.widget.Toast;
 
 import com.example.wp.awesomemmz.HeaderAdapter;
 import com.example.wp.awesomemmz.R;
-import com.example.wp.awesomemmz.common.GlideImageLoader;
 import com.example.wp.awesomemmz.common.GlideImageLoader2;
 import com.example.wp.resource.base.BaseActivity;
+import com.example.wp.resource.utils.LogUtils;
 import com.example.wp.resource.widget.CircleIndicator;
 import com.example.wp.resource.widget.LoopViewPager;
 import com.example.wp.resource.widget.banner.Banner;
@@ -35,11 +37,20 @@ import com.example.wp.resource.widget.banner.transformer.ZoomInTransformer;
 import com.example.wp.resource.widget.banner.transformer.ZoomOutSlideTransformer;
 import com.example.wp.resource.widget.banner.transformer.ZoomOutTranformer;
 
-import java.sql.Array;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class BannerActivity extends BaseActivity implements OnBannerListener {
+	
+	@BindView(R.id.bannerContainer2)
+	View bannerContainer2;
+	@BindView(R.id.banner2)
+	Banner banner2;
 	
 	Banner banner;
 	
@@ -47,11 +58,13 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_banner);
+		ButterKnife.bind(this);
 		
 		setupTitleBar("Banner");
 		
 		observeLooperView();
 		observeBannerView();
+		observerBannerBg();
 	}
 	
 	private void observeLooperView() {
@@ -214,6 +227,54 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 					
 					}
 				});
+	}
+	
+	private void observerBannerBg() {
+		String[] urls = getResources().getStringArray(R.array.url4);
+		List<String> images = Arrays.asList(urls);
+		banner2.setImages(images)
+				.setImageLoader(new GlideImageLoader2())
+				.setOnBannerListener(this) //click
+				.start();
+		
+		final String[] colorsStr = getResources().getStringArray(R.array.colorsStr);
+		
+		banner2.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+				Log.d("test_wp", "-------------------");
+				Log.d("test_wp", "positionOffset = "+positionOffset);
+				int curColor = Color.parseColor(colorsStr[position]);
+				Log.d("test_wp", "curColor = "+curColor);
+				int curRed = Color.red(curColor);
+				int curGreen = Color.green(curColor);
+				int curBlue = Color.blue(curColor);
+				int nextColor = Color.parseColor(colorsStr[(position + 1 == colorsStr.length ? 0 : position + 1)]);
+				Log.d("test_wp", "nextColor = "+nextColor);
+				int nextRed = Color.red(nextColor);
+				int nextGreen = Color.green(nextColor);
+				int nextBlue = Color.blue(nextColor);
+				
+				Log.d("test_wp", String.format("cur: %s, %s, %s", curRed, curGreen, curBlue));
+				Log.d("test_wp", String.format("next: %s, %s, %s", nextRed, nextGreen, nextBlue));
+				
+				int dtRed = (int) (curRed + (nextRed - curRed) * positionOffset);
+				int dtGreen = (int) (curGreen + (nextGreen - curGreen) * positionOffset);
+				int dtBlue = (int) (curBlue + (nextBlue - curBlue) * positionOffset);
+				Log.d("test_wp", String.format("dt: %s, %s, %s", dtRed, dtGreen, dtBlue));
+				bannerContainer2.setBackgroundColor(Color.rgb(dtRed, dtGreen, dtBlue));
+			}
+			
+			@Override
+			public void onPageSelected(int position) {
+				bannerContainer2.setBackgroundColor(Color.parseColor(colorsStr[position]));
+			}
+			
+			@Override
+			public void onPageScrollStateChanged(int state) {
+			
+			}
+		});
 	}
 	
 	@Override

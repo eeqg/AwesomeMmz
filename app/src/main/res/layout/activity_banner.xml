@@ -125,6 +125,39 @@
 					app:layout_constraintBaseline_toBaselineOf="@+id/title3"
 					app:layout_constraintLeft_toRightOf="@+id/title3"/>
 			</android.support.constraint.ConstraintLayout>
+			
+			<View
+				style="@style/ViewDividerHorizontal"
+				android:layout_marginTop="20dp"/>
+			
+			<android.support.constraint.ConstraintLayout
+				android:id="@+id/bannerContainer2"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<ImageView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:src="@mipmap/ic_banner_bottom"
+					app:layout_constraintBottom_toBottomOf="parent"/>
+				
+				<com.example.wp.resource.widget.banner.Banner
+					android:id="@+id/banner2"
+					android:layout_width="match_parent"
+					android:layout_height="200dp"
+					android:layout_margin="20dp"
+					app:delay_time="3000"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintTop_toTopOf="parent"/>
+			</android.support.constraint.ConstraintLayout>
+			
+			
+			<!-- ...end... -->
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="100dp"/>
 		</LinearLayout>
 	</com.example.wp.resource.widget.scroll.ElasticScrollView>
 </LinearLayout>
