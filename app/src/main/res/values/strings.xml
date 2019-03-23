@@ -1,3 +1,16 @@
 <resources>
 	<string name="app_name">AwesomeMmz</string>
+	<string name="des_lifecycle">Lifecycle 是官方提供的架构组件之一，目前已经是稳定版本，
+		\nLifecycle 组件包括LifecycleOwner、LifecycleObserver。Lifecycle 组件是执行操作以响应另一个组件（Activity或者Fragment）的生命周期状态的更改。
+		\nLifecycle 生成更易于组织、更轻量级，更易于维护的代码。
+		\n---------------------
+		\nLifecycle原理
+			\n首先了解下Lifecycle组件主要有下面一些关键类
+
+			\nLifecycleObserver ：实现该接口的类，通过注解的方式，可以通过被LifecycleOwner类的addObserver方法注册，被注册后，LifecycleObserver便可以观察到LifecycleOwner的生命周期事件
+			\nLifecycleOwner：实现该接口的类持有生命周期(Lifecycle对象)，该接口的生命周期(Lifecycle对象)的改变会被其注册的观察者LifecycleObserver观察到并触发其对应的事件
+			\nEvent：从框架和Lifecycle类派发的生命周期事件
+			\nState ：由Lifecycle对象跟踪的组件的当前状态
+			\nLifecycleRegistry：负责控制state的转换、接受分发event事件
+</string>
 </resources>

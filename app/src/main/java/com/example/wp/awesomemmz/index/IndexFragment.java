@@ -1,5 +1,6 @@
 package com.example.wp.awesomemmz.index;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 
 import com.example.wp.awesomemmz.R;
 import com.example.wp.awesomemmz.custom.CustomViewActivity;
+import com.example.wp.awesomemmz.frame.LifecycleActivity;
+import com.example.wp.awesomemmz.frame.LiveDataTestActivity;
 import com.example.wp.awesomemmz.image.ImageActivity;
 import com.example.wp.awesomemmz.index.bean.ClassInfoBean;
 import com.example.wp.awesomemmz.other.BannerActivity;
@@ -82,6 +85,10 @@ public class IndexFragment extends Fragment {
 		data.add(new ClassInfoBean("SpecView", SpecActivity.class.getName()));
 		data.add(new ClassInfoBean("recovery", ""));
 		data.add(new ClassInfoBean("customView", CustomViewActivity.class.getName()));
+		data.add(new ClassInfoBean("Lifecycle", LifecycleActivity.class.getName()));
+		data.add(new ClassInfoBean("LiveData", LiveDataTestActivity.class.getName()));
+		data.add(new ClassInfoBean("M-V-VM", ""));
+		data.add(new ClassInfoBean("...", ""));
 		data.add(new ClassInfoBean("...", ""));
 	}
 }
