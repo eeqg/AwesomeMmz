@@ -523,7 +523,9 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
 			View view = container.findViewWithTag(position);
 			if (view == null) {
 				if (mPageResId == -1) {
-					view = imageViews.get(position);
+					view = new FrameLayout(getContext());
+					((FrameLayout) view).addView(imageViews.get(position));
+					// view = imageViews.get(position);
 				} else {
 					view = inflate(getContext(), mPageResId, null);
 					ViewGroup imageContainer = view.findViewWithTag("imageContainer");
@@ -558,12 +560,13 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
 		
 		@Override
 		public void destroyItem(ViewGroup container, int position, Object object) {
-			View rootView = container.findViewWithTag(position);
+			ViewGroup rootView = container.findViewWithTag(position);
 			if (rootView != null) {
 				ViewGroup imageContainer = rootView.findViewWithTag("imageContainer");
 				if (imageContainer != null) {
 					imageContainer.removeAllViews();
 				}
+				rootView.removeAllViews();
 			}
 			View view = (View) object;
 			container.removeView(view);
