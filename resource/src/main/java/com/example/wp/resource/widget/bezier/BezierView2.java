@@ -200,16 +200,15 @@ public class BezierView2 extends View {
 		}
 		
 		// 绘制贝塞尔曲线
-		drawBezier();
-		canvas.drawPath(bezierPath, mPaint);
-		//end
+		drawBezier(canvas);
 	}
 	
 	/**
 	 * 通过 path 将向右弹射的动画绘制出来
 	 * 如果要绘制向左的动画，只要设置path的transform(matrix)即可
+	 * @param canvas
 	 */
-	private void drawBezier() {
+	private void drawBezier(Canvas canvas) {
 		if (0 < animatedValue && animatedValue <= dis1) {
 			rRatio = 1f + animatedValue * 2;                 //  [1,2]
 			lRatio = 1f;
@@ -247,6 +246,7 @@ public class BezierView2 extends View {
 		if (nextPoint < currentPoint) {
 			bezierPath.transform(matrixBounceL);
 		}
+		canvas.drawPath(bezierPath, mPaint);
 	}
 	
 	private float range0Until1(float minValue, float maxValue) {

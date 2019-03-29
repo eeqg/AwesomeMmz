@@ -20,7 +20,7 @@
 	<!-- 分割线 -->
 	<dimen name="dimenDivider">1px</dimen>
 	
-	<dimen name="dimenTitleBar">45dp</dimen>
+	<dimen name="dimenTitleBar">46dp</dimen>
 	
 	<!-- basic -->
 	<dimen name="zero">0dp</dimen>

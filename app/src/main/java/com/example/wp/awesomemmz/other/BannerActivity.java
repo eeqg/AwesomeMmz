@@ -70,7 +70,6 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 	View bannerContainer3;
 	
 	Banner banner;
-	GlideImageLoader glideImageLoader;
 	String[] colorsStr;
 	
 	@Override
@@ -81,7 +80,6 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 		
 		setupTitleBar("Banner");
 		
-		glideImageLoader = new GlideImageLoader(this);
 		colorsStr = getResources().getStringArray(R.array.colorsStr);
 		
 		observeLooperView();
@@ -349,7 +347,7 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 						View bannerRooter = LayoutInflater.from(mActivity).inflate(R.layout.view_home_banner, null);
 						view.addView(bannerRooter);
 						ImageView ivBanner = bannerRooter.findViewById(R.id.ivBanner);
-						glideImageLoader.load(ivBanner, data);
+						GlideImageLoader.getInstance().load(ivBanner, data);
 					}
 				})
 				.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

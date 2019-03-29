@@ -1,13 +1,15 @@
 package com.example.wp.awesomemmz.common;
 
-import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.wp.awesomemmz.R;
 import com.example.wp.resource.utils.imageload.ImageLoader;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
@@ -17,20 +19,34 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class GlideImageLoader implements ImageLoader {
 	
-	private Context mContext;
+	private static GlideImageLoader INSTANCE;
 	
-	public GlideImageLoader(Context context) {
-		this.mContext = context;
+	private GlideImageLoader() {
+	}
+	
+	public static GlideImageLoader getInstance() {
+		if (INSTANCE == null) {
+			synchronized (GlideImageLoader.class) {
+				if (INSTANCE == null) {
+					INSTANCE = new GlideImageLoader();
+				}
+			}
+		}
+		return INSTANCE;
 	}
 	
 	@Override
-	public void load(ImageView imageView, String imageUrl) {
-		load(imageView, imageUrl, R.mipmap.ic_placeholder);
+	public void load(@NonNull ImageView imageView, String imageUrl) {
+		load(imageView, imageUrl, com.example.wp.resource.R.mipmap.ic_placeholder);
 	}
 	
 	@Override
-	public void load(ImageView imageView, String imageUrl, int defaultImage) {
+	public void load(@NonNull ImageView imageView, String imageUrl, @DrawableRes int defaultImage) {
+		if (defaultImage == 0) {
+			defaultImage = com.example.wp.resource.R.mipmap.ic_placeholder;
+		}
 		RequestOptions options = new RequestOptions()
+				// .centerCrop()
 				.placeholder(defaultImage)
 				.error(defaultImage);
 		loadReal(imageView, imageUrl, options);
@@ -41,27 +57,27 @@ public class GlideImageLoader implements ImageLoader {
 	}
 	
 	@Override
-	public void loadBlur(ImageView imageView, String imageUrl, int radius, int sampling) {
+	public void loadBlur(@NonNull ImageView imageView, String imageUrl, int radius, int sampling) {
 		RequestOptions requestOptions = bitmapTransform(new BlurTransformation(radius, sampling))
-				.placeholder(R.mipmap.ic_placeholder)
-				.error(R.mipmap.ic_placeholder);
+				.placeholder(com.example.wp.resource.R.mipmap.ic_placeholder)
+				.error(com.example.wp.resource.R.mipmap.ic_placeholder);
 		loadReal(imageView, imageUrl, requestOptions);
 	}
 	
 	@Override
-	public void loadCircle(ImageView imageView, String imageUrl) {
+	public void loadCircle(@NonNull ImageView imageView, String imageUrl) {
 		RequestOptions requestOptions = new RequestOptions()
-				.placeholder(R.mipmap.ic_placeholder)
-				.error(R.mipmap.ic_placeholder)
+				.placeholder(com.example.wp.resource.R.mipmap.ic_placeholder)
+				.error(com.example.wp.resource.R.mipmap.ic_placeholder)
 				.transform(new CircleCrop());
 		loadReal(imageView, imageUrl, requestOptions);
 	}
 	
 	@Override
-	public void loadRound(ImageView imageView, String imageUrl, int radius) {
+	public void loadRound(@NonNull ImageView imageView, String imageUrl, int radius) {
 		RequestOptions options = bitmapTransform(new RoundedCorners(radius))
-				.placeholder(R.mipmap.ic_placeholder)
-				.error(R.mipmap.ic_placeholder);
+				.placeholder(com.example.wp.resource.R.mipmap.ic_placeholder)
+				.error(com.example.wp.resource.R.mipmap.ic_placeholder);
 		loadReal(imageView, imageUrl, options);
 	}
 	
@@ -76,18 +92,24 @@ public class GlideImageLoader implements ImageLoader {
 	public void loadRounded(ImageView imageView, String imageUrl, int radius, int margin,
 	                        RoundedCornersTransformation.CornerType cornerType) {
 		RequestOptions options = bitmapTransform(new RoundedCornersTransformation(radius, margin, cornerType))
-				.placeholder(R.mipmap.ic_placeholder)
-				.error(R.mipmap.ic_placeholder);
+				.placeholder(com.example.wp.resource.R.mipmap.ic_placeholder)
+				.error(com.example.wp.resource.R.mipmap.ic_placeholder);
 		loadReal(imageView, imageUrl, options);
 	}
 	
 	@Override
-	public void load(ImageView imageView, String imageUrl, Object transformation) {
-	
+	public void load(@NonNull ImageView imageView, String imageUrl, Object transformation) {
+		RequestOptions options = bitmapTransform((Transformation<Bitmap>) transformation)
+				.placeholder(com.example.wp.resource.R.mipmap.ic_placeholder)
+				.error(com.example.wp.resource.R.mipmap.ic_placeholder);
+		loadReal(imageView, imageUrl, options);
 	}
 	
-	private void loadReal(ImageView imageView, String imageUrl, RequestOptions options) {
-		Glide.with(mContext)
+	private void loadReal(@NonNull ImageView imageView, String imageUrl, RequestOptions options) {
+		if (imageUrl == null) {
+			return;
+		}
+		Glide.with(imageView.getContext())
 				.load(imageUrl)
 				.apply(options)
 				.into(imageView);

@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@color/colorWhite"
+	android:orientation="vertical"
 	tools:context=".image.ImageActivity">
 	
-	<com.example.wp.resource.base.TitleBar
-		android:id="@+id/titleBar"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"/>
-	
 	<android.support.v4.widget.NestedScrollView
+		android:id="@+id/scrollView"
 		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/titleBar">
+		android:layout_height="match_parent">
 		
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:orientation="vertical"
-			android:padding="6dp">
+			android:orientation="vertical">
+			
+			<com.example.wp.resource.widget.RatioImageView
+				android:id="@+id/ivHead"
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				android:background="@mipmap/image3"
+				app:height_to_width_ratio="1"/>
 			
 			<TextView
 				android:layout_width="wrap_content"
@@ -55,17 +56,65 @@
 			<com.dd.ShadowLayout
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				app:sl_shadowRadius="10dp"
 				app:sl_dx="2dp"
 				app:sl_dy="2dp"
-				app:sl_shadowColor="#44FF1234">
-			
+				app:sl_shadowColor="#44FF1234"
+				app:sl_shadowRadius="10dp">
+				
 				<ImageView
 					android:layout_width="150dp"
 					android:layout_height="150dp"
 					android:scaleType="fitXY"
 					android:src="@mipmap/image4"/>
+			
 			</com.dd.ShadowLayout>
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:padding="10dp">
+				
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="2, sharp"/>
+				
+				<ImageView
+					android:id="@+id/ivSharp1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:src="@mipmap/image3"/>
+				
+				<ImageView
+					android:id="@+id/ivSharp2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:src="@mipmap/image3"/>
+				
+				<ImageView
+					android:id="@+id/ivSharp3"
+					android:layout_width="200dp"
+					android:layout_height="100dp"
+					android:layout_marginTop="10dp"
+					android:src="@mipmap/image3"/>
+			</LinearLayout>
 		</LinearLayout>
 	</android.support.v4.widget.NestedScrollView>
-</android.support.constraint.ConstraintLayout>
+	
+	<LinearLayout
+		android:id="@+id/titleBarRoot"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+		
+		<View
+			android:id="@+id/testView"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"/>
+		
+		<include layout="@layout/include_base_title_bar"/>
+	</LinearLayout>
+</FrameLayout>

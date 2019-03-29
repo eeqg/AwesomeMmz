@@ -17,6 +17,7 @@
 		android:padding="10dp"
 		android:src="@mipmap/ic_back_black"
 		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintLeft_toLeftOf="parent"
 		app:layout_constraintTop_toTopOf="parent"/>
 	
 	<TextView
@@ -97,5 +98,6 @@
 		style="@style/ViewDividerHorizontal"
 		android:visibility="gone"
 		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintLeft_toLeftOf="parent"
 		tools:visibility="visible"/>
 </android.support.constraint.ConstraintLayout>
