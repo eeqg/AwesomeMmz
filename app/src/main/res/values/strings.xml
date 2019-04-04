@@ -13,4 +13,7 @@
 			\nState ：由Lifecycle对象跟踪的组件的当前状态
 			\nLifecycleRegistry：负责控制state的转换、接受分发event事件
 </string>
+	
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

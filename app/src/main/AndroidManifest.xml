@@ -13,6 +13,8 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppThemeBase"
 		tools:replace="android:appComponentFactory">
+		<activity android:name=".skill.BottomSheetBehaviorActivity">
+		</activity>
 		<activity android:name=".frame.LiveDataTestActivity">
 		</activity>
 		<activity android:name=".MainActivity">
