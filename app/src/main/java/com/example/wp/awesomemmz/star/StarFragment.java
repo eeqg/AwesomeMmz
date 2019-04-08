@@ -108,7 +108,7 @@ public class StarFragment extends Fragment {
 	
 	private void initData() {
 		data.add(new ClassInfoBean("Boxing(图片选择)", ""));
-		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("EasyPermissions", ""));
 		data.add(new ClassInfoBean("...", ""));
 		data.add(new ClassInfoBean("...", ""));
 		data.add(new ClassInfoBean("...", ""));
