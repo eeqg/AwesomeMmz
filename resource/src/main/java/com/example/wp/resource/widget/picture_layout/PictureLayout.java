@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.wp.resource.R;
+import com.example.wp.resource.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -29,7 +30,7 @@ public class PictureLayout extends ViewGroup {
 	private int rowCount;
 	
 	/** 图片展示控件ID */
-	private int pictureViewId;
+	private int pictureViewId = -1;
 	/** 图片展示比例 */
 	private float pictureRatio;
 	/** 图片圆角大小 */
@@ -60,7 +61,8 @@ public class PictureLayout extends ViewGroup {
 	private OnClickListener selectClickListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			int position = (int) v.getTag();
+			// int position = (int) v.getTag();
+			int position = (int) v.getTag(R.id.picture_view_id);
 			onPictureListener.onSelect(position, pictureList.get(position));
 		}
 	};
@@ -541,16 +543,17 @@ public class PictureLayout extends ViewGroup {
 	 * @return 图片控件
 	 */
 	private View createPictureView() {
-		View pictureView = null;
+		ImageView pictureView = null;
 		if (this.pictureViewId == -1) {
 			if (imageLoader != null) {
 				pictureView = imageLoader.createImageView(getContext());
-				if (pictureView == null) {
-					pictureView = new ImageView(getContext());
-				}
+			}
+			if (pictureView == null) {
+				pictureView = new ImageView(getContext());
+				pictureView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 			}
 		} else {
-			pictureView = LayoutInflater.from(getContext()).inflate(this.pictureViewId, this, false);
+			pictureView = (ImageView) LayoutInflater.from(getContext()).inflate(this.pictureViewId, this, false);
 		}
 		return pictureView;
 	}
@@ -604,7 +607,8 @@ public class PictureLayout extends ViewGroup {
 		);
 		setLayoutParamsMargin(layoutParams);
 		pictureView.setLayoutParams(layoutParams);
-		pictureView.setTag(position);
+		// pictureView.setTag(position);
+		pictureView.setTag(R.id.picture_view_id, position);
 		view.setOnClickListener(this.selectClickListener);
 		view.setClickable(this.onPictureListener != null);
 	}
@@ -916,7 +920,7 @@ public class PictureLayout extends ViewGroup {
 	
 	public interface ImageLoaderInterface<T extends View> {
 		
-		void displayImage(Context context, Object path, T imageView);
+		void displayImage(Context context, Uri pictureUri, T imageView);
 		
 		T createImageView(Context context);
 	}

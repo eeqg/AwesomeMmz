@@ -1,9 +1,14 @@
 package com.example.wp.awesomemmz.image;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,17 +16,23 @@ import android.widget.TextView;
 import com.example.wp.awesomemmz.R;
 import com.example.wp.awesomemmz.common.CustomGlideTransform;
 import com.example.wp.awesomemmz.common.GlideImageLoader;
+import com.example.wp.awesomemmz.common.Picker;
 import com.example.wp.resource.base.BaseActivity;
 import com.example.wp.resource.base.TitleBar;
 import com.example.wp.resource.utils.LogUtils;
 import com.example.wp.resource.utils.StatusBarUtil;
 import com.example.wp.resource.widget.ShadowDrawable;
+import com.example.wp.resource.widget.picture_layout.PictureLayout;
 import com.example.wp.resource.widget.shadow.ShadowDrawableWrapper;
+
+import java.io.FileNotFoundException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ImageActivity extends BaseActivity {
+	
+	private final int CODE_CAMERA = 1;
 	
 	@BindView(R.id.titleBarRoot)
 	LinearLayout titleBarRoot;
@@ -47,6 +58,14 @@ public class ImageActivity extends BaseActivity {
 	ImageView ivSharp3;
 	@BindView(R.id.testView)
 	View testView;
+	@BindView(R.id.pictureLayout)
+	PictureLayout pictureLayout;
+	@BindView(R.id.btnCamera)
+	Button btnCamera;
+	@BindView(R.id.ivShowCamera)
+	ImageView ivShowCamera;
+	
+	private Uri uri;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +77,8 @@ public class ImageActivity extends BaseActivity {
 		observeBar();
 		observeViewShadow();
 		observeSharp();
+		observePictureLayout();
+		observeCamera();
 	}
 	
 	private void observeBar() {
@@ -108,5 +129,54 @@ public class ImageActivity extends BaseActivity {
 		int blue = Color.blue(color);
 		int alpha = (int) (Color.alpha(color) * fraction);
 		return Color.argb(alpha, red, green, blue);
+	}
+	
+	private void observePictureLayout() {
+		pictureLayout.setOnPictureListener(new PictureLayout.OnPictureListener() {
+			@Override
+			public void onInsert() {
+				pictureLayout.addPictureUrl("http://img.zcool.cn/community/01700557a7f42f0000018c1bd6eb23.jpg");
+			}
+			
+			@Override
+			public void onEdit(int position, Uri pictureUri) {
+				LogUtils.d("-----position = " + position);
+				pictureLayout.removePictureUri(position);
+			}
+			
+			@Override
+			public void onSelect(int position, Uri pictureUri) {
+				LogUtils.d("-----position = " + position);
+			}
+		});
+	}
+	
+	private void observeCamera() {
+		btnCamera.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				uri = Picker.pickCamera(ImageActivity.this, CODE_CAMERA);
+				LogUtils.d("-----uri = "+uri);
+			}
+		});
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode){
+			case CODE_CAMERA:
+				if (resultCode==RESULT_OK){
+					try {
+						//将拍摄的照片显示出来
+						Bitmap bitmap= BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+						ivShowCamera.setImageBitmap(bitmap);
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
+				}
+				break;
+			default:
+				break;
+		}
 	}
 }

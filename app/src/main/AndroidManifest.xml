@@ -3,7 +3,11 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.example.wp.awesomemmz">
 	
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.CAMERA"/>
+	
 	<application
+		android:name=".APP"
 		android:allowBackup="true"
 		android:appComponentFactory=""
 		android:hardwareAccelerated="false"
@@ -13,6 +17,8 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppThemeBase"
 		tools:replace="android:appComponentFactory">
+		<activity android:name=".star.BoxingTestActivity">
+		</activity>
 		<activity android:name=".skill.BottomSheetBehaviorActivity">
 		</activity>
 		<activity android:name=".frame.LiveDataTestActivity">
@@ -43,6 +49,24 @@
 		</activity>
 		<activity android:name=".frame.LifecycleActivity">
 		</activity>
+		
+		<provider
+			android:name="android.support.v4.content.FileProvider"
+			android:authorities="${applicationId}.file.provider"
+			android:exported="false"
+			android:grantUriPermissions="true">
+			
+			<meta-data
+				android:name="android.support.FILE_PROVIDER_PATHS"
+				android:resource="@xml/provider_paths"/>
+		</provider>
+		
+		<!-- ucrop -->
+		<activity
+			android:name="com.yalantis.ucrop.UCropActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/Boxing.AppTheme.NoActionBar"/>
+		<!-- ucrop -->
 	</application>
 
 </manifest>

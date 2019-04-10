@@ -19,4 +19,8 @@
 	<item name="indicatorInside" type="id"/>
 	<item name="bannerDefaultImage" type="id"/>
 	<!-- banner -->
+	
+	<!--pictureLayout-->
+	<item name="picture_view_id" type="id"/>
+	<!--pictureLayout-->
 </resources>
