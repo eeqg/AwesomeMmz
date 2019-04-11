@@ -68,10 +68,10 @@ public class BoxingTestActivity extends BaseActivity implements View.OnClickList
 				Picker.pickSingle(this, COMPRESS_REQUEST_CODE);
 				break;
 			case R.id.single_image_btn_crop_btn:
-				Picker.pickerCrop(this, REQUEST_CODE, 1, 1);
+				Picker.pickCrop(this, REQUEST_CODE, 1, 1);
 				break;
 			case R.id.multi_image_btn:
-				Picker.pickerMulti(this, REQUEST_CODE, 5);
+				Picker.pickMulti(this, REQUEST_CODE, 5);
 				break;
 			case R.id.video_btn:
 				BoxingConfig videoConfig = new BoxingConfig(BoxingConfig.Mode.VIDEO).withVideoDurationRes(R.mipmap.ic_boxing_play);

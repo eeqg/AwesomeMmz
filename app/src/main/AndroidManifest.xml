@@ -67,6 +67,7 @@
 			android:screenOrientation="portrait"
 			android:theme="@style/Boxing.AppTheme.NoActionBar"/>
 		<!-- ucrop -->
+		<activity android:name=".index.ProductActivity"/>
 	</application>
 
 </manifest>

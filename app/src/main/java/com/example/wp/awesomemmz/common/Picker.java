@@ -32,7 +32,7 @@ public class Picker {
 		Boxing.of(singleImgConfig).withIntent(activity, BoxingActivity.class).start(activity, requestCode);
 	}
 	
-	public static void pickerCrop(Activity activity, int requestCode, float xRatio, float yRatio) {
+	public static void pickCrop(Activity activity, int requestCode, float xRatio, float yRatio) {
 		String cachePath = BoxingFileHelper.getCacheDir(activity);
 		if (TextUtils.isEmpty(cachePath)) {
 			Toast.makeText(activity.getApplicationContext(), R.string.boxing_storage_deny, Toast.LENGTH_SHORT).show();
@@ -49,7 +49,7 @@ public class Picker {
 		Boxing.of(singleCropImgConfig).withIntent(activity, BoxingActivity.class).start(activity, requestCode);
 	}
 	
-	public static void pickerMulti(Activity activity, int requestCode, int count) {
+	public static void pickMulti(Activity activity, int requestCode, int count) {
 		BoxingConfig config = new BoxingConfig(BoxingConfig.Mode.MULTI_IMG)
 				.withMaxCount(count)
 				.needCamera(R.mipmap.ic_boxing_camera_white).needGif();

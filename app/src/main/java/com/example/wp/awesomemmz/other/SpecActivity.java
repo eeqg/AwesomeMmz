@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.wp.awesomemmz.R;
+import com.example.wp.awesomemmz.index.ProductActivity;
 import com.example.wp.resource.base.BaseActivity;
+import com.example.wp.resource.utils.LaunchUtil;
 
 public class SpecActivity extends BaseActivity {
 	
@@ -18,6 +20,14 @@ public class SpecActivity extends BaseActivity {
 					@Override
 					public void onClick(View v) {
 						promptMessage("action");
+					}
+				});
+		
+		findViewById(R.id.btnSpecRecycler)
+				.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						LaunchUtil.launchActivity(getBaseContext(), ProductActivity.class);
 					}
 				});
 	}

@@ -1,18 +1,12 @@
-package com.example.wp.awesomemmz.skill;
+package com.example.wp.awesomemmz.index;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.wp.awesomemmz.R;
-import com.example.wp.awesomemmz.index.ProductAdapter;
-import com.example.wp.awesomemmz.index.SuspensionDecoration;
 import com.example.wp.awesomemmz.index.bean.Product;
 
 import java.util.ArrayList;
@@ -20,32 +14,22 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by wp on 2019/4/4.
+ * Created by xiangcheng on 17/9/26.
  */
-public class SampleSheetDialogFragment extends BottomSheetDialogFragment {
-	
-	View rootView;
+
+public class ProductActivity extends AppCompatActivity {
+	private static final String TAG = ProductActivity.class.getSimpleName();
+	//    private TextView suspension;
 	protected RecyclerView productView;
 	protected List<Product.Classify> classifies = new ArrayList<>();
 	
-	public static SampleSheetDialogFragment newInstance() {
-		return new SampleSheetDialogFragment();
-	}
-	
-	@Nullable
 	@Override
-	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		rootView = inflater.inflate(R.layout.fragment_spec, container, false);
-		return rootView;
-	}
-	
-	@Override
-	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
-		
-		productView = (RecyclerView) rootView.findViewById(R.id.product_view);
-		productView.setLayoutManager(new LinearLayoutManager(getContext()));
-		productView.addItemDecoration(new SuspensionDecoration(getContext(), classifies));
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_product);
+		productView = (RecyclerView) findViewById(R.id.product_view);
+		productView.setLayoutManager(new LinearLayoutManager(this));
+		productView.addItemDecoration(new SuspensionDecoration(this, classifies));
 		
 		classifies.add(new Product.Classify("颜色", Arrays.asList(new Product.Classify.Des("红色"),
 				new Product.Classify.Des("白色"),
@@ -96,6 +80,7 @@ public class SampleSheetDialogFragment extends BottomSheetDialogFragment {
 				new Product.Classify.Des("33"),
 				new Product.Classify.Des("34"),
 				new Product.Classify.Des("35"))));
-		productView.setAdapter(new ProductAdapter(getContext(), classifies));
+		productView.setAdapter(new ProductAdapter(this, classifies));
 	}
+	
 }

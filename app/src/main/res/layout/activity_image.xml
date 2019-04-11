@@ -119,17 +119,19 @@
 					android:layout_height="wrap_content"
 					app:picture_editDrawable="@mipmap/ic_del"
 					app:picture_horizontalPadding="5dp"
-					app:picture_verticalPadding="5dp"
 					app:picture_insertBackground="@mipmap/ic_tianjiatupian"
 					app:picture_maxCount="10"
 					app:picture_pictureRatio="1"
 					app:picture_rowCount="5"
-					app:picture_supportInsert="true"/>
+					app:picture_supportInsert="true"
+					app:picture_verticalPadding="5dp"/>
 			</LinearLayout>
 			
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:layout_margin="10dp"
+				android:background="@color/colorThemeDivider"
 				android:orientation="vertical"
 				android:padding="15dp">
 				
@@ -146,8 +148,18 @@
 				
 				<ImageView
 					android:id="@+id/ivShowCamera"
-					android:layout_width="200dp"
-					android:layout_height="200dp"/>
+					android:layout_width="100dp"
+					android:layout_height="100dp"/>
+			</LinearLayout>
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="10dp"
+				android:background="@color/colorThemeDivider"
+				android:orientation="vertical"
+				android:padding="15dp">
+			
 			</LinearLayout>
 		</LinearLayout>
 	</android.support.v4.widget.NestedScrollView>
