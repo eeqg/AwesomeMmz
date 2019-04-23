@@ -112,4 +112,12 @@
 		<attr name="picture_insertBackground" format="reference"/>
 		<attr name="picture_pictureViewLayout" format="reference"/>
 	</declare-styleable>
+	
+	<declare-styleable name="BezierIndicatorView">
+		<attr name="selectedColor" format="color"/>
+		<attr name="unSelectedColor" format="color"/>
+		<attr name="selectedRaduis" format="dimension"/>
+		<attr name="unSelectedRaduis" format="dimension"/>
+		<attr name="spacing" format="dimension"/>
+	</declare-styleable>
 </resources>

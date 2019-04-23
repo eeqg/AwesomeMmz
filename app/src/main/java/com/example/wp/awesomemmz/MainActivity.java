@@ -15,6 +15,7 @@ import com.example.wp.resource.utils.ScreenUtils;
 import com.example.wp.resource.widget.CircleIndicator;
 import com.example.wp.resource.widget.LoopViewPager;
 import com.example.wp.resource.widget.PagerSlidingTabStrip;
+import com.example.wp.resource.widget.bezier.BezierIndicatorView;
 
 public class MainActivity extends BaseTintStatusBarActivity {
 	
@@ -34,8 +35,10 @@ public class MainActivity extends BaseTintStatusBarActivity {
 	private void observeHeadView() {
 		loopView = findViewById(R.id.loopView);
 		loopView.setAdapter(new HeaderAdapter(this));
-		CircleIndicator indicatorView = findViewById(R.id.indicatorView);
-		indicatorView.setViewPager(loopView);
+		// CircleIndicator indicatorView = findViewById(R.id.indicatorView);
+		// indicatorView.setViewPager(loopView);
+		BezierIndicatorView indicatorView2 = findViewById(R.id.indicatorView2);
+		indicatorView2.attachToViewpager(loopView);
 	}
 	
 	private void observeTab() {

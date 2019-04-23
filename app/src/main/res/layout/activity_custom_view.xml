@@ -10,7 +10,8 @@
 	<com.example.wp.resource.base.TitleBar
 		android:id="@+id/titleBar"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"/>
+		android:layout_height="wrap_content"
+		app:layout_constraintTop_toTopOf="parent"/>
 	
 	<android.support.v4.widget.NestedScrollView
 		android:layout_width="match_parent"
@@ -42,6 +43,12 @@
 					android:layout_height="wrap_content"
 					android:text="bezier2"/>
 			</LinearLayout>
+			
+			<com.example.wp.resource.widget.IndicatorProgressBar
+				android:id="@+id/indicatorProgress"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="10dp"/>
 		</LinearLayout>
 	</android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>

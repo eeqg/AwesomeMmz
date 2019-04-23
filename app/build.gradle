@@ -37,9 +37,9 @@ dependencies {
 	//easy recycler view.
 	implementation 'com.jude:easyrecyclerview:4.4.2'
 	//glide
-	implementation 'com.github.bumptech.glide:glide:4.8.0'
-	implementation 'jp.wasabeef:glide-transformations:3.0.1'
-	annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+	implementation 'com.github.bumptech.glide:glide:4.9.0'
+	implementation 'jp.wasabeef:glide-transformations:4.0.1'
+	annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 	
 	//butter knife
 	implementation 'com.jakewharton:butterknife:8.8.1'

@@ -36,9 +36,23 @@
 					android:layout_width="match_parent"
 					android:layout_height="20dp"
 					android:background="#4000"
+					android:visibility="gone"
 					app:ci_normalRadiusColor="#FFF"
 					app:ci_selectedRadiusColor="#F00"
 					app:layout_constraintBottom_toBottomOf="parent"/>
+				
+				<com.example.wp.resource.widget.bezier.BezierIndicatorView
+					android:id="@+id/indicatorView2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					app:selectedColor="@android:color/white"
+					app:selectedRaduis="5dp"
+					app:spacing="6dp"
+					app:unSelectedColor="@android:color/darker_gray"
+					app:unSelectedRaduis="5dp"/>
 			</android.support.constraint.ConstraintLayout>
 			
 			<android.support.v7.widget.Toolbar
@@ -69,8 +83,8 @@
 						<ImageView
 							android:layout_width="@dimen/dimenTitleBar"
 							android:layout_height="@dimen/dimenTitleBar"
-							android:layout_alignParentLeft="true"
 							android:layout_alignParentStart="true"
+							android:layout_alignParentLeft="true"
 							android:scaleType="centerInside"
 							android:src="@mipmap/ic_back_white"/>
 						
