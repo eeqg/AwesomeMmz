@@ -258,7 +258,7 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 				.setOnBannerListener(this) //click
 				.start();
 		// banner2.setOffscreenPageLimit(5);
-		
+		// banner.setIndicatorGravity(BannerConfig.RIGHT);
 		banner2.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			ValueAnimator valueAnimator;
 			int dtColor;
