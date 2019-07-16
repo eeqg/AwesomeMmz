@@ -173,6 +173,7 @@ public class ImageActivity extends BaseActivity {
 			case CODE_CAMERA:
 				if (resultCode == RESULT_OK) {
 					try {
+						LogUtils.d("----uri = " + uri);
 						//将拍摄的照片显示出来
 						Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
 						ivShowCamera.setImageBitmap(bitmap);

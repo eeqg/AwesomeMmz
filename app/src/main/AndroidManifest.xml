@@ -17,6 +17,8 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppThemeBase"
 		tools:replace="android:appComponentFactory">
+		<activity android:name=".skill.RichTextActivity">
+		</activity>
 		<activity android:name=".star.BoxingTestActivity">
 		</activity>
 		<activity android:name=".skill.BottomSheetBehaviorActivity">
@@ -55,18 +57,14 @@
 			android:authorities="${applicationId}.file.provider"
 			android:exported="false"
 			android:grantUriPermissions="true">
-			
 			<meta-data
 				android:name="android.support.FILE_PROVIDER_PATHS"
 				android:resource="@xml/provider_paths"/>
-		</provider>
-		
-		<!-- ucrop -->
+		</provider> <!-- ucrop -->
 		<activity
 			android:name="com.yalantis.ucrop.UCropActivity"
 			android:screenOrientation="portrait"
-			android:theme="@style/Boxing.AppTheme.NoActionBar"/>
-		<!-- ucrop -->
+			android:theme="@style/Boxing.AppTheme.NoActionBar"/> <!-- ucrop -->
 		<activity android:name=".index.ProductActivity"/>
 	</application>
 

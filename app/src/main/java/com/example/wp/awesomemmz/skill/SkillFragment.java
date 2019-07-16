@@ -108,7 +108,7 @@ public class SkillFragment extends Fragment {
 	
 	private void initData() {
 		data.add(new ClassInfoBean("BottomSheetBehavior实现底部弹窗", BottomSheetBehaviorActivity.class.getName()));
-		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("textView显示富文本(图文混排)", RichTextActivity.class.getName()));
 		data.add(new ClassInfoBean("...", ""));
 		data.add(new ClassInfoBean("...", ""));
 		data.add(new ClassInfoBean("...", ""));

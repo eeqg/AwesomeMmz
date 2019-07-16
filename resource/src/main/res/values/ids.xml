@@ -20,6 +20,8 @@
 	<item name="bannerDefaultImage" type="id"/>
 	<!-- banner -->
 	
+	<item name="drawable_callback_tag" type="id" />
+	
 	<!--pictureLayout-->
 	<item name="picture_view_id" type="id"/>
 	<!--pictureLayout-->
