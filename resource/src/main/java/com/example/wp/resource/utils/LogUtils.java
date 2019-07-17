@@ -49,6 +49,10 @@ public class LogUtils {
 		
 	}
 	
+	public static void i(String msg) {
+		i(TAG, msg);
+	}
+	
 	public static void i(String tag, String msg) {
 		if (mIsFormat) {
 			Logger.t(tag).i(msg);
