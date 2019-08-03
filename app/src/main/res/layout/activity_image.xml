@@ -161,6 +161,12 @@
 				android:padding="15dp">
 			
 			</LinearLayout>
+			
+			<com.example.wp.resource.widget.ninegrid.NineGridView
+				android:id="@+id/nineGridView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="10dp"/>
 		</LinearLayout>
 	</android.support.v4.widget.NestedScrollView>
 	

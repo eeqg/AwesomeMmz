@@ -24,11 +24,16 @@ import com.example.wp.resource.base.TitleBar;
 import com.example.wp.resource.utils.LogUtils;
 import com.example.wp.resource.utils.StatusBarUtil;
 import com.example.wp.resource.widget.ShadowDrawable;
+import com.example.wp.resource.widget.ninegrid.ImageInfo;
+import com.example.wp.resource.widget.ninegrid.NineGridView;
+import com.example.wp.resource.widget.ninegrid.NineGridViewAdapter;
 import com.example.wp.resource.widget.picture_layout.PictureLayout;
 import com.example.wp.resource.widget.shadow.ShadowDrawableWrapper;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,6 +73,8 @@ public class ImageActivity extends BaseActivity {
 	Button btnCamera;
 	@BindView(R.id.ivShowCamera)
 	ImageView ivShowCamera;
+	@BindView(R.id.nineGridView)
+	NineGridView nineGridView;
 	
 	private Uri uri;
 	
@@ -83,6 +90,7 @@ public class ImageActivity extends BaseActivity {
 		observeSharp();
 		observePictureLayout();
 		observeCamera();
+		observeNineGridView();
 	}
 	
 	private void observeBar() {
@@ -165,6 +173,21 @@ public class ImageActivity extends BaseActivity {
 				LogUtils.d("-----uri = " + uri);
 			}
 		});
+	}
+	
+	private void observeNineGridView() {
+		NineGridView.setImageLoader(new NineGridImageLoader());
+		
+		String[] stringArray = getResources().getStringArray(R.array.url);
+		List<String> images = Arrays.asList(stringArray);
+		ArrayList<ImageInfo> imageInfo = new ArrayList<>();
+		for (int i = 0; i < images.size(); i++) {
+			ImageInfo info = new ImageInfo();
+			info.setThumbnailUrl(images.get(i));
+			info.setBigImageUrl(images.get(i));
+			imageInfo.add(info);
+		}
+		nineGridView.setAdapter(new NineGridImageAdapter(this, imageInfo));
 	}
 	
 	@Override

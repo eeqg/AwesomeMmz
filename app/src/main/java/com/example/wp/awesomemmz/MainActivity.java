@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.wp.resource.base.BaseTintStatusBarActivity;
+import com.example.wp.resource.utils.CommonUtil;
+import com.example.wp.resource.utils.LogUtils;
 import com.example.wp.resource.utils.ScreenUtils;
 import com.example.wp.resource.widget.CircleIndicator;
 import com.example.wp.resource.widget.LoopViewPager;
@@ -30,6 +32,12 @@ public class MainActivity extends BaseTintStatusBarActivity {
 		
 		observeHeadView();
 		observeTab();
+		
+		boolean enabled = CommonUtil.isNotificationEnabled(this);
+		LogUtils.d("-----enabled = " + enabled);
+		if (!enabled) {
+			CommonUtil.launchNotificationSettings(this);
+		}
 	}
 	
 	private void observeHeadView() {
