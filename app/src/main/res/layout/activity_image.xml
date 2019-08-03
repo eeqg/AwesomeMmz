@@ -162,6 +162,12 @@
 			
 			</LinearLayout>
 			
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="20dp"
+				android:text="--- NineGridImageView ---"/>
+			
 			<com.example.wp.resource.widget.ninegrid.NineGridView
 				android:id="@+id/nineGridView"
 				android:layout_width="match_parent"

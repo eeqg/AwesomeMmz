@@ -20,13 +20,10 @@ import com.example.wp.awesomemmz.common.CustomGlideTransform;
 import com.example.wp.awesomemmz.common.GlideImageLoader;
 import com.example.wp.awesomemmz.common.Picker;
 import com.example.wp.resource.base.BaseActivity;
-import com.example.wp.resource.base.TitleBar;
 import com.example.wp.resource.utils.LogUtils;
 import com.example.wp.resource.utils.StatusBarUtil;
 import com.example.wp.resource.widget.ShadowDrawable;
-import com.example.wp.resource.widget.ninegrid.ImageInfo;
 import com.example.wp.resource.widget.ninegrid.NineGridView;
-import com.example.wp.resource.widget.ninegrid.NineGridViewAdapter;
 import com.example.wp.resource.widget.picture_layout.PictureLayout;
 import com.example.wp.resource.widget.shadow.ShadowDrawableWrapper;
 
@@ -176,16 +173,14 @@ public class ImageActivity extends BaseActivity {
 	}
 	
 	private void observeNineGridView() {
-		NineGridView.setImageLoader(new NineGridImageLoader());
-		
-		String[] stringArray = getResources().getStringArray(R.array.url);
+		String[] stringArray = getResources().getStringArray(R.array.test_num_url);
 		List<String> images = Arrays.asList(stringArray);
-		ArrayList<ImageInfo> imageInfo = new ArrayList<>();
+		ArrayList<ImageInfoBean> imageInfo = new ArrayList<>();
 		for (int i = 0; i < images.size(); i++) {
-			ImageInfo info = new ImageInfo();
-			info.setThumbnailUrl(images.get(i));
-			info.setBigImageUrl(images.get(i));
+			ImageInfoBean info = new ImageInfoBean();
+			info.imgUrl = images.get(i);
 			imageInfo.add(info);
+			// break;
 		}
 		nineGridView.setAdapter(new NineGridImageAdapter(this, imageInfo));
 	}
