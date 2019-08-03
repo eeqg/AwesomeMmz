@@ -7,9 +7,11 @@ import com.bilibili.boxing.BoxingMediaLoader;
 import com.bilibili.boxing.loader.IBoxingMediaLoader;
 import com.example.wp.awesomemmz.common.BoxingGlideLoader;
 import com.example.wp.awesomemmz.common.BoxingUcrop;
+import com.example.wp.awesomemmz.common.PPViewGlideLoader;
 import com.example.wp.awesomemmz.common.PictureLayoutImageLoader;
 import com.example.wp.resource.base.BaseApp;
 import com.example.wp.resource.widget.picture_layout.PictureLayout;
+import com.wp.picture.preview.PPView;
 
 /**
  * Created by wp on 2019/4/9.
@@ -21,6 +23,7 @@ public class APP extends BaseApp {
 		super.onCreate();
 		initPictureLayout();
 		initBoxing();
+		initPicturePreview();
 	}
 	
 	private void initPictureLayout() {
@@ -31,6 +34,10 @@ public class APP extends BaseApp {
 		IBoxingMediaLoader loader = new BoxingGlideLoader();
 		BoxingMediaLoader.getInstance().init(loader);
 		BoxingCrop.getInstance().init(new BoxingUcrop());
+	}
+	
+	private void initPicturePreview() {
+		PPView.setImageLoader(new PPViewGlideLoader());
 	}
 	
 	@Override
