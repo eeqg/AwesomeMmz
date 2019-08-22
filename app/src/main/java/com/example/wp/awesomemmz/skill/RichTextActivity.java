@@ -1,7 +1,9 @@
 package com.example.wp.awesomemmz.skill;
 
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.view.View;
 import android.widget.TextView;
 
@@ -22,6 +24,12 @@ public class RichTextActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			getWindow().setEnterTransition(new Explode().setDuration(400));
+			getWindow().setExitTransition(new Explode().setDuration(400));
+		}
+		
 		setContentView(R.layout.activity_rich_text);
 		
 		TextView tvRich1 = findViewById(R.id.tvRich1);

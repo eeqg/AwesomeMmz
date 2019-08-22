@@ -24,7 +24,9 @@
 				android:layout_width="match_parent"
 				android:layout_height="0dp"
 				android:background="@mipmap/image3"
-				app:height_to_width_ratio="1"/>
+				android:transitionName="myimage"
+				app:height_to_width_ratio="1"
+				tools:ignore="UnusedAttribute"/>
 			
 			<TextView
 				android:layout_width="wrap_content"

@@ -2,9 +2,12 @@ package com.example.wp.awesomemmz.skill;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Explode;
+import android.transition.Slide;
 import android.view.View;
 
 import com.example.wp.awesomemmz.APP;
@@ -19,6 +22,12 @@ public class RxBusActivity extends AppCompatActivity implements RxBusFragment.On
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			getWindow().setEnterTransition(new Slide().setDuration(400));
+			getWindow().setExitTransition(new Slide().setDuration(400));
+		}
+		
 		setContentView(R.layout.activity_rx_bus);
 		
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
