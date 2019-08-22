@@ -9,14 +9,15 @@
 	<application
 		android:name=".APP"
 		android:allowBackup="true"
-		android:appComponentFactory=""
 		android:hardwareAccelerated="false"
-		android:icon="@mipmap/ic_launcher"
+		android:icon="@drawable/ic_plus_one_black_24dp"
 		android:label="@string/app_name"
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppThemeBase"
-		tools:replace="android:appComponentFactory">
+		tools:replace="android:icon">
+		<activity android:name=".skill.RxBusActivity">
+		</activity>
 		<activity android:name=".skill.RichTextActivity">
 		</activity>
 		<activity android:name=".star.BoxingTestActivity">

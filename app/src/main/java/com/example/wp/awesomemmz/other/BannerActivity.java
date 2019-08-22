@@ -52,6 +52,7 @@ import com.example.wp.resource.widget.banner2.callback.BindViewCallBack;
 import com.example.wp.resource.widget.banner2.callback.CreateViewCaller;
 import com.example.wp.resource.widget.banner2.callback.OnClickBannerListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -329,7 +330,9 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 	private void observeBannerPower() {
 		String[] urls = getResources().getStringArray(R.array.url);
 		List<String> images = Arrays.asList(urls);
-		
+		List<String> images2 = new ArrayList<>();
+		// images2.add("https://t00img.yangkeduo.com/goods/images/2018-10-08/7861a4b9c8d52448ceccafee8064ed88.jpeg");
+		images2.addAll(images);
 		// // 设置banner的尺寸
 		// int screenWidth = ScreenUtils.getScreenWidth(this);
 		// int bannerHeight = (int) (screenWidth * 0.5f);
@@ -376,7 +379,7 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 						LogUtils.d("onClickBanner()---" + data);
 					}
 				})
-				.execute(images);
+				.execute(images2);
 	}
 	
 	@Override

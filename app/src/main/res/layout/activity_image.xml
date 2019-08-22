@@ -159,7 +159,11 @@
 				android:background="@color/colorThemeDivider"
 				android:orientation="vertical"
 				android:padding="15dp">
-			
+				
+				<ImageView
+					android:id="@+id/ivTest"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
 			</LinearLayout>
 			
 			<TextView

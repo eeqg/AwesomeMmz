@@ -64,6 +64,8 @@ public class ImageActivity extends BaseActivity {
 	ImageView ivSharp3;
 	@BindView(R.id.testView)
 	View testView;
+	@BindView(R.id.ivTest)
+	ImageView ivTest;
 	@BindView(R.id.pictureLayout)
 	PictureLayout pictureLayout;
 	@BindView(R.id.btnCamera)
@@ -88,6 +90,8 @@ public class ImageActivity extends BaseActivity {
 		observePictureLayout();
 		observeCamera();
 		observeNineGridView();
+		
+		GlideImageLoader.getInstance().load(ivTest, "https://t00img.yangkeduo.com/goods/images/2019-03-20/14ab95e7-7cee-4c1a-acd6-cb94b8b4a951.jpg");
 	}
 	
 	private void observeBar() {
