@@ -36,11 +36,12 @@
 	<LinearLayout
 		android:id="@+id/bottomSheet"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
+		android:layout_height="500dp"
 		android:background="@color/colorAccent"
 		android:orientation="vertical"
 		app:behavior_hideable="true"
 		app:behavior_peekHeight="300dp"
+		app:elevation="6dp"
 		app:layout_behavior="@string/bottom_sheet_behavior">
 		
 		<ImageView
