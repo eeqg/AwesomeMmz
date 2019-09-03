@@ -16,6 +16,8 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
 		tools:replace="android:icon">
+		<activity android:name=".skill.AnimationsActivity">
+		</activity>
 		<activity
 			android:name=".skill.TransitionActivity"
 			android:label="@string/title_activity_transition"
