@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-       android:innerRadiusRatio="3"
+       android:innerRadius="20dp"
        android:shape="ring"
-       android:thicknessRatio="10"
+       android:thickness="3dp"
        android:useLevel="false">
 	<!-- 径向渐变 -->
 	<gradient
-		android:centerX="1.0"
-		android:centerY="1.0"
-		android:endColor="#FFFFFF"
-		android:gradientRadius="90"
-		android:startColor="#FF1464"
-		android:type="radial"
+		android:endColor="#FF1464"
+		android:startColor="#FFFFFF"
+		android:type="sweep"
 		android:useLevel="false"/>
+	<size
+		android:width="48dp"
+		android:height="48dp"/>
 </shape>
