@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.example.wp.awesomemmz.R;
 import com.example.wp.awesomemmz.index.IndexAdapter;
 import com.example.wp.awesomemmz.index.bean.ClassInfoBean;
+import com.example.wp.awesomemmz.skill.font.TextFontActivity;
 import com.example.wp.resource.utils.LaunchUtil;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -112,7 +113,7 @@ public class SkillFragment extends Fragment {
 		data.add(new ClassInfoBean("RxBus", RxBusActivity.class.getName()));
 		data.add(new ClassInfoBean("Transition", TransitionActivity.class.getName()));
 		data.add(new ClassInfoBean("Animation", AnimationsActivity.class.getName()));
-		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("TextFont", TextFontActivity.class.getName()));
 		data.add(new ClassInfoBean("...", ""));
 		data.add(new ClassInfoBean("...", ""));
 		data.add(new ClassInfoBean("...", ""));

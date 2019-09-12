@@ -27,7 +27,7 @@ public class MainActivity extends BaseTintStatusBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+		LogUtils.d("-----> onCreate: " + savedInstanceState);
 		observeAppBar();
 		
 		observeHeadView();
@@ -38,6 +38,18 @@ public class MainActivity extends BaseTintStatusBarActivity {
 		if (!enabled) {
 			CommonUtil.launchNotificationSettings(this);
 		}
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		LogUtils.d("-----> onSaveInstanceState");
+	}
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		LogUtils.d("-----> onRestoreInstanceState");
 	}
 	
 	private void observeHeadView() {
