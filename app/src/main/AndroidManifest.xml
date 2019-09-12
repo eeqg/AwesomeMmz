@@ -16,18 +16,7 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
 		tools:replace="android:icon">
-		<activity android:name=".skill.font.TextFontActivity"></activity>
-		<activity android:name=".skill.AnimationsActivity"></activity>
-		<activity
-			android:name=".skill.TransitionActivity"
-			android:label="@string/title_activity_transition"
-			android:theme="@style/AppThemeBase.NoActionBar"></activity>
-		<activity android:name=".skill.RxBusActivity"></activity>
-		<activity android:name=".skill.RichTextActivity"></activity>
-		<activity android:name=".star.BoxingTestActivity"></activity>
-		<activity android:name=".skill.BottomSheetBehaviorActivity"></activity>
-		<activity android:name=".frame.LiveDataTestActivity"></activity>
-		<activity android:name=".MainActivity">
+		<activity android:name=".SplashActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<action android:name="android.intent.action.VIEW" />
@@ -35,15 +24,27 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".other.SpecActivity"></activity>
-		<activity android:name=".other.BannerActivity"></activity>
-		<activity android:name=".other.OverScrollActivity"></activity>
-		<activity android:name=".image.ImageActivity"></activity>
-		<activity android:name=".other.PageSlideActivity"></activity>
-		<activity android:name=".custom.CustomViewActivity"></activity>
-		<activity android:name=".custom.BezierTestActivity"></activity>
-		<activity android:name=".custom.BezierTestActivity2"></activity>
-		<activity android:name=".frame.LifecycleActivity"></activity>
+		<activity android:name=".skill.font.TextFontActivity" />
+		<activity android:name=".skill.AnimationsActivity" />
+		<activity
+			android:name=".skill.TransitionActivity"
+			android:label="@string/title_activity_transition"
+			android:theme="@style/AppThemeBase.NoActionBar" />
+		<activity android:name=".skill.RxBusActivity" />
+		<activity android:name=".skill.RichTextActivity" />
+		<activity android:name=".star.BoxingTestActivity" />
+		<activity android:name=".skill.BottomSheetBehaviorActivity" />
+		<activity android:name=".frame.LiveDataTestActivity" />
+		<activity android:name=".MainActivity" />
+		<activity android:name=".other.SpecActivity" />
+		<activity android:name=".other.BannerActivity" />
+		<activity android:name=".other.OverScrollActivity" />
+		<activity android:name=".image.ImageActivity" />
+		<activity android:name=".other.PageSlideActivity" />
+		<activity android:name=".custom.CustomViewActivity" />
+		<activity android:name=".custom.BezierTestActivity" />
+		<activity android:name=".custom.BezierTestActivity2" />
+		<activity android:name=".frame.LifecycleActivity" />
 		
 		<provider
 			android:name="android.support.v4.content.FileProvider"

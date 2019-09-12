@@ -19,7 +19,7 @@ public class TextFontActivity extends BaseActivity {
 		setContentView(R.layout.activity_text_font);
 		
 		final TextView tvDisplay = findViewById(R.id.tvDisplay);
-		// tvDisplay.setTypeface(getTypeface(FontType.NORMAL));
+		tvDisplay.setTypeface(getTypeface(FontType.NORMAL));
 		
 		Spinner fontTypeSpinner = findViewById(R.id.spinner);
 		final FontType[] fontTypes = FontType.values();
@@ -38,9 +38,6 @@ public class TextFontActivity extends BaseActivity {
 	}
 	
 	private Typeface getTypeface(FontType fontType) {
-		if (fontType == null) {
-			fontType = FontType.NORMAL;
-		}
 		Typeface typeface;
 		try {
 			typeface = Typeface.createFromAsset(getAssets(), fontType.getPath());
