@@ -4,6 +4,7 @@ package com.example.wp.awesomemmz.skill.font;
  * Created by wp on 2019/9/12.
  */
 public enum FontType {
+	//C:\Windows\Fonts 可以获取到电脑系统的字体文件
 	NORMAL(0, "Normal", "fonts/FZLanTingHeiS-L-GB-Regular.TTF"),//方正兰亭细黑简体
 	BOLD(1, "Bold", "fonts/FZLanTingHeiS-DB1-GB-Regular.TTF"),//方正兰亭中粗黑简体
 	FUTURE(2, "Future", "fonts/Futura-CondensedMedium.ttf"),//拉丁
