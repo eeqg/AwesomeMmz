@@ -18,6 +18,7 @@ import com.example.wp.awesomemmz.frame.LifecycleActivity;
 import com.example.wp.awesomemmz.frame.LiveDataTestActivity;
 import com.example.wp.awesomemmz.image.ImageActivity;
 import com.example.wp.awesomemmz.index.bean.ClassInfoBean;
+import com.example.wp.awesomemmz.map.LocationActivity;
 import com.example.wp.awesomemmz.other.BannerActivity;
 import com.example.wp.awesomemmz.other.OverScrollActivity;
 import com.example.wp.awesomemmz.other.PageSlideActivity;
@@ -88,7 +89,7 @@ public class IndexFragment extends Fragment {
 		data.add(new ClassInfoBean("Lifecycle", LifecycleActivity.class.getName()));
 		data.add(new ClassInfoBean("LiveData", LiveDataTestActivity.class.getName()));
 		data.add(new ClassInfoBean("M-V-VM", ""));
-		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("map & location", LocationActivity.class.getName()));
 		data.add(new ClassInfoBean("...", ""));
 	}
 }

@@ -1,7 +1,11 @@
 package com.example.wp.awesomemmz;
 
+import android.app.Service;
 import android.content.Context;
+import android.os.Vibrator;
 
+import com.baidu.mapapi.CoordType;
+import com.baidu.mapapi.SDKInitializer;
 import com.bilibili.boxing.BoxingCrop;
 import com.bilibili.boxing.BoxingMediaLoader;
 import com.bilibili.boxing.loader.IBoxingMediaLoader;
@@ -9,6 +13,7 @@ import com.example.wp.awesomemmz.common.BoxingGlideLoader;
 import com.example.wp.awesomemmz.common.BoxingUcrop;
 import com.example.wp.awesomemmz.common.PPViewGlideLoader;
 import com.example.wp.awesomemmz.common.PictureLayoutImageLoader;
+import com.example.wp.awesomemmz.map.service.LocationService;
 import com.example.wp.resource.base.BaseApp;
 import com.wp.picture.picker.PictureLayout;
 import com.wp.picture.preview.PPView;
@@ -18,12 +23,16 @@ import com.wp.picture.preview.PPView;
  */
 public class APP extends BaseApp {
 	
+	public LocationService locationService;
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		initPictureLayout();
 		initBoxing();
 		initPicturePreview();
+		
+		initMap();
 	}
 	
 	private void initPictureLayout() {
@@ -38,6 +47,12 @@ public class APP extends BaseApp {
 	
 	private void initPicturePreview() {
 		PPView.setImageLoader(new PPViewGlideLoader());
+	}
+	
+	private void initMap() {
+		locationService = new LocationService(getApplicationContext());
+		SDKInitializer.initialize(getApplicationContext());
+		SDKInitializer.setCoordType(CoordType.BD09LL);
 	}
 	
 	@Override

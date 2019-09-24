@@ -11,10 +11,34 @@ android {
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 	}
 	
+	/**
+	 * 签名设置
+	 */
+	signingConfigs {
+		myConfigs {
+			storeFile file("../keystore.jks")
+			storePassword "123456"
+			keyAlias "wp"
+			keyPassword "123456"
+		}
+	}
+	
 	buildTypes {
 		release {
 			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			//签名
+			signingConfig signingConfigs.myConfigs
+		}
+		debug {
+			//签名
+			signingConfig signingConfigs.myConfigs
+		}
+	}
+	
+	sourceSets {
+		main {
+			jniLibs.srcDir 'libs'
 		}
 	}
 }
@@ -65,5 +89,9 @@ dependencies {
 		exclude module: 'recyclerview-v7'
 	}
 	
+	//picture
 	implementation 'com.github.eeqg:wp_picture:1.5'
+	
+	//baidu-Map
+	implementation files('libs/BaiduLBS_Android.jar')
 }
