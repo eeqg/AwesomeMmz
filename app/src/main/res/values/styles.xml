@@ -15,8 +15,12 @@
 		<item name="windowNoTitle">true</item>
 	</style>
 	
-	<style name="AppThemeBase.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+	<style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+<!--		<item name="android:windowBackground">@mipmap/img_bg1</item>-->
+	</style>
 	
-	<style name="AppThemeBase.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+	<style name="AppThemeBase.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+	
+	<style name="AppThemeBase.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

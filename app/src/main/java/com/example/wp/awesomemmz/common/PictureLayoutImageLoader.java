@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.widget.ImageView;
 
 import com.example.wp.resource.utils.LogUtils;
-import com.example.wp.resource.widget.picture_layout.PictureLayout;
+import com.wp.picture.picker.PictureLayout;
 
 /**
  * Created by wp on 2019/4/9.

@@ -115,7 +115,7 @@
 					android:layout_height="wrap_content"
 					android:text="3, pictureLayout"/>
 				
-				<com.example.wp.resource.widget.picture_layout.PictureLayout
+				<com.wp.picture.picker.PictureLayout
 					android:id="@+id/pictureLayout"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -174,7 +174,7 @@
 				android:layout_marginTop="20dp"
 				android:text="--- NineGridImageView ---"/>
 			
-			<com.example.wp.resource.widget.ninegrid.NineGridView
+			<com.wp.picture.ninegrid.NineGridView
 				android:id="@+id/nineGridView"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"

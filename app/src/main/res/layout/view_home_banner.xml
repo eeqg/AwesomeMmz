@@ -10,7 +10,7 @@
 		android:layout_height="wrap_content"
 		android:background="@drawable/ic_shadow"/>
 	
-	<com.example.wp.resource.widget.RatioImageView
+	<com.wp.picture.widget.RatioImageView
 		android:id="@+id/ivBanner"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"

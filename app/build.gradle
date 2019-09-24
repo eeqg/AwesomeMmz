@@ -65,5 +65,5 @@ dependencies {
 		exclude module: 'recyclerview-v7'
 	}
 	
-	implementation 'com.github.eeqg:wp_picture:1.0'
+	implementation 'com.github.eeqg:wp_picture:1.5'
 }

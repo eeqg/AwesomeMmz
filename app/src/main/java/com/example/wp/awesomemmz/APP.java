@@ -10,7 +10,7 @@ import com.example.wp.awesomemmz.common.BoxingUcrop;
 import com.example.wp.awesomemmz.common.PPViewGlideLoader;
 import com.example.wp.awesomemmz.common.PictureLayoutImageLoader;
 import com.example.wp.resource.base.BaseApp;
-import com.example.wp.resource.widget.picture_layout.PictureLayout;
+import com.wp.picture.picker.PictureLayout;
 import com.wp.picture.preview.PPView;
 
 /**

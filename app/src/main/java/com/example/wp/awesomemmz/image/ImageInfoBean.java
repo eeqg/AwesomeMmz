@@ -5,4 +5,6 @@ package com.example.wp.awesomemmz.image;
  */
 public class ImageInfoBean {
 	public String imgUrl;
+	public boolean isVideo;
+	public String videoUrl;
 }

@@ -23,9 +23,10 @@ import com.example.wp.resource.base.BaseActivity;
 import com.example.wp.resource.utils.LogUtils;
 import com.example.wp.resource.utils.StatusBarUtil;
 import com.example.wp.resource.widget.ShadowDrawable;
-import com.example.wp.resource.widget.ninegrid.NineGridView;
-import com.example.wp.resource.widget.picture_layout.PictureLayout;
 import com.example.wp.resource.widget.shadow.ShadowDrawableWrapper;
+import com.wp.picture.ninegrid.NineGridView;
+import com.wp.picture.picker.PictureLayout;
+import com.wp.picture.preview.PPView;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -162,6 +163,11 @@ public class ImageActivity extends BaseActivity {
 			@Override
 			public void onSelect(int position, Uri pictureUri) {
 				LogUtils.d("-----position = " + position);
+				ArrayList<String> imgList = new ArrayList<>();
+				for (Uri uri : pictureLayout.getPictureList()) {
+					imgList.add(uri.toString());
+				}
+				PPView.build().urlList(imgList).position(position).show(ImageActivity.this);
 			}
 		});
 	}
@@ -186,6 +192,14 @@ public class ImageActivity extends BaseActivity {
 			imageInfo.add(info);
 			// break;
 		}
+		ImageInfoBean info1 = new ImageInfoBean();
+		info1.imgUrl = "https://img.alicdn.com/bao/uploaded/i1/2683201295/O1CN01stv3RB1LR9Q5oVrSq_!!2683201295.jpg";
+		imageInfo.add(0, info1);
+		ImageInfoBean info0 = new ImageInfoBean();
+		info0.imgUrl = "https://img.alicdn.com/bao/uploaded/i4/2683201295/O1CN01l7KUTs1LR9Q30cmhb_!!2683201295.jpg";
+		info0.isVideo = true;
+		info0.videoUrl = "https://cloud.video.taobao.com/play/u/2683201295/p/2/e/6/t/1/226176442207.mp4?appKey=38829";
+		imageInfo.add(0, info0);
 		nineGridView.setAdapter(new NineGridImageAdapter(this, imageInfo));
 	}
 	

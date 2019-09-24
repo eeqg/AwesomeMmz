@@ -3,18 +3,14 @@ package com.example.wp.awesomemmz.other;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,7 +21,6 @@ import com.example.wp.awesomemmz.common.GlideImageLoader2;
 import com.example.wp.resource.base.BaseActivity;
 import com.example.wp.resource.utils.ColorUtil;
 import com.example.wp.resource.utils.LogUtils;
-import com.example.wp.resource.utils.ScreenUtils;
 import com.example.wp.resource.widget.CircleIndicator;
 import com.example.wp.resource.widget.LoopViewPager;
 import com.example.wp.resource.widget.banner.Banner;
@@ -48,9 +43,9 @@ import com.example.wp.resource.widget.banner.transformer.TabletTransformer;
 import com.example.wp.resource.widget.banner.transformer.ZoomInTransformer;
 import com.example.wp.resource.widget.banner.transformer.ZoomOutSlideTransformer;
 import com.example.wp.resource.widget.banner.transformer.ZoomOutTranformer;
-import com.example.wp.resource.widget.banner2.callback.BindViewCallBack;
-import com.example.wp.resource.widget.banner2.callback.CreateViewCaller;
-import com.example.wp.resource.widget.banner2.callback.OnClickBannerListener;
+import com.wp.picture.banner.callback.BindViewCallBack;
+import com.wp.picture.banner.callback.CreateViewCaller;
+import com.wp.picture.banner.callback.OnClickBannerListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,7 +61,7 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 	@BindView(R.id.banner2)
 	Banner banner2;
 	@BindView(R.id.banner3)
-	com.example.wp.resource.widget.banner2.Banner banner3;
+	com.wp.picture.banner.Banner banner3;
 	@BindView(R.id.bannerContainer3)
 	View bannerContainer3;
 	
@@ -355,6 +350,7 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 				})
 				.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 					int dtColor;
+					
 					@Override
 					public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 						int curColor = Color.parseColor(colorsStr[position]);

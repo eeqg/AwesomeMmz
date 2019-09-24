@@ -1,17 +1,15 @@
 package com.example.wp.awesomemmz.skill;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.wp.awesomemmz.R;
-import com.example.wp.resource.widget.CircleImageView;
+import com.wp.picture.widget.CircleImageView;
 
 import java.util.concurrent.TimeUnit;
 
