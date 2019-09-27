@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:divider="#30808080"
-	android:dividerPadding="6dp"
-	android:showDividers="middle"
 	tools:context=".skill.RecyclerViewGroupActivity">
 	
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/recyclerViewDecoration"
-		android:layout_width="0dp"
+		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_weight="1" />
+		tools:listitem="@layout/item_city" />
 	
-	<android.support.v7.widget.RecyclerView
-		android:id="@+id/recyclerViewLayout"
-		android:layout_width="0dp"
+	<com.example.wp.awesomemmz.skill.LetterIndexView
+		android:id="@+id/letterIndexView"
+		android:layout_width="20dp"
 		android:layout_height="match_parent"
-		android:layout_weight="1" />
-</LinearLayout>
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentRight="true"
+		android:paddingTop="20dp"
+		android:paddingBottom="20dp" />
+	
+	<TextView
+		android:id="@+id/tvLetter"
+		android:layout_width="60dp"
+		android:layout_height="60dp"
+		android:layout_centerInParent="true"
+		android:background="@drawable/bg_letter"
+		android:gravity="center"
+		android:text="A"
+		android:textSize="20sp"
+		android:visibility="gone" />
+</RelativeLayout>
