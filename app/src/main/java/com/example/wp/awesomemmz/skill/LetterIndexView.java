@@ -24,6 +24,7 @@ public class LetterIndexView extends View {
     private boolean drawBg = false;
 
     private OnLetterTouchListener letterTouchListener;
+    private int paddingTop, paddingBottom;
 
     public LetterIndexView(Context context) {
         this(context, null);
@@ -52,9 +53,13 @@ public class LetterIndexView extends View {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
                 drawBg = true;
-                int height = getHeight() / letters.length;
-                int position = (int) (event.getY() / height);
-                Log.d(TAG, "-----event.getY() = " + event.getY());
+                int height = (getHeight() - paddingTop - paddingBottom) / letters.length;
+                if (event.getY() < paddingTop || event.getY() > getHeight() - paddingBottom) {
+                    return true;
+                }
+                float y = event.getY() - paddingTop;
+                int position = (int) (y / height);
+                Log.d(TAG, "-----event.getY() = " + y);
                 Log.d(TAG, "-----height = " + height);
                 Log.d(TAG, "-----position = " + position);
                 position = position < 0 ? 0 : (position >= letters.length ? letters.length - 1 : position);
@@ -80,7 +85,9 @@ public class LetterIndexView extends View {
             canvas.drawColor(Color.parseColor("#20808080"));
         }
 
-        float height = (getHeight() - getPaddingTop() - getPaddingBottom()) / letters.length;
+        paddingTop = getPaddingTop();
+        paddingBottom = getPaddingBottom();
+        float height = (getHeight() - paddingTop - paddingBottom) / letters.length;
         float width = getWidth();
         float textSize = height * 3 / 7;
         textPaint.setTextSize(textSize);
@@ -89,7 +96,7 @@ public class LetterIndexView extends View {
             String letter = letters[i];
             textPaint.getTextBounds(letter, 0, letter.length(), textBounds);
             canvas.drawText(letter, (width - textBounds.width()) / 2 - getPaddingLeft(),
-                    getPaddingTop() + (height / 2 + textBounds.height() / 2) + height * i, textPaint);
+                    paddingTop + (height / 2 + textBounds.height() / 2) + height * i, textPaint);
         }
     }
 
