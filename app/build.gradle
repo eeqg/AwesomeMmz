@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'android-aspectjx'//AspectJX 插件
+
 android {
 	compileSdkVersion rootProject.ext.compileSdkVersion
 	defaultConfig {
@@ -41,6 +43,13 @@ android {
 			jniLibs.srcDir 'libs'
 		}
 	}
+}
+
+aspectjx {
+	//开关, 默认true
+	enabled true
+	//排除所有package路径中包含`android.support`的class文件及库（jar文件）
+	exclude 'android.support'
 }
 
 dependencies {

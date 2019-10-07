@@ -30,7 +30,8 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
 		tools:replace="android:icon">
-		<activity android:name=".skill.RecyclerViewGroupActivity"></activity>
+		<activity android:name=".skill.AspectTestActivity"></activity>
+		<activity android:name=".skill.RecyclerViewGroupActivity" />
 		<activity android:name=".map.MapActivity" />
 		<activity android:name=".map.LocationActivity" /> <!-- 声明service组件 -->
 		<service
