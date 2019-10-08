@@ -26,4 +26,10 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="收集异常"/>
+
+	<Button
+		android:id="@+id/view4"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="check permission"/>
 </LinearLayout>

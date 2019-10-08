@@ -1,5 +1,6 @@
 package com.example.wp.awesomemmz.skill;
 
+import android.Manifest;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.View;
 import com.example.wp.awesomemmz.APP;
 import com.example.wp.awesomemmz.R;
 import com.example.wp.awesomemmz.image.ImageActivity;
+import com.example.wp.awesomemmz.skill.aspect.CheckPermission;
 import com.example.wp.awesomemmz.skill.aspect.DoubleClick;
 import com.example.wp.resource.utils.LaunchUtil;
 import com.example.wp.resource.utils.LogUtils;
@@ -41,10 +43,18 @@ public class AspectTestActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.view4).setOnClickListener(new View.OnClickListener() {
+            @CheckPermission(permission = {Manifest.permission.CAMERA, Manifest.permission.ACCESS_COARSE_LOCATION})
+            @Override
+            public void onClick(View v) {
+                APP.toast("------checked!!!-------");
+            }
+        });
+
         getHeight();
     }
 
-    private int getHeight(){
+    private int getHeight() {
         return APP.SCREEN_HEIGHT;
     }
 }

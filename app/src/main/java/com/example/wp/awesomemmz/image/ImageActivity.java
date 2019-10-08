@@ -1,5 +1,6 @@
 package com.example.wp.awesomemmz.image;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +20,7 @@ import com.example.wp.awesomemmz.R;
 import com.example.wp.awesomemmz.common.CustomGlideTransform;
 import com.example.wp.awesomemmz.common.GlideImageLoader;
 import com.example.wp.awesomemmz.common.Picker;
+import com.example.wp.awesomemmz.skill.aspect.CheckPermission;
 import com.example.wp.resource.base.BaseActivity;
 import com.example.wp.resource.utils.LogUtils;
 import com.example.wp.resource.utils.StatusBarUtil;
@@ -171,17 +173,7 @@ public class ImageActivity extends BaseActivity {
 			}
 		});
 	}
-	
-	private void observeCamera() {
-		btnCamera.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				uri = Picker.pickCamera(ImageActivity.this, CODE_CAMERA);
-				LogUtils.d("-----uri = " + uri);
-			}
-		});
-	}
-	
+
 	private void observeNineGridView() {
 		String[] stringArray = getResources().getStringArray(R.array.test_num_url);
 		List<String> images = Arrays.asList(stringArray);
@@ -202,7 +194,19 @@ public class ImageActivity extends BaseActivity {
 		imageInfo.add(0, info0);
 		nineGridView.setAdapter(new NineGridImageAdapter(this, imageInfo));
 	}
-	
+
+
+	private void observeCamera() {
+		btnCamera.setOnClickListener(new View.OnClickListener() {
+			@CheckPermission(permission = {Manifest.permission.CAMERA})
+			@Override
+			public void onClick(View v) {
+				uri = Picker.pickCamera(ImageActivity.this, CODE_CAMERA);
+				LogUtils.d("-----uri = " + uri);
+			}
+		});
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {

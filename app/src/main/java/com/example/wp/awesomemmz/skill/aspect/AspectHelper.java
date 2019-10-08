@@ -1,10 +1,13 @@
 package com.example.wp.awesomemmz.skill.aspect;
 
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.wp.awesomemmz.APP;
+import com.example.wp.awesomemmz.common.MainHelper;
+import com.example.wp.resource.utils.LogUtils;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -15,6 +18,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+
+import java.util.ArrayList;
 
 /**
  * 处理切面的类
@@ -184,7 +189,7 @@ public class AspectHelper {
         //方法执行完成
         long end = System.currentTimeMillis();
         // Log.i(TAG, behaviorTrace.value() + "(" + behaviorTrace.type() + ")" + " 耗时：" +  (end - begin) + "ms");
-        Log.i(TAG, monitor.value() + "(" + monitor.type() + ")" + " 耗时：" +  (end - begin) + "ms");
+        Log.i(TAG, monitor.value() + "(" + monitor.type() + ")" + " 耗时：" + (end - begin) + "ms");
     }
 
     //------------------------------------------------------------------------
@@ -266,4 +271,38 @@ public class AspectHelper {
     public void getHeight(int height) {  // height必须和上面"height"一样
         Log.d(TAG, "-----height:" + height);
     }
+
+    //------- check permission ------
+    @Pointcut("execution(@com.example.wp.awesomemmz.skill.aspect.CheckPermission * *(..)) && @annotation(checkPermission)")
+    public void checkPermission(CheckPermission checkPermission) {
+    }
+
+    @Around("checkPermission(checkPermission)")
+    public void aroundCheckPermission(ProceedingJoinPoint joinPoint, CheckPermission checkPermission) throws Throwable {
+        //从注解信息中获取声明的权限。
+        String[] permissions = checkPermission.permission();
+        Log.d(TAG, joinPoint.toShortString());
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String permission : permissions) {
+            stringBuilder.append(", ");
+            stringBuilder.append(permission);
+        }
+        Log.d(TAG, "needed permission is " + stringBuilder.toString());
+        ArrayList<String> permissionsList = MainHelper.getInstance().checkPermission(APP.INSTANCE, permissions);
+        if (!permissionsList.isEmpty()) {
+            StringBuilder builder = new StringBuilder();
+            // String[] strings = new String[permissionsList.size()];
+            for (String permission : permissionsList) {
+                builder.append(", ");
+                builder.append(permission);
+            }
+            Log.d(TAG, "no permission is " + builder.toString());
+            APP.toast("缺少权限");
+            // requestPermissions(permissionsList.toArray(strings), CODE_PERMISSION);
+            // ActivityCompat.requestPermissions(permissions, 1);
+        } else {
+            joinPoint.proceed();
+        }
+    }
+    //------- check permission ------
 }
