@@ -13,13 +13,17 @@
 		android:id="@+id/view1"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:onClick="viewClick1"
 		android:text="防重复点击"/>
 
 	<Button
 		android:id="@+id/view2"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:onClick="viewClick2"
 		android:text="可重复点击"/>
+
+	<Button
+		android:id="@+id/view3"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="收集异常"/>
 </LinearLayout>

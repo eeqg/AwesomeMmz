@@ -6,11 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 自定义注解接口(自定义Pointcuts)
- *
- * Created by wp on 2019/10/7.
+ * Created by wp on 2019/10/8.
  */
+
 @Retention(RetentionPolicy.CLASS)
-@Target({ElementType.CONSTRUCTOR, ElementType.METHOD})
-public @interface DoubleClick {
+@Target({ ElementType.CONSTRUCTOR, ElementType.METHOD })
+public @interface DebugTrace {
 }

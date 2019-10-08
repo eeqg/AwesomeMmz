@@ -4,8 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.wp.awesomemmz.APP;
 import com.example.wp.awesomemmz.R;
+import com.example.wp.awesomemmz.image.ImageActivity;
 import com.example.wp.awesomemmz.skill.aspect.DoubleClick;
+import com.example.wp.resource.utils.LaunchUtil;
 import com.example.wp.resource.utils.LogUtils;
 
 public class AspectTestActivity extends AppCompatActivity {
@@ -19,6 +22,7 @@ public class AspectTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LogUtils.d("-----viewClick1");
+                LaunchUtil.launchActivity(getBaseContext(), ImageActivity.class);
             }
         });
 
@@ -29,5 +33,18 @@ public class AspectTestActivity extends AppCompatActivity {
                 LogUtils.d("-----viewClick2");
             }
         });
+
+        findViewById(R.id.view3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int i = 2 / 0;
+            }
+        });
+
+        getHeight();
+    }
+
+    private int getHeight(){
+        return APP.SCREEN_HEIGHT;
     }
 }

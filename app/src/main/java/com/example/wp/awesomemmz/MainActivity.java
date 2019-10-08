@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.wp.awesomemmz.skill.aspect.DebugTrace;
+import com.example.wp.awesomemmz.skill.aspect.NeedMonitor;
 import com.example.wp.resource.base.BaseTintStatusBarActivity;
 import com.example.wp.resource.utils.CommonUtil;
 import com.example.wp.resource.utils.LogUtils;
@@ -22,7 +24,8 @@ import com.example.wp.resource.widget.bezier.BezierIndicatorView;
 public class MainActivity extends BaseTintStatusBarActivity {
 	
 	LoopViewPager loopView;
-	
+
+	@DebugTrace
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,7 +54,8 @@ public class MainActivity extends BaseTintStatusBarActivity {
 		super.onRestoreInstanceState(savedInstanceState);
 		LogUtils.d("-----> onRestoreInstanceState");
 	}
-	
+
+	@NeedMonitor(value = "observeHeadView")
 	private void observeHeadView() {
 		loopView = findViewById(R.id.loopView);
 		loopView.setAdapter(new HeaderAdapter(this));
