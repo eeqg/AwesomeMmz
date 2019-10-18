@@ -89,4 +89,13 @@
 		<item>#FF9823</item>
 		<item>#98765432</item>
 	</string-array>
+	
+	<string-array name="fruits">
+		<item>https://lusl-goods.oss-cn-shenzhen.aliyuncs.com/adminImages/8717312.jpeg</item>
+		<item>https://lusl-goods.oss-cn-shenzhen.aliyuncs.com/adminImages/5316170.jpeg</item>
+		<item>https://lusl-goods.oss-cn-shenzhen.aliyuncs.com/adminImages/4208401.jpeg</item>
+		<item>https://lusl-goods.oss-cn-shenzhen.aliyuncs.com/adminImages/4697262.jpeg</item>
+		<item>https://lusl-goods.oss-cn-shenzhen.aliyuncs.com/adminImages/2868935.jpeg</item>
+		<item>https://lusl-goods.oss-cn-shenzhen.aliyuncs.com/adminImages/4010045.jpeg</item>
+	</string-array>
 </resources>

@@ -182,6 +182,8 @@ public class LocationActivity extends BaseActivity {
                 sb.append(location.getLatitude());
                 sb.append("\nlongtitude : ");// 经度
                 sb.append(location.getLongitude());
+                sb.append("\naltitude : ");// 海拔
+                sb.append(location.getAltitude());
                 sb.append("\nradius : ");// 半径
                 sb.append(location.getRadius());
                 sb.append("\nCountryCode : ");// 国家码

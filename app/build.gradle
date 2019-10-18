@@ -98,8 +98,8 @@ dependencies {
 		exclude module: 'recyclerview-v7'
 	}
 	
-	//picture
-	implementation 'com.github.eeqg:wp_picture:1.5'
+//	//picture
+//	implementation 'com.github.eeqg:wp_picture:1.5'
 	
 	//baidu-Map
 	implementation files('libs/BaiduLBS_Android.jar')

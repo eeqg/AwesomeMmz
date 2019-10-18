@@ -44,7 +44,7 @@ public class AspectTestActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.view4).setOnClickListener(new View.OnClickListener() {
-            @CheckPermission(permission = {Manifest.permission.CAMERA, Manifest.permission.ACCESS_COARSE_LOCATION})
+            @CheckPermission({Manifest.permission.CAMERA, Manifest.permission.ACCESS_COARSE_LOCATION})
             @Override
             public void onClick(View v) {
                 APP.toast("------checked!!!-------");

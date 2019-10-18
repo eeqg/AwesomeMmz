@@ -198,7 +198,7 @@ public class ImageActivity extends BaseActivity {
 
 	private void observeCamera() {
 		btnCamera.setOnClickListener(new View.OnClickListener() {
-			@CheckPermission(permission = {Manifest.permission.CAMERA})
+			@CheckPermission({Manifest.permission.CAMERA})
 			@Override
 			public void onClick(View v) {
 				uri = Picker.pickCamera(ImageActivity.this, CODE_CAMERA);

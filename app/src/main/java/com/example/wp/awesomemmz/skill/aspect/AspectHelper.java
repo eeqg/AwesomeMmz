@@ -280,7 +280,7 @@ public class AspectHelper {
     @Around("checkPermission(checkPermission)")
     public void aroundCheckPermission(ProceedingJoinPoint joinPoint, CheckPermission checkPermission) throws Throwable {
         //从注解信息中获取声明的权限。
-        String[] permissions = checkPermission.permission();
+        String[] permissions = checkPermission.value();
         Log.d(TAG, joinPoint.toShortString());
         StringBuilder stringBuilder = new StringBuilder();
         for (String permission : permissions) {
