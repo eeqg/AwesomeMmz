@@ -22,7 +22,6 @@ import com.example.wp.resource.base.BaseActivity;
 import com.example.wp.resource.utils.ColorUtil;
 import com.example.wp.resource.utils.LogUtils;
 import com.example.wp.resource.widget.CircleIndicator;
-import com.example.wp.resource.widget.CommonViewPager;
 import com.example.wp.resource.widget.LoopViewPager;
 import com.example.wp.resource.widget.banner.Banner;
 import com.example.wp.resource.widget.banner.BannerConfig;
@@ -47,6 +46,7 @@ import com.example.wp.resource.widget.banner.transformer.ZoomOutTranformer;
 import com.wp.picture.banner.callback.BindViewCallBack;
 import com.wp.picture.banner.callback.CreateViewCaller;
 import com.wp.picture.banner.callback.OnClickBannerListener;
+import com.wp.picture.widget.CommonViewPager;
 
 import java.util.ArrayList;
 import java.util.Arrays;

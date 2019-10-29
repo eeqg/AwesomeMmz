@@ -67,7 +67,9 @@
 		<activity android:name=".other.SpecActivity" />
 		<activity android:name=".other.BannerActivity" />
 		<activity android:name=".other.OverScrollActivity" />
-		<activity android:name=".image.ImageActivity" />
+		<activity android:name=".image.ImageActivity"
+			android:launchMode="singleTop"
+			android:taskAffinity="com.test"/>
 		<activity android:name=".other.PageSlideActivity" />
 		<activity android:name=".custom.CustomViewActivity" />
 		<activity android:name=".custom.BezierTestActivity" />

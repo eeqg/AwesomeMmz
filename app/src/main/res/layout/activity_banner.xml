@@ -213,7 +213,7 @@
 				android:layout_marginTop="10dp"
 				android:layout_marginBottom="10dp" />
 			
-			<com.example.wp.resource.widget.CommonViewPager
+			<com.wp.picture.widget.CommonViewPager
 				android:id="@+id/viewPager"
 				android:layout_width="match_parent"
 				android:layout_height="200dp"/>
