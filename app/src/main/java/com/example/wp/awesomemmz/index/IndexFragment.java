@@ -18,6 +18,7 @@ import com.example.wp.awesomemmz.frame.LifecycleActivity;
 import com.example.wp.awesomemmz.frame.LiveDataTestActivity;
 import com.example.wp.awesomemmz.image.ImageActivity;
 import com.example.wp.awesomemmz.index.bean.ClassInfoBean;
+import com.example.wp.awesomemmz.index.video.VideoActivity;
 import com.example.wp.awesomemmz.map.LocationActivity;
 import com.example.wp.awesomemmz.other.BannerActivity;
 import com.example.wp.awesomemmz.other.OverScrollActivity;
@@ -83,6 +84,7 @@ public class IndexFragment extends Fragment {
 		data.add(new ClassInfoBean("scroll", OverScrollActivity.class.getName()));
 		data.add(new ClassInfoBean("pageSlide", PageSlideActivity.class.getName()));
 		data.add(new ClassInfoBean("image", ImageActivity.class.getName()));
+		data.add(new ClassInfoBean("video", VideoActivity.class.getName()));
 		data.add(new ClassInfoBean("SpecView", SpecActivity.class.getName()));
 		data.add(new ClassInfoBean("recovery", ""));
 		data.add(new ClassInfoBean("customView", CustomViewActivity.class.getName()));

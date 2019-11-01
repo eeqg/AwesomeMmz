@@ -2,11 +2,13 @@ package com.example.wp.awesomemmz.other;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -44,6 +46,7 @@ import com.example.wp.resource.widget.banner.transformer.ZoomInTransformer;
 import com.example.wp.resource.widget.banner.transformer.ZoomOutSlideTransformer;
 import com.example.wp.resource.widget.banner.transformer.ZoomOutTranformer;
 import com.wp.picture.banner.callback.BindViewCallBack;
+import com.wp.picture.banner.callback.CreateViewCallBack;
 import com.wp.picture.banner.callback.CreateViewCaller;
 import com.wp.picture.banner.callback.OnClickBannerListener;
 import com.wp.picture.widget.CommonViewPager;
@@ -340,15 +343,21 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
         // setLayoutParams(bannerLp);
 
         banner3.setViewIndex(1)
-                .createView(CreateViewCaller.build())
+                // .createView(CreateViewCaller.build())
+                .createView(new CreateViewCallBack() {
+                    @Override
+                    public View createView(Context context, ViewGroup parent, int viewType, int viewIndex) {
+                        return LayoutInflater.from(mActivity).inflate(R.layout.view_home_banner, null);
+                    }
+                })
                 .bindView(new BindViewCallBack<View, String>() {
                     @Override
                     public void bindView(View frameLayout, String data, int position) {
-                        FrameLayout view = (FrameLayout) CreateViewCaller.findFrameLayout(frameLayout);
-                        view.removeAllViews();
-                        View bannerRooter = LayoutInflater.from(mActivity).inflate(R.layout.view_home_banner, null);
-                        view.addView(bannerRooter);
-                        ImageView ivBanner = bannerRooter.findViewById(R.id.ivBanner);
+                        // FrameLayout view = (FrameLayout) CreateViewCaller.findFrameLayout(frameLayout);
+                        // view.removeAllViews();
+                        // View bannerRooter = LayoutInflater.from(mActivity).inflate(R.layout.view_home_banner, null);
+                        // view.addView(bannerRooter);
+                        ImageView ivBanner = frameLayout.findViewById(R.id.ivBanner);
                         GlideImageLoader.getInstance().load(ivBanner, data);
                     }
                 })
