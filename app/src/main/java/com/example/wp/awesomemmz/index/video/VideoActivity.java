@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
@@ -14,11 +15,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.example.wp.awesomemmz.R;
+import com.example.wp.awesomemmz.common.GlideImageLoader;
 import com.example.wp.resource.base.BaseActivity;
 import com.example.wp.resource.utils.LogUtils;
 
@@ -28,13 +31,41 @@ import java.util.Locale;
 public class VideoActivity extends BaseActivity {
 
     private final int MSG_UPDATE_TIME = 1;
+    private final int MSG_UPDATE_CONTROLLER = 2;
+
+    public static final int STATE_ERROR = -1;          // 播放错误
+    public static final int STATE_IDLE = 0;            // 播放未开始
+    public static final int STATE_PREPARING = 1;       // 播放准备中
+    public static final int STATE_PREPARED = 2;        // 播放准备就绪
+    public static final int STATE_PLAYING = 3;         // 正在播放
+    public static final int STATE_PAUSED = 4;          // 暂停播放
+    // 正在缓冲(播放器正在播放时，缓冲区数据不足，进行缓冲，缓冲区数据足够后恢复播放)
+    public static final int STATE_BUFFERING_PLAYING = 5;
+    // 正在缓冲(播放器正在播放时，缓冲区数据不足，进行缓冲，此时暂停播放器，继续缓冲，缓冲区数据足够后恢复暂停)
+    public static final int STATE_BUFFERING_PAUSED = 6;
+    public static final int STATE_COMPLETED = 7;       // 播放完成
 
     private String videoUrl = "https://flv2.bn.netease.com/videolib1/1811/26/OqJAZ893T/HD/OqJAZ893T-mobile.mp4";
+    private String videoUrl2 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-33-30.mp4";
+    private String videoUrl3 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-10_10-20-26.mp4";
+    private String thumb3 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-10_10-09-58.jpg";
+    private String videoUrl4 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-03_13-02-41.mp4";
+    private String thumb4 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-03_12-52-08.jpg";
+    private String videoUrl5 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/04/2017-04-28_18-20-56.mp4";
+    private String thumb5 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/04/2017-04-28_18-18-22.jpg";
     private MediaPlayer mediaPlayer;
     private ImageView ivPlayState;
+    private ImageView ivThumb;
     private SeekBar seekBar;
     private TextView tvTime;
     private ImageView ivPlayOrPause;
+    private ImageView ivFastForward;
+    private ImageView ivFastRewind;
+    private ProgressBar progressBar;
+    private View clController;
+    private View clControlContainer;
+
+    private int mCurrentState = STATE_IDLE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +87,7 @@ public class VideoActivity extends BaseActivity {
         final VideoView videoView = findViewById(R.id.videoView);
         final MediaController videoController = new MediaController(this);
         videoView.setMediaController(videoController);
-        videoView.setVideoPath(videoUrl);
+        videoView.setVideoPath(videoUrl2);
         // videoView.start();
 
         final View ivPlay = findViewById(R.id.ivPlay);
@@ -77,25 +108,126 @@ public class VideoActivity extends BaseActivity {
         TextureView textureView = findViewById(R.id.textureView);
         ivPlayState = findViewById(R.id.ivPlayState);
         ivPlayOrPause = findViewById(R.id.ivPlayOrPause);
+        ivThumb = findViewById(R.id.ivThumb);
         seekBar = findViewById(R.id.seekBar);
         tvTime = findViewById(R.id.tvTime);
+        progressBar = findViewById(R.id.progressBar);
+        ivFastForward = findViewById(R.id.ivFastForward);
+        ivFastRewind = findViewById(R.id.ivFastRewind);
+        clController = findViewById(R.id.clController);
+        clControlContainer = findViewById(R.id.clControlContainer);
+
+        seekBar.setClickable(false);
+        seekBar.setEnabled(false);
+        seekBar.setFocusable(false);
+
+        GlideImageLoader.getInstance().load(ivThumb, thumb5);
 
         textureView.setSurfaceTextureListener(surfaceTextureListener);
 
+        ivPlayState.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPlay();
+            }
+        });
         ivPlayOrPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mediaPlayer != null) {
                     if (mediaPlayer.isPlaying()) {
-                        mediaPlayer.pause();
-                        ivPlayOrPause.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
+                        pausePlay();
                     } else {
-                        mediaPlayer.start();
-                        ivPlayOrPause.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
+                        startPlay();
                     }
                 }
             }
         });
+        ivFastForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int duration = mediaPlayer.getDuration();
+                int position = mediaPlayer.getCurrentPosition() + 15 * 1000;
+                position = position < duration ? position : duration;
+                mediaPlayer.seekTo(position);
+            }
+        });
+        ivFastRewind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = mediaPlayer.getCurrentPosition() - 15 * 1000;
+                position = position > 0 ? position : 0;
+                mediaPlayer.seekTo(position);
+            }
+        });
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                LogUtils.d("-----onStopTrackingTouch: progress= " + seekBar.getProgress());
+                if (mCurrentState != STATE_IDLE && mCurrentState != STATE_ERROR) {
+                    mediaPlayer.seekTo(seekBar.getProgress());
+                }
+            }
+        });
+
+        clControlContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                LogUtils.d("-----event.getAction() : " + event.getAction());
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                    case MotionEvent.ACTION_MOVE:
+                        showController();
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        hideController();
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void showController() {
+        if (mHandler.hasMessages(MSG_UPDATE_CONTROLLER)) {
+            LogUtils.d("-----has msg..");
+            mHandler.removeMessages(MSG_UPDATE_CONTROLLER);
+        }
+        clController.setVisibility(View.VISIBLE);
+    }
+
+    private void hideController() {
+        LogUtils.d("-----hideController()");
+        if (mHandler.hasMessages(MSG_UPDATE_CONTROLLER)) {
+            LogUtils.d("-----has msg..");
+            mHandler.removeMessages(MSG_UPDATE_CONTROLLER);
+        }
+        mHandler.sendEmptyMessageDelayed(MSG_UPDATE_CONTROLLER, 4000);
+    }
+
+    private void startPlay() {
+        if (mCurrentState == STATE_IDLE) {
+            mediaPlayer.prepareAsync();
+            setState(STATE_PREPARING);
+        } else {
+            mediaPlayer.start();
+            setState(STATE_PLAYING);
+        }
+    }
+
+    private void pausePlay() {
+        mediaPlayer.pause();
+        setState(STATE_PAUSED);
     }
 
     private TextureView.SurfaceTextureListener surfaceTextureListener = new TextureView.SurfaceTextureListener() {
@@ -130,41 +262,140 @@ public class VideoActivity extends BaseActivity {
         mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.setDataSource(this, Uri.parse(videoUrl));
+            mediaPlayer.setDataSource(this, Uri.parse(videoUrl5));
             mediaPlayer.setOnPreparedListener(preparedListener);
             mediaPlayer.setOnCompletionListener(completeListener);
+            mediaPlayer.setOnErrorListener(errorListener);
+            mediaPlayer.setOnInfoListener(infoListener);
+            mediaPlayer.setOnBufferingUpdateListener(bufferingUpdateListener);
             //设置是否保持屏幕常亮
             mediaPlayer.setScreenOnWhilePlaying(true);
             //设置视频画面显示位置
             mediaPlayer.setSurface(surface);
-            mediaPlayer.prepareAsync();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    //准备就绪
     private MediaPlayer.OnPreparedListener preparedListener = new MediaPlayer.OnPreparedListener() {
         @Override
         public void onPrepared(MediaPlayer mp) {
             LogUtils.d("------onPrepared--" + mp.getDuration());
-            ivPlayState.setVisibility(View.GONE);
-            mp.start();
-            seekBar.setMax(mp.getDuration());
-            seekBar.setProgress(0);
-            mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME, 200);
+            setState(STATE_PREPARED);
         }
     };
 
+    //错误监听
+    private MediaPlayer.OnErrorListener errorListener = new MediaPlayer.OnErrorListener() {
+        @Override
+        public boolean onError(MediaPlayer mp, int what, int extra) {
+            LogUtils.d("-----onError()--what: " + what);
+            setState(STATE_ERROR);
+            return false;
+        }
+    };
+
+    //
+    private MediaPlayer.OnInfoListener infoListener = new MediaPlayer.OnInfoListener() {
+        @Override
+        public boolean onInfo(MediaPlayer mp, int what, int extra) {
+            if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
+                // 播放器渲染第一帧
+                LogUtils.d("onInfo-----MEDIA_INFO_VIDEO_RENDERING_START：STATE_PLAYING");
+            } else if (what == MediaPlayer.MEDIA_INFO_BUFFERING_START) {
+                // MediaPlayer暂时不播放，以缓冲更多的数据
+                LogUtils.d("onInfo-----MEDIA_INFO_BUFFERING_START");
+                progressBar.setVisibility(View.VISIBLE);
+            } else if (what == MediaPlayer.MEDIA_INFO_BUFFERING_END) {
+                // 填充缓冲区后，MediaPlayer恢复播放/暂停
+                LogUtils.d("onInfo-----MEDIA_INFO_BUFFERING_END");
+                progressBar.setVisibility(View.GONE);
+            } else {
+                LogUtils.d("onInfo-----what = " + what);
+            }
+            return true;
+        }
+    };
+
+    //缓冲进度监听
+    private MediaPlayer.OnBufferingUpdateListener bufferingUpdateListener = new MediaPlayer.OnBufferingUpdateListener() {
+        @Override
+        public void onBufferingUpdate(MediaPlayer mp, int percent) {
+            LogUtils.d("-----onBufferingUpdate--percent = " + percent);
+        }
+    };
+
+    //播放完成
     private MediaPlayer.OnCompletionListener completeListener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp) {
             LogUtils.d("-----onCompletion");
-            ivPlayState.setVisibility(View.GONE);
-            mHandler.removeMessages(MSG_UPDATE_TIME);
+            setState(STATE_COMPLETED);
         }
     };
 
+    private void setState(int state) {
+        mCurrentState = state;
+        LogUtils.d("-----mCurrentState : " + mCurrentState);
+        switch (state) {
+            case STATE_PREPARING:
+                ivPlayState.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
+                break;
+            case STATE_PREPARED:
+                progressBar.setVisibility(View.GONE);
+                ivThumb.setVisibility(View.GONE);
+                seekBar.setClickable(true);
+                seekBar.setEnabled(true);
+                seekBar.setFocusable(true);
+                seekBar.setMax(mediaPlayer.getDuration());
+                seekBar.setProgress(0);
+                showController();
+                ivFastRewind.setClickable(true);
+                ivFastForward.setClickable(true);
+                startPlay();
+                break;
+            case STATE_PLAYING:
+                ivThumb.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
+                ivPlayState.setVisibility(View.GONE);
+                ivFastRewind.setClickable(true);
+                ivFastForward.setClickable(true);
+                ivPlayState.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
+                ivPlayOrPause.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
+                mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME, 200);
+                break;
+            case STATE_PAUSED:
+                ivPlayState.setVisibility(View.VISIBLE);
+                ivFastRewind.setClickable(true);
+                ivFastForward.setClickable(true);
+                ivPlayState.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
+                ivPlayOrPause.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
+                mHandler.removeMessages(MSG_UPDATE_TIME);
+                break;
+            case STATE_BUFFERING_PAUSED:
+
+                break;
+            case STATE_COMPLETED:
+                ivFastRewind.setClickable(false);
+                ivFastForward.setClickable(false);
+                ivPlayState.setVisibility(View.GONE);
+                ivThumb.setVisibility(View.VISIBLE);
+                mHandler.removeMessages(MSG_UPDATE_TIME);
+                break;
+            case STATE_ERROR:
+                ivFastRewind.setClickable(false);
+                ivFastForward.setClickable(false);
+                ivThumb.setVisibility(View.VISIBLE);
+                mHandler.removeMessages(MSG_UPDATE_TIME);
+                seekBar.setProgress(0);
+                break;
+        }
+    }
+
     private void updateTime() {
+        LogUtils.d("-----updateTime >>>");
         if (mediaPlayer != null) {
             seekBar.setProgress(mediaPlayer.getCurrentPosition());
             tvTime.setText(String.format("%s/%s",
@@ -186,9 +417,17 @@ public class VideoActivity extends BaseActivity {
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (mediaPlayer != null) {
-                updateTime();
-                mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME, 200);
+            switch (msg.what) {
+                case MSG_UPDATE_TIME:
+                    if (mediaPlayer != null) {
+                        updateTime();
+                        mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME, 200);
+                    }
+                    break;
+                case MSG_UPDATE_CONTROLLER:
+                    clController.setVisibility(View.GONE);
+                    mHandler.removeMessages(MSG_UPDATE_CONTROLLER);
+                    break;
             }
         }
     };
@@ -196,7 +435,7 @@ public class VideoActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (mediaPlayer != null) {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
             mHandler.removeMessages(MSG_UPDATE_TIME);
         }

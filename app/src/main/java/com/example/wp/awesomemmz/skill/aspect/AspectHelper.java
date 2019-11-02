@@ -54,7 +54,7 @@ import java.util.ArrayList;
 public class AspectHelper {
     private final String TAG = AspectHelper.class.getSimpleName();
 
-    private static final Long FILTER_TIME = 1000L;
+    private static final Long FILTER_TIME = 400L;
 
     private boolean enableDoubleClick = false;
     private long lastClickTime = 0;
