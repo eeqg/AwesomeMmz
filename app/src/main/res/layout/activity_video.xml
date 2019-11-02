@@ -20,6 +20,7 @@
 		android:layout_weight="1">
 		
 		<LinearLayout
+			android:id="@+id/llRootView"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:orientation="vertical">
@@ -71,9 +72,11 @@
 				android:text="TextureView + MediaPlayer" />
 			
 			<android.support.constraint.ConstraintLayout
+				android:id="@+id/clVideoContainer"
 				android:layout_width="match_parent"
 				android:layout_height="200dp"
-				android:layout_margin="10dp">
+				android:layout_margin="10dp"
+				android:background="@android:color/black">
 				
 				<TextureView
 					android:id="@+id/textureView"
@@ -179,9 +182,26 @@
 							app:layout_constraintBottom_toBottomOf="@+id/ivPlayOrPause"
 							app:layout_constraintRight_toLeftOf="@+id/ivPlayOrPause"
 							app:layout_constraintTop_toTopOf="@+id/ivPlayOrPause" />
+						
+						<ImageView
+							android:id="@+id/ivFullscreen"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginTop="12dp"
+							android:src="@drawable/ic_fullscreen_black_24dp"
+							app:layout_constraintBottom_toBottomOf="@+id/ivPlayOrPause"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintTop_toTopOf="@+id/ivPlayOrPause" />
 					</android.support.constraint.ConstraintLayout>
 				</android.support.constraint.ConstraintLayout>
 			</android.support.constraint.ConstraintLayout>
+			
+			<Button
+				android:id="@+id/btnTiny"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="end"
+				android:text="tiny" />
 		</LinearLayout>
 	</android.support.v4.widget.NestedScrollView>
 </LinearLayout>

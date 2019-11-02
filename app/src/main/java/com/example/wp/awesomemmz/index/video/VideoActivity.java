@@ -7,13 +7,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -53,6 +57,7 @@ public class VideoActivity extends BaseActivity {
     private String thumb4 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-03_12-52-08.jpg";
     private String videoUrl5 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/04/2017-04-28_18-20-56.mp4";
     private String thumb5 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/04/2017-04-28_18-18-22.jpg";
+    private TextureView textureView;
     private MediaPlayer mediaPlayer;
     private ImageView ivPlayState;
     private ImageView ivThumb;
@@ -61,11 +66,18 @@ public class VideoActivity extends BaseActivity {
     private ImageView ivPlayOrPause;
     private ImageView ivFastForward;
     private ImageView ivFastRewind;
+    private ImageView ivFullscreen;
     private ProgressBar progressBar;
     private View clController;
     private View clControlContainer;
+    private View clVideoContainer;
+    private View btnTiny;
+    private LinearLayout llRootView;
 
     private int mCurrentState = STATE_IDLE;
+
+    private ViewGroup contentRoot;
+    private SurfaceTexture mSurfaceTexture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +117,10 @@ public class VideoActivity extends BaseActivity {
     }
 
     private void observeTextureVideo() {
-        TextureView textureView = findViewById(R.id.textureView);
+        contentRoot = findViewById(android.R.id.content);
+        llRootView = findViewById(R.id.llRootView);
+
+        textureView = findViewById(R.id.textureView);
         ivPlayState = findViewById(R.id.ivPlayState);
         ivPlayOrPause = findViewById(R.id.ivPlayOrPause);
         ivThumb = findViewById(R.id.ivThumb);
@@ -114,8 +129,11 @@ public class VideoActivity extends BaseActivity {
         progressBar = findViewById(R.id.progressBar);
         ivFastForward = findViewById(R.id.ivFastForward);
         ivFastRewind = findViewById(R.id.ivFastRewind);
+        ivFullscreen = findViewById(R.id.ivFullscreen);
         clController = findViewById(R.id.clController);
         clControlContainer = findViewById(R.id.clControlContainer);
+        clVideoContainer = findViewById(R.id.clVideoContainer);
+        btnTiny = findViewById(R.id.btnTiny);
 
         seekBar.setClickable(false);
         seekBar.setEnabled(false);
@@ -160,6 +178,15 @@ public class VideoActivity extends BaseActivity {
                 mediaPlayer.seekTo(position);
             }
         });
+        ivFullscreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llRootView.removeView(clVideoContainer);
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+                contentRoot.addView(clVideoContainer, layoutParams);
+            }
+        });
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -194,6 +221,16 @@ public class VideoActivity extends BaseActivity {
                         break;
                 }
                 return false;
+            }
+        });
+
+        btnTiny.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llRootView.removeView(clVideoContainer);
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(260, 260);
+                layoutParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+                contentRoot.addView(clVideoContainer, layoutParams);
             }
         });
     }
@@ -234,9 +271,16 @@ public class VideoActivity extends BaseActivity {
 
         //初始化好SurfaceTexture后调用
         @Override
-        public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+        public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture, int width, int height) {
             LogUtils.d("-----onSurfaceTextureAvailable()");
-            start(new Surface(surface));
+            // start(new Surface(surface));
+            //切换到全屏后重新调用onSurfaceTextureAvailable
+            if (mSurfaceTexture == null) {
+                mSurfaceTexture = surfaceTexture;
+                start(new Surface(mSurfaceTexture));
+            } else {
+                textureView.setSurfaceTexture(mSurfaceTexture);
+            }
         }
 
         //尺寸改变后调用
