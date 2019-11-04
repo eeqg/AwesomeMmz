@@ -30,7 +30,9 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
 		tools:replace="android:icon">
-		<activity android:name=".index.video.VideoActivity"></activity>
+		<activity
+			android:name=".index.video.VideoActivity"
+			android:configChanges="orientation|keyboardHidden|screenSize" />
 		<activity android:name=".skill.AspectTestActivity" />
 		<activity android:name=".skill.RecyclerViewGroupActivity" />
 		<activity android:name=".map.MapActivity" />

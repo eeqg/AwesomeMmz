@@ -1,5 +1,6 @@
 package com.example.wp.awesomemmz.index.video;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -49,6 +50,10 @@ public class VideoActivity extends BaseActivity {
     public static final int STATE_BUFFERING_PAUSED = 6;
     public static final int STATE_COMPLETED = 7;       // 播放完成
 
+    public static final int TYPE_SCREEN_NORMAL = 0;
+    public static final int TYPE_SCREEN_FULL = 1;
+    public static final int TYPE_SCREEN_TINY = 2;
+
     private String videoUrl = "https://flv2.bn.netease.com/videolib1/1811/26/OqJAZ893T/HD/OqJAZ893T-mobile.mp4";
     private String videoUrl2 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-33-30.mp4";
     private String videoUrl3 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-10_10-20-26.mp4";
@@ -72,9 +77,11 @@ public class VideoActivity extends BaseActivity {
     private View clControlContainer;
     private View clVideoContainer;
     private View btnTiny;
-    private LinearLayout llRootView;
+    // private LinearLayout llRootView;
+    private FrameLayout flVideoRoot;
 
     private int mCurrentState = STATE_IDLE;
+    private int mVideoScreenType = TYPE_SCREEN_NORMAL;
 
     private ViewGroup contentRoot;
     private SurfaceTexture mSurfaceTexture;
@@ -118,7 +125,7 @@ public class VideoActivity extends BaseActivity {
 
     private void observeTextureVideo() {
         contentRoot = findViewById(android.R.id.content);
-        llRootView = findViewById(R.id.llRootView);
+        flVideoRoot = findViewById(R.id.flVideoRoot);
 
         textureView = findViewById(R.id.textureView);
         ivPlayState = findViewById(R.id.ivPlayState);
@@ -181,10 +188,11 @@ public class VideoActivity extends BaseActivity {
         ivFullscreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                llRootView.removeView(clVideoContainer);
-                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT);
-                contentRoot.addView(clVideoContainer, layoutParams);
+                if(mVideoScreenType != TYPE_SCREEN_NORMAL){
+                    setVideoScreenType(TYPE_SCREEN_NORMAL);
+                }else {
+                    setVideoScreenType(TYPE_SCREEN_FULL);
+                }
             }
         });
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -227,10 +235,11 @@ public class VideoActivity extends BaseActivity {
         btnTiny.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                llRootView.removeView(clVideoContainer);
-                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(260, 260);
-                layoutParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-                contentRoot.addView(clVideoContainer, layoutParams);
+                if(mVideoScreenType != TYPE_SCREEN_NORMAL){
+                    setVideoScreenType(TYPE_SCREEN_NORMAL);
+                }else {
+                    setVideoScreenType(TYPE_SCREEN_TINY);
+                }
             }
         });
     }
@@ -306,7 +315,7 @@ public class VideoActivity extends BaseActivity {
         mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.setDataSource(this, Uri.parse(videoUrl5));
+            mediaPlayer.setDataSource(this, Uri.parse(videoUrl));
             mediaPlayer.setOnPreparedListener(preparedListener);
             mediaPlayer.setOnCompletionListener(completeListener);
             mediaPlayer.setOnErrorListener(errorListener);
@@ -378,6 +387,52 @@ public class VideoActivity extends BaseActivity {
             setState(STATE_COMPLETED);
         }
     };
+
+    private void setVideoScreenType(int type) {
+        if (type == mVideoScreenType) {
+            return;
+        }
+        mVideoScreenType = type;
+        switch (mVideoScreenType) {
+            case TYPE_SCREEN_FULL:
+                videoFullscreen();
+                break;
+            case TYPE_SCREEN_TINY:
+                videoTinyScreen();
+                break;
+            case TYPE_SCREEN_NORMAL:
+                videoNormalScreen();
+                break;
+        }
+    }
+
+    private void videoFullscreen() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        flVideoRoot.removeView(clVideoContainer);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        contentRoot.addView(clVideoContainer, layoutParams);
+    }
+
+    private void videoTinyScreen() {
+        flVideoRoot.removeView(clVideoContainer);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(320, 180);
+        layoutParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+        contentRoot.addView(clVideoContainer, layoutParams);
+    }
+
+    private void videoNormalScreen() {
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        contentRoot.removeView(clVideoContainer);
+        flVideoRoot.addView(clVideoContainer, layoutParams);
+    }
 
     private void setState(int state) {
         mCurrentState = state;
