@@ -209,6 +209,24 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="end"
 				android:text="tiny" />
+			
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="10dp"
+				android:layout_marginTop="10dp"
+				android:background="#12345678" />
+			
+			<com.wp.picture.video.SimpleVideoView
+				android:id="@+id/simpleVideoView"
+				android:layout_width="match_parent"
+				android:layout_height="200dp"
+				android:layout_margin="10dp" />
+			
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="158dp"
+				android:gravity="center"
+				android:text="我是底线" />
 		</LinearLayout>
 	</android.support.v4.widget.NestedScrollView>
 </LinearLayout>

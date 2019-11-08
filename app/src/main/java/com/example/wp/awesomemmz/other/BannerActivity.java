@@ -6,9 +6,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -49,6 +52,8 @@ import com.wp.picture.banner.callback.BindViewCallBack;
 import com.wp.picture.banner.callback.CreateViewCallBack;
 import com.wp.picture.banner.callback.CreateViewCaller;
 import com.wp.picture.banner.callback.OnClickBannerListener;
+import com.wp.picture.utils.CommUtil;
+import com.wp.picture.video.SimpleVideoView;
 import com.wp.picture.widget.CommonViewPager;
 
 import java.util.ArrayList;
@@ -68,11 +73,16 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
     com.wp.picture.banner.Banner banner3;
     @BindView(R.id.bannerContainer3)
     View bannerContainer3;
+    @BindView(R.id.videoPager)
+    CommonViewPager videoPager;
     @BindView(R.id.viewPager)
     CommonViewPager viewPager;
 
+    private String videoUrl = "https://flv2.bn.netease.com/videolib1/1811/26/OqJAZ893T/HD/OqJAZ893T-mobile.mp4";
+
     Banner banner;
     String[] colorsStr;
+    private SimpleVideoView simpleVideoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,11 +94,44 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 
         colorsStr = getResources().getStringArray(R.array.colorsStr);
 
+        observeScroll();
         observeLooperView();
         observeBannerView();
         observerBannerBg();
         observeBannerPower();
+        observeWithVideo();
         observeCommonViewPager();
+    }
+
+    private void observeScroll() {
+        NestedScrollView scrollView = findViewById(R.id.scrollView);
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView nestedScrollView, int i, int i1, int i2, int i3) {
+                if (simpleVideoView != null) {
+                    final boolean videoVisible = CommUtil.isVisibleLocal(simpleVideoView);
+                    LogUtils.d("-----", "videoVisible : " + videoVisible);
+                    LogUtils.d("-----", "simpleVideo.isPlaying() : " + simpleVideoView.isPlaying());
+                    if (simpleVideoView.isPlaying()) {
+                        simpleVideoView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (videoVisible) {
+                                    if (simpleVideoView.isTinyModel()) {
+                                        simpleVideoView.enterNormalScreen();
+                                    }
+                                } else {
+                                    if (simpleVideoView.isNormalModel()) {
+                                        simpleVideoView.enterTinyScreen();
+                                    }
+                                }
+                            }
+                        });
+
+                    }
+                }
+            }
+        });
     }
 
     private void observeLooperView() {
@@ -391,6 +434,47 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
                 .execute(images2);
     }
 
+    private void observeWithVideo() {
+        String[] urls = getResources().getStringArray(R.array.url);
+        List<String> images = Arrays.asList(urls);
+
+        CommonViewPager viewPager = findViewById(R.id.videoPager);
+        viewPager
+                .createItemView(new CommonViewPager.ViewCreator<FrameLayout, String>() {
+                    @Override
+                    public View onCreateView(int position) {
+                        return LayoutInflater.from(mActivity).inflate(R.layout.view_home_banner, null);
+                    }
+
+                    @Override
+                    public void onBindView(FrameLayout view, String data, int position) {
+                        if (position == 0) {
+                            simpleVideoView = new SimpleVideoView(mActivity);
+                            view.addView(simpleVideoView);
+                            SimpleVideoView.VideoInfo videoInfo = new SimpleVideoView.VideoInfo(
+                                    videoUrl
+                                    , "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-10_10-09-58.jpg",
+                                    "title");
+                            simpleVideoView.setImageLoader(GlideImageLoader.getInstance()).setup(videoInfo);
+                        } else {
+                            ImageView ivBanner = view.findViewById(R.id.ivBanner);
+                            GlideImageLoader.getInstance().load(ivBanner, data);
+                        }
+                    }
+                })
+                .setOnItemSelectedListener(new CommonViewPager.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(Object data, int position) {
+                        if (position != 0) {
+                            if (simpleVideoView.isPlaying()) {
+                                simpleVideoView.pausePlay();
+                            }
+                        }
+                    }
+                })
+                .execute(images);
+    }
+
     private void observeCommonViewPager() {
         String[] urls = getResources().getStringArray(R.array.fruits);
         List<String> images = Arrays.asList(urls);
@@ -461,5 +545,38 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (simpleVideoView != null) {
+            simpleVideoView.onPaused();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        if (simpleVideoView != null) {
+            simpleVideoView.onStop();
+        }
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (simpleVideoView != null) {
+            simpleVideoView.onDestroyed();
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (simpleVideoView != null && simpleVideoView.isFullscreenModel()) {
+            simpleVideoView.enterNormalScreen();
+            return;
+        }
+        super.onBackPressed();
     }
 }

@@ -113,7 +113,7 @@ public class CircleIndicator extends View {
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
-		LogUtils.d("-----onDraw()---" + dotNum);
+		// LogUtils.d("-----onDraw()---" + dotNum);
 		if (dotNum > 0) {
 			for (int i = 0; i < dotNum; i++) {
 				//绘制普通的圆
@@ -160,7 +160,7 @@ public class CircleIndicator extends View {
 		@Override
 		public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 			// XLog.d("-----onPageScrolled()--dotNum=" + dotNum);
-			LogUtils.d("-----", "onPageScrolled()--position=" + position);
+			// LogUtils.d("-----", "onPageScrolled()--position=" + position);
 			if (dotNum > 0) {
 				if (isBlink) {
 					if (positionOffset == 0)

@@ -29,6 +29,7 @@ import com.example.wp.awesomemmz.R;
 import com.example.wp.awesomemmz.common.GlideImageLoader;
 import com.example.wp.resource.base.BaseActivity;
 import com.example.wp.resource.utils.LogUtils;
+import com.wp.picture.video.SimpleVideoView;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -85,14 +86,15 @@ public class VideoActivity extends BaseActivity {
 
     private ViewGroup contentRoot;
     private SurfaceTexture mSurfaceTexture;
+    private SimpleVideoView simpleVideo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //textureView需开启硬件加速
-        Window w = getWindow();
-        w.addFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+        // //textureView需开启硬件加速,,manifest中已设置
+        // Window w = getWindow();
+        // w.addFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
 
         setContentView(R.layout.activity_video);
 
@@ -100,6 +102,7 @@ public class VideoActivity extends BaseActivity {
 
         observeVideoView();
         observeTextureVideo();
+        observeSimpleVideo();
     }
 
     private void observeVideoView() {
@@ -121,6 +124,15 @@ public class VideoActivity extends BaseActivity {
                 // }
             }
         });
+    }
+
+    private void observeSimpleVideo() {
+        simpleVideo = findViewById(R.id.simpleVideoView);
+        SimpleVideoView.VideoInfo videoInfo = new SimpleVideoView.VideoInfo(
+                videoUrl
+                , "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-10_10-09-58.jpg",
+                "title");
+        simpleVideo.setImageLoader(GlideImageLoader.getInstance()).setup(videoInfo);
     }
 
     private void observeTextureVideo() {
@@ -188,9 +200,9 @@ public class VideoActivity extends BaseActivity {
         ivFullscreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mVideoScreenType != TYPE_SCREEN_NORMAL){
+                if (mVideoScreenType != TYPE_SCREEN_NORMAL) {
                     setVideoScreenType(TYPE_SCREEN_NORMAL);
-                }else {
+                } else {
                     setVideoScreenType(TYPE_SCREEN_FULL);
                 }
             }
@@ -235,9 +247,9 @@ public class VideoActivity extends BaseActivity {
         btnTiny.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mVideoScreenType != TYPE_SCREEN_NORMAL){
+                if (mVideoScreenType != TYPE_SCREEN_NORMAL) {
                     setVideoScreenType(TYPE_SCREEN_NORMAL);
-                }else {
+                } else {
                     setVideoScreenType(TYPE_SCREEN_TINY);
                 }
             }
@@ -549,5 +561,14 @@ public class VideoActivity extends BaseActivity {
             mediaPlayer.release();
             mediaPlayer = null;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (simpleVideo != null && simpleVideo.isFullscreenModel()) {
+            simpleVideo.enterNormalScreen();
+            return;
+        }
+        super.onBackPressed();
     }
 }

@@ -23,6 +23,7 @@
 <!--		app:tr_pureScrollMode_on="false">-->
 	
 	<android.support.v4.widget.NestedScrollView
+		android:id="@+id/scrollView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
@@ -207,6 +208,16 @@
 						app:il_indicator_width="4dp" />
 				</com.wp.picture.banner.Banner>
 			</android.support.constraint.ConstraintLayout>
+			
+			<View
+				style="@style/ViewDividerHorizontal"
+				android:layout_marginTop="10dp"
+				android:layout_marginBottom="10dp" />
+			
+			<com.wp.picture.widget.CommonViewPager
+				android:id="@+id/videoPager"
+				android:layout_width="match_parent"
+				android:layout_height="200dp"/>
 			
 			<View
 				style="@style/ViewDividerHorizontal"

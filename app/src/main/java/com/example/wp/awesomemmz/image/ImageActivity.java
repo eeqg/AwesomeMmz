@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.RequiresPermission;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.widget.Button;
@@ -196,6 +197,7 @@ public class ImageActivity extends BaseActivity {
 	}
 
 
+	// @RequiresPermission(Manifest.permission.CAMERA)
 	private void observeCamera() {
 		btnCamera.setOnClickListener(new View.OnClickListener() {
 			@CheckPermission({Manifest.permission.CAMERA})

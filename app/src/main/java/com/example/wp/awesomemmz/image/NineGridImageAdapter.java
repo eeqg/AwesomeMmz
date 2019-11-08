@@ -43,10 +43,10 @@ public class NineGridImageAdapter extends NineGridViewAdapter<ImageInfoBean> {
 	protected View onCreateView(Context context) {
 		return View.inflate(context, R.layout.item_nine_grid, null);
 	}
-	
+
 	@SuppressLint("DefaultLocale")
 	@Override
-	protected void onBindView(NineGridView parent, ViewGroup itemView, int position) {
+	protected void onBindView(NineGridView parent, View itemView, int position) {
 		Log.d("picture", "-----onBindView()--" + position);
 		ImageView ivPicture = itemView.findViewById(R.id.ivPicture);
 		ImageInfoBean imageInfoBean = getImageInfo().get(position);
