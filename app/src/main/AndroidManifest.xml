@@ -29,6 +29,7 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
 		tools:replace="android:icon">
+		<activity android:name=".skill.SchemeTestActivity"></activity>
 		<activity
 			android:name=".index.video.VideoActivity"
 			android:configChanges="orientation|keyboardHidden|screenSize"
@@ -54,6 +55,15 @@
 				
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				
+				<data android:scheme="wp_awesome"
+					android:host="splash"/>
+			</intent-filter>
 		</activity>
 		<activity android:name=".skill.font.TextFontActivity" />
 		<activity android:name=".skill.AnimationsActivity" />
@@ -76,7 +86,20 @@
 		<activity
 			android:name=".image.ImageActivity"
 			android:launchMode="singleTop"
-			android:taskAffinity="com.test" />
+			android:taskAffinity="com.test">
+			<intent-filter>
+				
+				<!-- 协议部分，随便设置 -->
+				<data
+					android:host="image"
+					android:path="/imageDetail"
+					android:scheme="wp_awesome" />
+				<!-- 下面这几行也必须得设置 -->
+				<category android:name="android.intent.category.DEFAULT" />
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.BROWSABLE" />
+			</intent-filter>
+		</activity>
 		<activity android:name=".other.PageSlideActivity" />
 		<activity android:name=".custom.CustomViewActivity" />
 		<activity android:name=".custom.BezierTestActivity" />
