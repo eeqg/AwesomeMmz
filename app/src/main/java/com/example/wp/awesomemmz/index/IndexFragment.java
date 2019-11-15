@@ -1,5 +1,8 @@
 package com.example.wp.awesomemmz.index;
 
+import android.animation.Animator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.arch.lifecycle.LifecycleOwner;
 import android.os.Bundle;
@@ -29,6 +32,7 @@ import com.example.wp.awesomemmz.other.OverScrollActivity;
 import com.example.wp.awesomemmz.other.PageSlideActivity;
 import com.example.wp.awesomemmz.other.SpecActivity;
 import com.example.wp.resource.utils.LaunchUtil;
+import com.example.wp.resource.utils.LogUtils;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import java.util.ArrayList;
@@ -41,6 +45,10 @@ public class IndexFragment extends Fragment {
     private Activity mActivity;
     private View rootView;
     private ArrayList<ClassInfoBean> data = new ArrayList<>();
+
+    private ImageView tinyView;
+    private ValueAnimator collapseAnimator;
+    private ValueAnimator expandAnimator;
 
     @Nullable
     @Override
@@ -86,6 +94,27 @@ public class IndexFragment extends Fragment {
                 }
             }
         });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_DRAGGING:
+                    case RecyclerView.SCROLL_STATE_SETTLING:
+                        collapseAnimator.start();
+                        break;
+                    case RecyclerView.SCROLL_STATE_IDLE:
+                        expandAnimator.start();
+                        break;
+                }
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     private void initData() {
@@ -106,17 +135,50 @@ public class IndexFragment extends Fragment {
 
     private void addTinyView() {
         final ViewGroup contentView = mActivity.findViewById(android.R.id.content);
-        final ImageView imageView = new ImageView(mActivity);
-        imageView.setImageResource(R.mipmap.image1);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        tinyView = new ImageView(mActivity);
+        tinyView.setImageResource(R.mipmap.image1);
+        tinyView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(100, 100);
         layoutParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        contentView.addView(imageView, layoutParams);
+        contentView.addView(tinyView, layoutParams);
 
-        imageView.setOnClickListener(new View.OnClickListener() {
+        tinyView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                contentView.removeView(imageView);
+                // contentView.removeView(imageView);
+            }
+        });
+
+        tinyView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                collapseAnimator.start();
+            }
+        }, 3000);
+
+        collapseAnimator = ValueAnimator.ofFloat(0, 80).setDuration(400);
+        collapseAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            float x = tinyView.getX();
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                LogUtils.d("----x = " + x);
+                float values = (float) animation.getAnimatedValue();
+                LogUtils.d("----values = " + values);
+                tinyView.setX(x + values);
+            }
+        });
+
+        expandAnimator = ValueAnimator.ofFloat(0, 80).setDuration(400);
+        expandAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            float x = tinyView.getX();
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                LogUtils.d("----x = " + x);
+                float values = (float) animation.getAnimatedValue();
+                LogUtils.d("----values = " + values);
+                tinyView.setX(x - values);
             }
         });
     }
