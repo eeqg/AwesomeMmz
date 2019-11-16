@@ -5,7 +5,11 @@ import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.arch.lifecycle.LifecycleOwner;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -34,13 +38,17 @@ import com.example.wp.awesomemmz.other.SpecActivity;
 import com.example.wp.resource.utils.LaunchUtil;
 import com.example.wp.resource.utils.LogUtils;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.wp.picture.widget.SimpleFloating;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 /**
  * Created by wp on 2019/1/30.
  */
 public class IndexFragment extends Fragment {
+
+    private final static int MSG_EXPAND = 99;
 
     private Activity mActivity;
     private View rootView;
@@ -49,6 +57,9 @@ public class IndexFragment extends Fragment {
     private ImageView tinyView;
     private ValueAnimator collapseAnimator;
     private ValueAnimator expandAnimator;
+    float initValue, collapsedValue;
+    private MyHandler myHandler;
+    private SimpleFloating simpleFloating;
 
     @Nullable
     @Override
@@ -102,10 +113,14 @@ public class IndexFragment extends Fragment {
                 switch (newState) {
                     case RecyclerView.SCROLL_STATE_DRAGGING:
                     case RecyclerView.SCROLL_STATE_SETTLING:
-                        collapseAnimator.start();
+                        startCollapseAnimation();
+
+                        simpleFloating.startCollapseAnimation();
                         break;
                     case RecyclerView.SCROLL_STATE_IDLE:
-                        expandAnimator.start();
+                        startExpandAnimation();
+
+                        simpleFloating.startExpandAnimationDelay();
                         break;
                 }
             }
@@ -134,6 +149,22 @@ public class IndexFragment extends Fragment {
     }
 
     private void addTinyView() {
+        FrameLayout.LayoutParams layoutParams0 = new FrameLayout.LayoutParams(120, 120);
+        layoutParams0.gravity = Gravity.BOTTOM | Gravity.START;
+        layoutParams0.leftMargin = 10;
+        layoutParams0.bottomMargin = 150;
+        ImageView iv = new ImageView(getContext());
+        iv.setImageDrawable(new ColorDrawable(Color.parseColor("#90FF2323")));
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                simpleFloating.hide();
+            }
+        });
+        simpleFloating = new SimpleFloating(getContext(), iv, layoutParams0);
+        simpleFloating.setCollapseSite(SimpleFloating.Site.LEFT);
+        simpleFloating.show();
+
         final ViewGroup contentView = mActivity.findViewById(android.R.id.content);
         tinyView = new ImageView(mActivity);
         tinyView.setImageResource(R.mipmap.image1);
@@ -149,37 +180,81 @@ public class IndexFragment extends Fragment {
             }
         });
 
-        tinyView.postDelayed(new Runnable() {
+        tinyView.post(new Runnable() {
             @Override
             public void run() {
-                collapseAnimator.start();
+                initValue = tinyView.getX();
+                collapsedValue = initValue + 80;
             }
-        }, 3000);
+        });
+    }
 
-        collapseAnimator = ValueAnimator.ofFloat(0, 80).setDuration(400);
+    private void startCollapseAnimation() {
+        if (myHandler != null && myHandler.hasMessages(MSG_EXPAND)) {
+            myHandler.removeMessages(MSG_EXPAND);
+        }
+        if (expandAnimator != null && expandAnimator.isStarted()) {
+            expandAnimator.cancel();
+        }
+        if (collapseAnimator != null && collapseAnimator.isStarted()) {
+            collapseAnimator.cancel();
+        }
+        collapseAnimator = ValueAnimator.ofFloat(tinyView.getX(), collapsedValue).setDuration(400);
         collapseAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            float x = tinyView.getX();
 
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                LogUtils.d("----x = " + x);
                 float values = (float) animation.getAnimatedValue();
                 LogUtils.d("----values = " + values);
-                tinyView.setX(x + values);
+                tinyView.setX(values);
             }
         });
+        collapseAnimator.start();
+    }
 
-        expandAnimator = ValueAnimator.ofFloat(0, 80).setDuration(400);
+    private void startExpandAnimation() {
+        if (myHandler == null) {
+            myHandler = new MyHandler(IndexFragment.this);
+        }
+        if (myHandler.hasMessages(MSG_EXPAND)) {
+            myHandler.removeMessages(MSG_EXPAND);
+        }
+        myHandler.sendEmptyMessageDelayed(MSG_EXPAND, 500);
+    }
+
+    private void startExpandAnimationRe() {
+        if (collapseAnimator != null && collapseAnimator.isStarted()) {
+            collapseAnimator.cancel();
+        }
+        if (expandAnimator != null && expandAnimator.isStarted()) {
+            expandAnimator.cancel();
+        }
+        expandAnimator = ValueAnimator.ofFloat(tinyView.getX(), initValue).setDuration(400);
         expandAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            float x = tinyView.getX();
 
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                LogUtils.d("----x = " + x);
                 float values = (float) animation.getAnimatedValue();
                 LogUtils.d("----values = " + values);
-                tinyView.setX(x - values);
+                tinyView.setX(values);
             }
         });
+        expandAnimator.start();
+    }
+
+    public static class MyHandler extends Handler {
+        private final WeakReference<IndexFragment> mFragment;
+
+        MyHandler(IndexFragment fragment) {
+            mFragment = new WeakReference<>(fragment);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == MSG_EXPAND) {
+                mFragment.get().startExpandAnimationRe();
+            }
+        }
     }
 }

@@ -551,7 +551,7 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
     protected void onPause() {
         super.onPause();
         if (simpleVideoView != null) {
-            simpleVideoView.onPaused();
+            simpleVideoView.onPause();
         }
     }
 
@@ -566,7 +566,7 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
     @Override
     protected void onDestroy() {
         if (simpleVideoView != null) {
-            simpleVideoView.onDestroyed();
+            simpleVideoView.onDestroy();
         }
         super.onDestroy();
     }

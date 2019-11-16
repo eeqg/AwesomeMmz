@@ -45,5 +45,5 @@ dependencies {
 	
 	implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'
 	
-	api 'com.github.eeqg:wp_picture:1.7-alpha1'
+	api 'com.github.eeqg:wp_picture:1.7-alpha3'
 }
