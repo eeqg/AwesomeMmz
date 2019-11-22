@@ -22,18 +22,18 @@ public class AnimationsActivity extends AppCompatActivity {
 	private View tvSignName;
 	private LinearLayout llContainer;
 	private LayoutTransition mTransition;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_animations);
-		
+
 		observeLayoutAnimation();
 	}
-	
+
 	private void observeLayoutAnimation() {
 		final View clLa = findViewById(R.id.clLa);
-		
+
 		Disposable disposable = Observable.timer(400, TimeUnit.MILLISECONDS)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Consumer<Long>() {
@@ -42,7 +42,7 @@ public class AnimationsActivity extends AppCompatActivity {
 						clLa.setVisibility(View.VISIBLE);
 					}
 				});
-		
+
 		tvSignName = findViewById(R.id.tvSignName);
 		findViewById(R.id.llSign).setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -52,7 +52,7 @@ public class AnimationsActivity extends AppCompatActivity {
 			}
 		});
 		collapseSing();
-		
+
 		llContainer = findViewById(R.id.llContainer);
 		findViewById(R.id.ivAdd).setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -70,12 +70,12 @@ public class AnimationsActivity extends AppCompatActivity {
 				llContainer.removeViewAt(llContainer.getChildCount() - 1);
 			}
 		});
-		
+
 		mTransition = new LayoutTransition();
 		llContainer.setLayoutTransition(mTransition);
 		setTransition();
 	}
-	
+
 	private void collapseSing() {
 		Disposable disposable = Observable.timer(2000, TimeUnit.MILLISECONDS)
 				.observeOn(AndroidSchedulers.mainThread())
@@ -86,7 +86,7 @@ public class AnimationsActivity extends AppCompatActivity {
 					}
 				});
 	}
-	
+
 	private void setTransition() {
 		/**
 		 * 添加View时过渡动画效果
@@ -101,7 +101,7 @@ public class AnimationsActivity extends AppCompatActivity {
 		// animatorSet.playSequentially(alphaAnimator, rotationAnimator);
 		transXAnimator.setDuration(mTransition.getDuration(LayoutTransition.APPEARING));
 		mTransition.setAnimator(LayoutTransition.APPEARING, transXAnimator);
-		
+
 		// animatorSet.addListener(new Animator.AnimatorListener() {
 		// 	@Override
 		// 	public void onAnimationStart(Animator animation) {
@@ -123,11 +123,11 @@ public class AnimationsActivity extends AppCompatActivity {
 		//
 		// 	}
 		// });
-		
+
 		// ObjectAnimator scaleAnimator = ObjectAnimator.ofFloat(null, "scale", 0, 1)
 		// 		.setDuration(600);
 		// mTransition.setAnimator(LayoutTransition.APPEARING, scaleAnimator);
-		
+
 		/**
 		 * 移除View时过渡动画效果
 		 */
@@ -135,14 +135,14 @@ public class AnimationsActivity extends AppCompatActivity {
 		ObjectAnimator removeAnimator = ObjectAnimator.ofFloat(null, "alpha", 1, 0);
 		removeAnimator.setDuration(mTransition.getDuration(LayoutTransition.DISAPPEARING));
 		mTransition.setAnimator(LayoutTransition.DISAPPEARING, removeAnimator);
-		
+
 		/**
 		 * view 动画改变时，布局中的每个子view动画的时间间隔
 		 */
 		mTransition.setStagger(LayoutTransition.CHANGE_APPEARING, 30);
 		mTransition.setStagger(LayoutTransition.CHANGE_DISAPPEARING, 30);
-		
-		
+
+
 		/**
 		 *LayoutTransition.CHANGE_APPEARING和LayoutTransition.CHANGE_DISAPPEARING的过渡动画效果
 		 * 必须使用PropertyValuesHolder所构造的动画才会有效果，不然无效！使用ObjectAnimator是行不通的,
@@ -159,8 +159,8 @@ public class AnimationsActivity extends AppCompatActivity {
 				PropertyValuesHolder.ofInt("right", 0, 0);
 		PropertyValuesHolder pvhBottom =
 				PropertyValuesHolder.ofInt("bottom", 0, 0);
-		
-		
+
+
 		/**
 		 * view被添加时,其他子View的过渡动画效果
 		 */
@@ -168,10 +168,10 @@ public class AnimationsActivity extends AppCompatActivity {
 		final ObjectAnimator changeIn = ObjectAnimator.ofPropertyValuesHolder(
 				this, pvhLeft, pvhBottom, animator).
 				setDuration(mTransition.getDuration(LayoutTransition.CHANGE_APPEARING));
-		
+
 		mTransition.setAnimator(LayoutTransition.CHANGE_APPEARING, changeIn);
-		
-		
+
+
 		/**
 		 * view移除时，其他子View的过渡动画
 		 */
@@ -180,10 +180,10 @@ public class AnimationsActivity extends AppCompatActivity {
 		final ObjectAnimator changeOut = ObjectAnimator.ofPropertyValuesHolder(
 				this, pvhLeft, pvhBottom, pvhRotation).
 				setDuration(mTransition.getDuration(LayoutTransition.CHANGE_DISAPPEARING));
-		
+
 		mTransition.setAnimator(LayoutTransition.CHANGE_DISAPPEARING, changeOut);
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
