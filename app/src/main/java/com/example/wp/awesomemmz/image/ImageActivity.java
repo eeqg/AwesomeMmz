@@ -145,7 +145,7 @@ public class ImageActivity extends BaseActivity {
         GlideImageLoader.getInstance().load(ivSharp2, "http://img.zcool.cn/community/01700557a7f42f0000018c1bd6eb23.jpg",
                 new CustomGlideTransform(true, 0, 2, getResources().getColor(R.color.colorPrimary)));
         GlideImageLoader.getInstance().load(ivSharp3, "http://img.zcool.cn/community/01700557a7f42f0000018c1bd6eb23.jpg",
-                new CustomGlideTransform(false, 10, 2, getResources().getColor(R.color.colorPrimary)));
+                new CustomGlideTransform(false, 10, 4, 0xFFFFFF00));
     }
 
     protected int changeAlpha(int color, float fraction) {
