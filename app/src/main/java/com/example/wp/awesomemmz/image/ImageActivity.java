@@ -23,8 +23,10 @@ import com.example.wp.awesomemmz.common.GlideImageLoader;
 import com.example.wp.awesomemmz.common.Picker;
 import com.example.wp.awesomemmz.skill.aspect.CheckPermission;
 import com.example.wp.resource.base.BaseActivity;
+import com.example.wp.resource.utils.BitmapUtil;
 import com.example.wp.resource.utils.LogUtils;
 import com.example.wp.resource.utils.StatusBarUtil;
+import com.example.wp.resource.utils.XBitmapUtils;
 import com.example.wp.resource.widget.ShadowDrawable;
 import com.example.wp.resource.widget.shadow.ShadowDrawableWrapper;
 import com.wp.picture.ninegrid.NineGridView;
@@ -32,6 +34,8 @@ import com.wp.picture.picker.PictureLayout;
 import com.wp.picture.preview.PPView;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -78,6 +82,16 @@ public class ImageActivity extends BaseActivity {
     ImageView ivShowCamera;
     @BindView(R.id.nineGridView)
     NineGridView nineGridView;
+    @BindView(R.id.ivDisplay1)
+    ImageView ivDisplay1;
+    @BindView(R.id.ivDisplay2)
+    ImageView ivDisplay2;
+    @BindView(R.id.ivDisplay3)
+    ImageView ivDisplay3;
+    @BindView(R.id.ivDisplay4)
+    ImageView ivDisplay4;
+    @BindView(R.id.ivDisplay5)
+    ImageView ivDisplay5;
 
     private Uri uri;
 
@@ -102,6 +116,7 @@ public class ImageActivity extends BaseActivity {
         observePictureLayout();
         observeCamera();
         observeNineGridView();
+        observeBitmap();
 
         GlideImageLoader.getInstance().load(ivTest, "https://t00img.yangkeduo.com/goods/images/2019-03-20/14ab95e7-7cee-4c1a-acd6-cb94b8b4a951.jpg");
     }
@@ -117,15 +132,15 @@ public class ImageActivity extends BaseActivity {
             @Override
             public void onScrollChange(NestedScrollView nestedScrollView, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 int height = ivHead.getMeasuredHeight();
-                LogUtils.d("-----height = " + height);
-                LogUtils.d("-----scrollY = " + scrollY);
+                // LogUtils.d("-----height = " + height);
+                // LogUtils.d("-----scrollY = " + scrollY);
                 float percent = scrollY * 1.2F / height;
                 if (percent > 1) {
                     percent = 1;
                 }
 
                 int color = changeAlpha(getResources().getColor(R.color.colorTitleBar), percent);
-                LogUtils.d("-----color = " + color);
+                // LogUtils.d("-----color = " + color);
                 titleBarRoot.setBackgroundColor(color);
             }
         });
@@ -204,6 +219,32 @@ public class ImageActivity extends BaseActivity {
         nineGridView.setAdapter(new NineGridImageAdapter(this, imageInfo));
     }
 
+    private void observeBitmap() {
+        Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.mipmap.image3);
+        // InputStream inputStream = null;
+        // try {
+        //     inputStream = getAssets().open("image_3.jpg");
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
+        // Bitmap bitmap1 = BitmapFactory.decodeStream(inputStream);
+        LogUtils.d("-----bitmap1: " + bitmap1.getByteCount());
+        ivDisplay1.setImageBitmap(bitmap1);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = false;
+        options.inSampleSize = 2;
+        Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(), R.mipmap.image3, options);
+        LogUtils.d("-----bitmap2: " + bitmap2.getByteCount());
+        ivDisplay2.setImageBitmap(bitmap2);
+        Bitmap bitmap3 = BitmapUtil.qualityCompress(bitmap1, 50);
+        LogUtils.d("-----bitmap3: " + bitmap3.getByteCount());
+        ivDisplay3.setImageBitmap(bitmap3);
+        Bitmap bitmap4 = BitmapUtil.scaleCompress(bitmap1, 0.5f);
+        LogUtils.d("-----bitmap4: " + bitmap4.getByteCount());
+        ivDisplay4.setImageBitmap(bitmap4);
+
+        ivDisplay5.setImageBitmap(XBitmapUtils.createReflectionBitmap(bitmap1));
+    }
 
     // @RequiresPermission(Manifest.permission.CAMERA)
     private void observeCamera() {

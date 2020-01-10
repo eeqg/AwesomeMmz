@@ -146,7 +146,8 @@ public class XBitmapUtils {
 
     /**
      * 把bitmap转化为bytes
-     *  Bitmap → byte[]
+     * Bitmap → byte[]
+     *
      * @param bitmap 源Bitmap
      * @return Byte数组
      */
@@ -182,6 +183,7 @@ public class XBitmapUtils {
     /**
      * 获取一个指定大小的bitmap
      * byte[] → Bitmap
+     *
      * @param b Byte数组
      * @return 需要的Bitmap
      */
@@ -258,8 +260,8 @@ public class XBitmapUtils {
         view.buildDrawingCache();
         Bitmap cacheBitmap = view.getDrawingCache();
         if (cacheBitmap == null) {
-            Log.e("----->", "failed getViewBitmap(" + view + ") -->"+
-                        new RuntimeException());
+            Log.e("----->", "failed getViewBitmap(" + view + ") -->" +
+                    new RuntimeException());
             return null;
         }
         Bitmap bitmap = Bitmap.createBitmap(cacheBitmap);
@@ -295,6 +297,7 @@ public class XBitmapUtils {
         drawable.draw(canvas);
         return bitmap;
     }
+
     /**
      * 将 Bitmap转化为Drawable
      *
@@ -308,6 +311,7 @@ public class XBitmapUtils {
         }
         return new BitmapDrawable(bm);
     }
+
     /**
      * 合并Bitmap
      *
@@ -423,7 +427,7 @@ public class XBitmapUtils {
      * @return 带倒影的Bitmap
      */
     public static Bitmap createReflectionBitmap(Bitmap bitmap) {
-        final int reflectionGap = 4;
+        final int reflectionGap = 2;
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
 
@@ -701,23 +705,34 @@ public class XBitmapUtils {
      * @param bitmap  要压缩的图片
      * @param maxSize 压缩后的大小，单位kb
      */
-    public static void compress(Bitmap bitmap, double maxSize) {
-        // 将bitmap放至数组中，意在获得bitmap的大小（与实际读取的原文件要大）
+    public static Bitmap compress(Bitmap bitmap, int maxSize) {
+        // // 将bitmap放至数组中，意在获得bitmap的大小（与实际读取的原文件要大）
+        // ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        // // 格式、质量、输出流
+        // bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
+        // byte[] b = baos.toByteArray();
+        // // 将字节换成KB
+        // double mid = b.length / 1024;
+        // // 获取bitmap大小 是允许最大大小的多少倍
+        // double i = mid / maxSize;
+        // // 判断bitmap占用空间是否大于允许最大空间 如果大于则压缩 小于则不压缩
+        // if (i > 1) {
+        //     // 缩放图片 此处用到平方根 将宽带和高度压缩掉对应的平方根倍
+        //     // （保持宽高不变，缩放后也达到了最大占用空间的大小）
+        //     bitmap = scale(bitmap, bitmap.getWidth() / Math.sqrt(i),
+        //             bitmap.getHeight() / Math.sqrt(i));
+        // }
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        // 格式、质量、输出流
-        bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
-        byte[] b = baos.toByteArray();
-        // 将字节换成KB
-        double mid = b.length / 1024;
-        // 获取bitmap大小 是允许最大大小的多少倍
-        double i = mid / maxSize;
-        // 判断bitmap占用空间是否大于允许最大空间 如果大于则压缩 小于则不压缩
-        if (i > 1) {
-            // 缩放图片 此处用到平方根 将宽带和高度压缩掉对应的平方根倍
-            // （保持宽高不变，缩放后也达到了最大占用空间的大小）
-            bitmap = scale(bitmap, bitmap.getWidth() / Math.sqrt(i),
-                    bitmap.getHeight() / Math.sqrt(i));
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        int options = 100;
+        while (baos.toByteArray().length / 1024 > maxSize) { //循环判断如果压缩后图片是否大于100kb,大于继续压缩
+            baos.reset();//重置baos即清空baos
+            bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+            options -= 10;//每次都减少10
         }
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());//把压缩后的数据baos存放到ByteArrayInputStream中
+        return BitmapFactory.decodeStream(isBm, null, null);
     }
 
     /**
@@ -1103,8 +1118,10 @@ public class XBitmapUtils {
         newBitmap.setPixels(pixels, 0, width, 0, 0, width, height);
         return newBitmap;
     }
+
     /**
      * 模糊效果处理
+     *
      * @return 模糊效果处理后的图片
      */
     public Bitmap blur(Bitmap bitmap) {
@@ -1193,6 +1210,7 @@ public class XBitmapUtils {
         }
         return newBitmap;
     }
+
     /**
      * 柔化效果处理
      *

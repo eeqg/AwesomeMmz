@@ -26,12 +26,12 @@
 				android:background="@mipmap/image3"
 				android:transitionName="myimage"
 				app:height_to_width_ratio="1"
-				tools:ignore="UnusedAttribute"/>
+				tools:ignore="UnusedAttribute" />
 			
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="1, 阴影"/>
+				android:text="1, 阴影" />
 			
 			<TextView
 				android:id="@+id/ivShadow"
@@ -39,7 +39,7 @@
 				android:layout_height="wrap_content"
 				android:layout_margin="8dp"
 				android:padding="5dp"
-				android:text="shadow"/>
+				android:text="shadow" />
 			
 			<ImageView
 				android:id="@+id/ivShadow2"
@@ -47,13 +47,13 @@
 				android:layout_height="wrap_content"
 				android:background="@drawable/ic_shadow"
 				android:scaleType="fitXY"
-				android:src="@mipmap/image4"/>
+				android:src="@mipmap/image4" />
 			
 			<View
 				android:id="@+id/ivShadow3"
 				android:layout_width="150dp"
 				android:layout_height="150dp"
-				android:padding="2dp"/>
+				android:padding="2dp" />
 			
 			<com.dd.ShadowLayout
 				android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
 					android:layout_width="150dp"
 					android:layout_height="150dp"
 					android:scaleType="fitXY"
-					android:src="@mipmap/image4"/>
+					android:src="@mipmap/image4" />
 			
 			</com.dd.ShadowLayout>
 			
@@ -80,28 +80,28 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="2, sharp"/>
+					android:text="2, sharp" />
 				
 				<ImageView
 					android:id="@+id/ivSharp1"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="10dp"
-					android:src="@mipmap/image3"/>
+					android:src="@mipmap/image3" />
 				
 				<ImageView
 					android:id="@+id/ivSharp2"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="10dp"
-					android:src="@mipmap/image3"/>
+					android:src="@mipmap/image3" />
 				
 				<ImageView
 					android:id="@+id/ivSharp3"
 					android:layout_width="200dp"
 					android:layout_height="100dp"
 					android:layout_marginTop="10dp"
-					android:src="@mipmap/image3"/>
+					android:src="@mipmap/image3" />
 			</LinearLayout>
 			
 			<LinearLayout
@@ -113,7 +113,7 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="3, pictureLayout"/>
+					android:text="3, pictureLayout" />
 				
 				<com.wp.picture.picker.PictureLayout
 					android:id="@+id/pictureLayout"
@@ -126,7 +126,7 @@
 					app:picture_pictureRatio="1"
 					app:picture_rowCount="5"
 					app:picture_supportInsert="true"
-					app:picture_verticalPadding="5dp"/>
+					app:picture_verticalPadding="5dp" />
 			</LinearLayout>
 			
 			<LinearLayout
@@ -140,18 +140,18 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="4, camera"/>
+					android:text="4, camera" />
 				
 				<Button
 					android:id="@+id/btnCamera"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="camera"/>
+					android:text="camera" />
 				
 				<ImageView
 					android:id="@+id/ivShowCamera"
 					android:layout_width="100dp"
-					android:layout_height="100dp"/>
+					android:layout_height="100dp" />
 			</LinearLayout>
 			
 			<LinearLayout
@@ -165,20 +165,61 @@
 				<ImageView
 					android:id="@+id/ivTest"
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"/>
+					android:layout_height="wrap_content" />
 			</LinearLayout>
 			
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="20dp"
-				android:text="--- NineGridImageView ---"/>
+				android:text="--- NineGridImageView ---" />
 			
 			<com.wp.picture.ninegrid.NineGridView
 				android:id="@+id/nineGridView"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_margin="10dp"/>
+				android:layout_margin="10dp" />
+			
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="8dp"
+				android:background="@color/colorThemeDivider" />
+			
+			<ImageView
+				android:id="@+id/ivDisplay1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp" />
+			
+			<ImageView
+				android:id="@+id/ivDisplay2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp" />
+			
+			<ImageView
+				android:id="@+id/ivDisplay4"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp" />
+			
+			<ImageView
+				android:id="@+id/ivDisplay3"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp" />
+			
+			<ImageView
+				android:id="@+id/ivDisplay5"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:background="#90000000"/>
+			
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="8dp"
+				android:background="@color/colorThemeDivider" />
 		</LinearLayout>
 	</android.support.v4.widget.NestedScrollView>
 	
@@ -191,8 +232,8 @@
 		<View
 			android:id="@+id/testView"
 			android:layout_width="match_parent"
-			android:layout_height="0dp"/>
+			android:layout_height="0dp" />
 		
-		<include layout="@layout/include_base_title_bar"/>
+		<include layout="@layout/include_base_title_bar" />
 	</LinearLayout>
 </FrameLayout>
