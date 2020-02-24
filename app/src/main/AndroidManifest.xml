@@ -4,8 +4,7 @@
 	package="com.example.wp.awesomemmz">
 	
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.CAMERA" />
-	<!-- map & location -->
+	<uses-permission android:name="android.permission.CAMERA" /> <!-- map & location -->
 	<!-- 这个权限用于进行网络定位 -->
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 这个权限用于访问GPS定位 -->
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
@@ -30,7 +29,8 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
 		tools:replace="android:icon">
-		<activity android:name=".skill.SchemeTestActivity"></activity>
+		<activity android:name=".skill.CoordinateActivity"></activity>
+		<activity android:name=".skill.SchemeTestActivity" />
 		<activity
 			android:name=".index.video.VideoActivity"
 			android:configChanges="orientation|keyboardHidden|screenSize"
@@ -62,8 +62,9 @@
 				<category android:name="android.intent.category.DEFAULT" />
 				<category android:name="android.intent.category.BROWSABLE" />
 				
-				<data android:scheme="wp_awesome"
-					android:host="splash"/>
+				<data
+					android:host="splash"
+					android:scheme="wp_awesome" />
 			</intent-filter>
 		</activity>
 		<activity android:name=".skill.font.TextFontActivity" />
@@ -97,7 +98,9 @@
 					android:scheme="wp_awesome" />
 				<!-- 下面这几行也必须得设置 -->
 				<category android:name="android.intent.category.DEFAULT" />
+				
 				<action android:name="android.intent.action.VIEW" />
+				
 				<category android:name="android.intent.category.BROWSABLE" />
 			</intent-filter>
 		</activity>

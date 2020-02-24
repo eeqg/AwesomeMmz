@@ -13,9 +13,10 @@ import java.io.Writer;
 public class SourceExport {
     public static void main(String[] args) throws Exception {
         //文件读取路径
-        File dir = new File("D:\\WP\\source\\Github\\Jobs\\app\\src\\main\\java\\com\\wp\\app\\jobs");
+        // File dir = new File("D:\\WP\\source\\Github\\Jobs\\app\\src\\main\\java\\com\\wp\\app\\jobs");
+        File dir = new File("D:\\WP\\source\\Github\\Yuanys\\app\\src\\main\\java\\com\\wp\\handbag");
         //文件输出路径
-        File target = new File("D:\\WP\\source\\source\\job\\job1.txt");
+        File target = new File("D:\\WP\\source\\source\\yys\\yys.txt");
         BufferedWriter bw = new BufferedWriter(new FileWriter(target));
  
         StringBuffer sb = new StringBuffer();
