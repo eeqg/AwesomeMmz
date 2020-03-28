@@ -70,6 +70,7 @@ public class MainActivity extends BaseTintStatusBarActivity {
     // @CheckPermission(permission = {Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION})
     private void observeTab() {
         ViewPager viewPager = findViewById(R.id.viewPager);
+        viewPager.setOffscreenPageLimit(6);
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
 

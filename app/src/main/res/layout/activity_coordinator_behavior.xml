@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".skill.CoordinatorBehaviorActivity">
+	
+	<View
+		android:id="@+id/viewHeader"
+		android:layout_width="match_parent"
+		android:layout_height="200dp"
+		android:background="@color/colorAccent"
+		app:layout_behavior=".skill.behavior.HeaderBehavior" />
+	
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="观察者(child)"
+		android:textColor="@color/colorTextAccent"
+		app:layout_behavior=".skill.behavior.FollowBehavior" />
+	
+	<Button
+		android:id="@+id/btn"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:text="被观察者(dependency)" />
+	
+	<Button
+		android:id="@+id/btn2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:text="被观察者(dependency2)" />
+	
+	<!--	<android.support.v4.widget.NestedScrollView-->
+	<!--		android:id="@+id/scrollBody"-->
+	<!--		android:layout_width="match_parent"-->
+	<!--		android:layout_height="match_parent"-->
+	<!--		android:layout_marginTop="200dp">-->
+	
+	<android.support.constraint.ConstraintLayout
+		android:id="@+id/scrollBody"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginTop="200dp"
+		android:background="#34567890"
+		android:orientation="vertical"
+		app:layout_behavior=".skill.behavior.BodyBehavior">
+		
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:lineSpacingExtra="4dp"
+			android:padding="20dp"
+			android:text="@string/coordinator_behavior" />
+		
+		<Button
+			android:id="@+id/btnStyle1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="10dp"
+			android:text="sample-1"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintRight_toRightOf="parent" />
+		
+		<Button
+			android:id="@+id/btnStyle2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="10dp"
+			android:text="sample-2"
+			app:layout_constraintBottom_toTopOf="@+id/btnStyle1"
+			app:layout_constraintRight_toRightOf="parent" />
+	</android.support.constraint.ConstraintLayout>
+	
+	
+	<!--	</android.support.v4.widget.NestedScrollView>-->
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsBridge 实现js和native通信</title>
+    <style>
+        .displayStyle {
+            font-size: small;
+            color: #d61c29;
+        }
+    </style>
+</head>
+<body>
+<div class="displayStyle" id="show">
+
+</div>
+<br>
+- - - - - - - - - - -
+<div>
+    <p>name: <input type="text" id="userName"/></p>
+    <p>password: <input type="text" id="psd"/></p>
+    <button onclick="callNative();">js调用Native</button>
+    <br>
+    <div class="displayStyle" id="showNativeBack"></div>
+    <br>
+    <button onclick="sendToNative();">js发消息给Native</button>
+    <br>
+    <div class="displayStyle" id="showNativeBack2"></div>
+</div>
+<br>
+<div>
+    - - - - - - - - - - - -
+    <br>
+    <input type="file" value="选择图片" onclick="openFile();"/>
+    <br>
+    <img id="pic" src="" width="200" height="200" alt="">
+</div>
+</body>
+
+<script>
+    //JS注册事件监听
+    function connectWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            callback(WebViewJavascriptBridge)
+        } else {
+            document.addEventListener(
+                'WebViewJavascriptBridgeReady'
+                , function () {
+                    callback(WebViewJavascriptBridge)
+                },
+                false
+            );
+        }
+    }
+
+    //注册回调函数，第一次连接时调用 初始化函数
+    connectWebViewJavascriptBridge(function (bridge) {
+        //初始化
+        //接收native给js发的消息(webview.send(msg))
+        bridge.init(function (message, responseCallback) {
+            var data = {'Javascript Responds': 'Wee!'};
+            alert(message);
+            console.log('wp-----', message);
+            responseCallback(data);
+        });
+
+        //Android调用js方法：functionInJs方法名称需要保持一致 ，并返回给Android通知
+        bridge.registerHandler("functionInJs", function (data, responseCallback) {
+            alert(data);
+            console.log('-----' + data);
+            document.getElementById("show").innerHTML = ("data from Java: = " + data);
+            var responseData = "callback from js: 1122333";
+            responseCallback(responseData);
+        });
+    });
+
+    // js调用Android方法
+    function callNative() {
+        var name = document.getElementById("userName").value;
+        var psd = document.getElementById("psd").value;
+        console.log("-----" + name + "--" + psd);
+
+        //参数一：调用java中的方法   submitFromWeb是方法名，必须和Android中注册时候的方法名称保持一致
+        //参数二：返回给Android端的数据，可以为字符串，json等信息
+        //参数三：js接收到Android传递过来的数据之后的相应处理逻辑
+        window.WebViewJavascriptBridge.callHandler(
+            'submitFromWeb',
+            "return from web: name = " + name + ", password = " + psd,
+            function (responseData) {
+                alert(responseData);
+                document.getElementById("showNativeBack").innerHTML = ("callback from Java: = " + responseData);
+            });
+    }
+
+    function sendToNative() {
+        //发送消息给java代码
+        var message = "message from js...";
+        window.WebViewJavascriptBridge.send(message, function (responseData) {
+            alert(responseData);
+            document.getElementById("showNativeBack2").innerHTML = ("callback from Java: = " + responseData);
+        });
+    }
+
+    function openFile() {
+        window.WebViewJavascriptBridge.callHandler("openFile", "result: success", function (responseData) {
+            //alert("openFile response : " + responseData);
+            console.log(responseData);
+            document.getElementById("pic").src = responseData;
+        });
+    }
+</script>
+</html>

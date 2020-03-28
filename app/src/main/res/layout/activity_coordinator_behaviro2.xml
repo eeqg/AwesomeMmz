@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".skill.CoordinatorBehavior2Activity">
+	
+	<android.support.constraint.ConstraintLayout
+		android:id="@+id/header"
+		android:layout_width="match_parent"
+		android:layout_height="100dp"
+		android:background="#567890"
+		app:layout_behavior=".skill.behavior.HeaderBehavior2">
+		
+		<LinearLayout
+			android:id="@+id/llHandleBar"
+			android:layout_width="wrap_content"
+			android:layout_height="44dp"
+			android:gravity="center"
+			android:paddingLeft="12dp"
+			android:paddingRight="12dp"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+			
+			<ImageView
+				android:id="@+id/ivMessage"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@mipmap/ic_message" />
+			
+			<View
+				android:layout_width="10dp"
+				android:layout_height="10dp" />
+			
+			<ImageView
+				android:id="@+id/ivScan"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@mipmap/ic_scan" />
+		</LinearLayout>
+	</android.support.constraint.ConstraintLayout>
+	
+	<android.support.v4.widget.NestedScrollView
+		android:id="@+id/body"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:layout_behavior=".skill.behavior.BodyBehavior3">
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+			
+			<Button
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="tt" />
+		</LinearLayout>
+	</android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

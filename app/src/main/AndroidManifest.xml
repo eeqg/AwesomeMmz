@@ -29,7 +29,12 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
 		tools:replace="android:icon">
-		<activity android:name=".skill.CoordinateActivity"></activity>
+		<activity android:name=".skill.CoordinatorBehavior3Activity"></activity>
+		<activity android:name=".skill.CoordinatorBehavior2Activity" />
+		<activity android:name=".skill.CoordinatorBehaviorActivity" />
+		<activity android:name=".skill.SheetBehaviorActivity" />
+		<activity android:name=".star.JsBridgeActivity" />
+		<activity android:name=".skill.CoordinateActivity" />
 		<activity android:name=".skill.SchemeTestActivity" />
 		<activity
 			android:name=".index.video.VideoActivity"

@@ -14,6 +14,9 @@
 			\nLifecycleRegistry：负责控制state的转换、接受分发event事件
 </string>
 	
+	<string name="coordinator_behavior">CoordinatorLayout.Behavior&lt;T&gt;，T是指这个Child,而不是dependency。Child是指这个CoordinatorLayout的子控件，dependency是指这个Child所依赖的View，即Child依赖于dependency的变化。
+		\n这是一个观察者模式的运用，Child向CoordinatorLayout注册一个回调，告知CoordinatorLayout在dependency发生变化时通知它，这样当dependency发生变化时，Child会得到这个通知。</string>
+	
 	<string name="app_bar_behavior">com.example.wp.awesomemmz.skill.AppBarBehavior</string>
 	
 	<!-- TODO: Remove or change this placeholder text -->
