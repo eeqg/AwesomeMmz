@@ -17,7 +17,7 @@ class BodyBehavior3(context: Context?, attrs: AttributeSet?) : CoordinatorLayout
 
     override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
         var y = dependency.height + dependency.translationY
-        LogUtils.d("RecyclerBehavior3-----y = $y")
+        LogUtils.d("BodyBehavior3-----y = $y")
 
         if (y < 0) y = 0f
         child.y = y

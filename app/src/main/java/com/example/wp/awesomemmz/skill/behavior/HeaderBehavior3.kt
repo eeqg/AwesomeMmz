@@ -47,6 +47,10 @@ class HeaderBehavior3(context: Context?, attrs: AttributeSet?) : CoordinatorLayo
             LogUtils.d("-----dy = $dy-----translationY = ${child.translationY}")
             // 整体可以滑动，否则RecyclerView消费滑动事件
             if (canScroll(child, dy) && pos == 0) {
+                // 让CoordinatorLayout消费滑动事件
+                //consumed[0]为水平方向应该消耗的距离，consumed[1]为垂直方向应该消耗的距离
+                consumed[1] = dy
+
                 var finalY = child.translationY - dy
                 if (finalY < -child.height) {
                     finalY = (-child.height).toFloat()
@@ -55,8 +59,6 @@ class HeaderBehavior3(context: Context?, attrs: AttributeSet?) : CoordinatorLayo
                     finalY = 0f
                 }
                 child.translationY = finalY
-                // 让CoordinatorLayout消费滑动事件
-                consumed[1] = dy
             }
             lastPosition = pos
         }
