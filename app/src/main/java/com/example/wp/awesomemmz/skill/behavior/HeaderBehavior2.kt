@@ -23,8 +23,17 @@ class HeaderBehavior2(context: Context?, attrs: AttributeSet?) : CoordinatorLayo
     private var desX = 0
 
     override fun onStartNestedScroll(coordinatorLayout: CoordinatorLayout, child: View, directTargetChild: View, target: View, axes: Int, type: Int): Boolean {
+        //    axes 表示方向 有一下两种值
+        //  *     ViewCompat.SCROLL_AXIS_HORIZONTAL 横向滑动
+        //  *     ViewCompat.SCROLL_AXIS_VERTICAL 纵向滑动
+        // public boolean startNestedScroll(int axes)
+//        LogUtils.d("-----target.id = ${target.id}")
 //        return target.id == R.id.body
-        return axes and ViewCompat.SCROLL_AXIS_VERTICAL !== 0
+        return axes == ViewCompat.SCROLL_AXIS_VERTICAL
+    }
+
+    override fun onNestedScroll(coordinatorLayout: CoordinatorLayout, child: View, target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int, type: Int) {
+        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type)
     }
 
     override fun onNestedPreScroll(coordinatorLayout: CoordinatorLayout, child: View, target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
@@ -40,7 +49,7 @@ class HeaderBehavior2(context: Context?, attrs: AttributeSet?) : CoordinatorLayo
 
         llHandleBar?.let {
             val maxTranslationY = child.height - it.height
-            LogUtils.d("--begin-->-----dy = $dy")
+            LogUtils.d("--begin-->-----dya = $dy")
             LogUtils.d("-----child.translationY = ${child.translationY}")
 
             var canScrollY = false
@@ -64,9 +73,14 @@ class HeaderBehavior2(context: Context?, attrs: AttributeSet?) : CoordinatorLayo
             if (canScrollY) {
                 // 让CoordinatorLayout消费滑动事件
                 //consumed[0]为水平方向应该消耗的距离，consumed[1]为垂直方向应该消耗的距离
-                consumed[1] = dy
+//                consumed[1] = dy
 
-                var finalY = child.translationY - dy
+                val offsetDy = dy * .5f
+
+                consumed[1] = offsetDy.toInt()
+
+                LogUtils.d("--begin-->-----offsetDy = $offsetDy")
+                var finalY = child.translationY - offsetDy
                 if (finalY < -maxTranslationY) {
                     finalY = -maxTranslationY.toFloat()
                 } else if (finalY > 0) {

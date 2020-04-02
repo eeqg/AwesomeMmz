@@ -33,6 +33,10 @@ class HeaderBehavior3(context: Context?, attrs: AttributeSet?) : CoordinatorLayo
     }
 
     override fun onStartNestedScroll(coordinatorLayout: CoordinatorLayout, child: View, directTargetChild: View, target: View, axes: Int, type: Int): Boolean {
+        //    axes 表示方向 有一下两种值
+        //  *     ViewCompat.SCROLL_AXIS_HORIZONTAL 横向滑动
+        //  *     ViewCompat.SCROLL_AXIS_VERTICAL 纵向滑动
+        // public boolean startNestedScroll(int axes)
         return axes and ViewCompat.SCROLL_AXIS_VERTICAL !== 0
     }
 

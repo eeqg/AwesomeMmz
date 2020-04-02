@@ -91,80 +91,80 @@
 	<!--			android:layout_height="match_parent"-->
 	<!--			app:layout_behavior=".skill.behavior.BodyBehavior3" />-->
 	
-	<FrameLayout
-		android:id="@+id/body"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		app:layout_behavior=".skill.behavior.BodyBehavior3">
+<!--	<com.example.wp.awesomemmz.skill.widget.NestScrollChildView2-->
+<!--		android:id="@+id/body"-->
+<!--		android:layout_width="match_parent"-->
+<!--		android:layout_height="match_parent"-->
+<!--		app:layout_behavior=".skill.behavior.BodyBehavior3">-->
+<!--	-->
+<!--	</com.example.wp.awesomemmz.skill.widget.NestScrollChildView2>-->
 	
-	</FrameLayout>
-	
-	<!--	<android.support.v4.widget.NestedScrollView-->
-	<!--		android:id="@+id/body"-->
-	<!--		android:layout_width="match_parent"-->
-	<!--		android:layout_height="match_parent"-->
-	<!--		app:layout_behavior=".skill.behavior.BodyBehavior3">-->
-	<!--		-->
-	<!--		<LinearLayout-->
-	<!--			android:layout_width="match_parent"-->
-	<!--			android:layout_height="match_parent"-->
-	<!--			android:orientation="vertical">-->
-	<!--			-->
-	<!--			<View-->
-	<!--				android:layout_width="match_parent"-->
-	<!--				android:layout_height="150dp"-->
-	<!--				android:layout_marginTop="1dp"-->
-	<!--				android:background="#56789012" />-->
-	<!--			-->
-	<!--			<View-->
-	<!--				android:layout_width="match_parent"-->
-	<!--				android:layout_height="150dp"-->
-	<!--				android:layout_marginTop="1dp"-->
-	<!--				android:background="#98765432" />-->
-	<!--			-->
-	<!--			<View-->
-	<!--				android:layout_width="match_parent"-->
-	<!--				android:layout_height="150dp"-->
-	<!--				android:layout_marginTop="1dp"-->
-	<!--				android:background="#34567890" />-->
-	<!--			-->
-	<!--			-->
-	<!--			<View-->
-	<!--				android:layout_width="match_parent"-->
-	<!--				android:layout_height="150dp"-->
-	<!--				android:layout_marginTop="1dp"-->
-	<!--				android:background="#56789012" />-->
-	<!--			-->
-	<!--			<View-->
-	<!--				android:layout_width="match_parent"-->
-	<!--				android:layout_height="150dp"-->
-	<!--				android:layout_marginTop="1dp"-->
-	<!--				android:background="#98765432" />-->
-	<!--			-->
-	<!--			<View-->
-	<!--				android:layout_width="match_parent"-->
-	<!--				android:layout_height="150dp"-->
-	<!--				android:layout_marginTop="1dp"-->
-	<!--				android:background="#34567890" />-->
-	<!--			-->
-	<!--			-->
-	<!--			<View-->
-	<!--				android:layout_width="match_parent"-->
-	<!--				android:layout_height="150dp"-->
-	<!--				android:layout_marginTop="1dp"-->
-	<!--				android:background="#56789012" />-->
-	<!--			-->
-	<!--			<View-->
-	<!--				android:layout_width="match_parent"-->
-	<!--				android:layout_height="150dp"-->
-	<!--				android:layout_marginTop="1dp"-->
-	<!--				android:background="#98765432" />-->
-	<!--			-->
-	<!--			<View-->
-	<!--				android:layout_width="match_parent"-->
-	<!--				android:layout_height="150dp"-->
-	<!--				android:layout_marginTop="1dp"-->
-	<!--				android:background="#34567890" />-->
-	<!--		</LinearLayout>-->
-	<!--	</android.support.v4.widget.NestedScrollView>-->
+		<android.support.v4.widget.NestedScrollView
+			android:id="@+id/body"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			app:layout_behavior=".skill.behavior.BodyBehavior3">
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical">
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="150dp"
+					android:layout_marginTop="1dp"
+					android:background="#56789012" />
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="150dp"
+					android:layout_marginTop="1dp"
+					android:background="#98765432" />
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="150dp"
+					android:layout_marginTop="1dp"
+					android:background="#34567890" />
+				
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="150dp"
+					android:layout_marginTop="1dp"
+					android:background="#56789012" />
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="150dp"
+					android:layout_marginTop="1dp"
+					android:background="#98765432" />
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="150dp"
+					android:layout_marginTop="1dp"
+					android:background="#34567890" />
+				
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="150dp"
+					android:layout_marginTop="1dp"
+					android:background="#56789012" />
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="150dp"
+					android:layout_marginTop="1dp"
+					android:background="#98765432" />
+				
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="150dp"
+					android:layout_marginTop="1dp"
+					android:background="#34567890" />
+			</LinearLayout>
+		</android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

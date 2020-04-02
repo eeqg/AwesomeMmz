@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".skill.NestedScrollingActivity">
+	
+	<com.example.wp.awesomemmz.skill.widget.MyNestedScrollParent
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			
+			<ImageView
+				android:id="@+id/foodIV"
+				android:layout_width="match_parent"
+				android:layout_height="200dp"
+				android:scaleType="centerCrop"
+				android:src="@mipmap/image3" />
+			
+			<TextView
+				android:id="@+id/titleTV"
+				android:layout_width="match_parent"
+				android:layout_height="50dp"
+				android:background="@color/colorThemeAccent"
+				android:gravity="center"
+				android:text="MyTitle"
+				android:textColor="@android:color/white" />
+		</LinearLayout>
+		
+		<com.example.wp.awesomemmz.skill.widget.MyNestedScrollChild
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<TextView
+				android:id="@+id/scrollText"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:lineSpacingExtra="8dp"
+				android:padding="8dp"
+				android:text="123\n456\n789\n111\n222\n333\n444\n555\n666\n777\n888\n999\n14\n12\n13\n44\n55\n66\n77\n88\n99\n11\n22\n33\n44\n55\n66\n77\n88\n99\n77\n88\n88\n8\n88\n88\n" />
+		</com.example.wp.awesomemmz.skill.widget.MyNestedScrollChild>
+	</com.example.wp.awesomemmz.skill.widget.MyNestedScrollParent>
+</android.support.constraint.ConstraintLayout>
