@@ -20,7 +20,7 @@ public class SplashActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
-		setTranslucentStatus();
+		// setTranslucentStatus();
 		
 		ivBg = findViewById(R.id.ivBg);
 		TextView tvTitle = findViewById(R.id.tvTitle);

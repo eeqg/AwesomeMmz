@@ -12,6 +12,14 @@ import android.widget.TextView;
 
 import com.example.wp.awesomemmz.R;
 
+/**
+ * 具体使用操作流程
+ * 在move事件处理时,先通过dispatchNestedPreScroll将整个的滑动距离dx,dy传递给父View,
+ * 然后父View选择性处理一部分距离,将处理了的距离储存在consumed数组中,其中consumed[0]为x轴处理距离,consumed[1]为y轴处理距离.
+ * 然后子View根据自己的需要处理剩余的距离.
+ * 如果子View未能将剩余距离消耗掉,通过dispatchNestedScroll将剩余的滑动通过参数dxUnconsumed,dyUnconsumed交给父View处理.
+ * 一般来说dispatchNestedPreScroll和dispatchNestedScroll只有一个会得到实际上的使用.
+ */
 public class MyNestedScrollChild extends LinearLayout implements NestedScrollingChild2 {
     private NestedScrollingChildHelper mNestedScrollingChildHelper;
     private int[] offset = new int[2];
@@ -67,6 +75,10 @@ public class MyNestedScrollChild extends LinearLayout implements NestedScrolling
                 } else {
                     scrollBy(0, -dy);
                 }
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                stopNestedScroll();
                 break;
         }
         return true;

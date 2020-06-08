@@ -16,6 +16,11 @@ import com.example.wp.awesomemmz.R;
 import com.example.wp.resource.utils.LogUtils;
 
 public class MyNestedScrollParent extends LinearLayout implements NestedScrollingParent2 {
+    /**
+     * NestedScrollParentView中有两个方法比较重要,嵌套滚动基本上就是由这两个方法实现的:
+     * onStartNestedScroll & onNestedPreScroll
+     */
+
     private NestedScrollingParentHelper mNestedScrollingParentHelper;
     private MyNestedScrollChild scrollChildView;
     private View headerLayout;
@@ -87,7 +92,6 @@ public class MyNestedScrollParent extends LinearLayout implements NestedScrollin
     @Override
     public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed,
                                int dxUnconsumed, int dyUnconsumed, int type) {
-
     }
 
     @Override
