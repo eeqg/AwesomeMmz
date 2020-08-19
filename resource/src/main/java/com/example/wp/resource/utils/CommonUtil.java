@@ -19,6 +19,7 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.animation.Interpolator;
 import android.widget.TextView;
 
@@ -447,5 +448,27 @@ public class CommonUtil {
             e.printStackTrace();
         }
         return stringBuilder.toString();
+    }
+
+    public static Map<String, Object> getMapForJson(String jsonStr){
+        JSONObject jsonObject ;
+        try {
+            jsonObject = new JSONObject(jsonStr);
+
+            Iterator<String> keyIter= jsonObject.keys();
+            String key;
+            Object value ;
+            Map<String, Object> valueMap = new HashMap<String, Object>();
+            while (keyIter.hasNext()) {
+                key = keyIter.next();
+                value = jsonObject.get(key);
+                valueMap.put(key, value);
+            }
+            return valueMap;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("HttpClientUtils.TAG", e.toString());
+        }
+        return null;
     }
 }

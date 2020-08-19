@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'android-aspectjx'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'//AspectJX 插件
 
 android {
@@ -46,6 +47,10 @@ android {
 		main {
 			jniLibs.srcDir 'libs'
 		}
+	}
+	
+	dataBinding {
+		enabled true
 	}
 }
 

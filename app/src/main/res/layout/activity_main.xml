@@ -34,7 +34,7 @@
 				<com.example.wp.resource.widget.CircleIndicator
 					android:id="@+id/indicatorView"
 					android:layout_width="match_parent"
-					android:layout_height="20dp"
+					android:layout_height="16dp"
 					android:background="#4000"
 					android:visibility="gone"
 					app:ci_normalRadiusColor="#FFF"
@@ -45,13 +45,14 @@
 					android:id="@+id/indicatorView2"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
+					android:layout_marginBottom="6dp"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintLeft_toLeftOf="parent"
 					app:layout_constraintRight_toRightOf="parent"
-					app:selectedColor="@android:color/white"
+					app:selectedColor="@android:color/holo_red_light"
 					app:selectedRaduis="5dp"
 					app:spacing="6dp"
-					app:unSelectedColor="@android:color/darker_gray"
+					app:unSelectedColor="@android:color/white"
 					app:unSelectedRaduis="5dp"/>
 			</android.support.constraint.ConstraintLayout>
 			

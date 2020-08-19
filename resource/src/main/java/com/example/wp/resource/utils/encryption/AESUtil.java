@@ -72,7 +72,7 @@ public class AESUtil {
         try {
             //生成一系列扩展密钥，并放入一个数组中
             SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
-            Cipher cipher = Cipher.getInstance("AES");
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             //使用ENCRYPT_MODE模式，用skeySpec密码组，生成AES加密方法
             cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
             //得到加密数据
@@ -97,7 +97,7 @@ public class AESUtil {
             //生成一系列扩展密钥，并放入一个数组中
             SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
             Cipher cipher = null;
-            cipher = Cipher.getInstance("AES");
+            cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             //使用DECRYPT_MODE模式，用skeySpec密码组，生成AES解密方法
             cipher.init(Cipher.DECRYPT_MODE, skeySpec);
             //得到加密数据

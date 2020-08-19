@@ -4,6 +4,7 @@ import android.util.Base64;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -15,6 +16,35 @@ import javax.crypto.spec.SecretKeySpec;
  * Created by wp on 2020/6/8.
  */
 public class DESUtil {
+    private final static String HEX = "0123456789ABCDEF";
+
+    public static String generateKey() {
+        try {
+            SecureRandom localSecureRandom = SecureRandom.getInstance("SHA1PRNG");
+            byte[] bytes_key = new byte[20];
+            localSecureRandom.nextBytes(bytes_key);
+            String str_key = toHex(bytes_key);
+            return str_key;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static String toHex(byte[] buf) {
+        if (buf == null)
+            return "";
+        StringBuffer result = new StringBuffer(2 * buf.length);
+        for (int i = 0; i < buf.length; i++) {
+            appendHex(result, buf[i]);
+        }
+        return result.toString();
+    }
+
+    private static void appendHex(StringBuffer sb, byte b) {
+        sb.append(HEX.charAt((b >> 4) & 0x0f)).append(HEX.charAt(b & 0x0f));
+    }
+
     public static String encrypt(String content, String key) {
         try {
             SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "DES");
