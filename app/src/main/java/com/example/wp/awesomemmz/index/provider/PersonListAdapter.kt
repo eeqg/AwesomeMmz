@@ -12,9 +12,12 @@ import com.example.wp.awesomemmz.databinding.ItemPersonListBinding
 /**
  * Created by wp on 2020/8/21.
  */
-class PersonListAdapter : RecyclerView.Adapter<PersonListAdapter.ViewHolder>() {
-    private var context: Context? = null
+class PersonListAdapter(private val context: Context) : RecyclerView.Adapter<PersonListAdapter.ViewHolder>() {
     private var dataList: List<PersonInfo>? = null
+
+    fun setDataList(list: List<PersonInfo>?) {
+        dataList = list
+    }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val dataBinding: ItemPersonListBinding = DataBindingUtil.inflate(
@@ -25,9 +28,9 @@ class PersonListAdapter : RecyclerView.Adapter<PersonListAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val dataBinding = DataBindingUtil.getBinding<ItemPersonListBinding>(holder.itemView)
+        val dataBinding: ItemPersonListBinding? = DataBindingUtil.getBinding(holder.itemView)
         dataBinding?.let {
-            personInfo = getItem(position)
+            it.personInfo = getItem(position)
         }
     }
 

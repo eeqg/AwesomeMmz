@@ -18,8 +18,8 @@ class CustProvider : ContentProvider() {
     private val MATCH_CODE_ITEM = 1    //匹配所有数据
     private val MATCH_CODE_ITEM_ID = 2 //根据ID匹配数据
     private val MATCH_CODE_ITEM_POS = 3//根据数据位置(position)匹配数据(pos=1不一定id=1)
-    private val mContext: Context = context!!
-    private val AUTHORITY = mContext.packageName + ".provider" //authority
+    private val AUTHORITY = "com.example.wp.awesomemmz.provider" //authority
+    private lateinit var mContext: Context
 
     private val uriMatcher: UriMatcher
     private val personProjectMap: HashMap<String, String>
@@ -43,6 +43,7 @@ class CustProvider : ContentProvider() {
     }
 
     override fun onCreate(): Boolean {
+        mContext = context!!
         dbHelper = DBHelper(mContext)
 
         return true
@@ -144,16 +145,6 @@ class CustProvider : ContentProvider() {
         LogUtils.d("-----query()--count: ${cursor.count}")
 
         return cursor
-    }
-
-    private class Tables {
-        companion object {
-            const val TABLE_NAME = "person"
-            const val ID = "_id"
-            const val NAME = "_name"
-            const val SEX = "_sex"
-            const val AGE = "_age"
-        }
     }
 
     private class DBHelper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
