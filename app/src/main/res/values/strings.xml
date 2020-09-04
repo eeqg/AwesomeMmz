@@ -1,6 +1,6 @@
 <resources>
-	<string name="app_name">AwesomeMmz</string>
-	<string name="des_lifecycle">Lifecycle 是官方提供的架构组件之一，目前已经是稳定版本，
+    <string name="app_name">AwesomeMmz</string>
+    <string name="des_lifecycle">Lifecycle 是官方提供的架构组件之一，目前已经是稳定版本，
 		\nLifecycle 组件包括LifecycleOwner、LifecycleObserver。Lifecycle 组件是执行操作以响应另一个组件（Activity或者Fragment）的生命周期状态的更改。
 		\nLifecycle 生成更易于组织、更轻量级，更易于维护的代码。
 		\n---------------------
@@ -13,16 +13,16 @@
 			\nState ：由Lifecycle对象跟踪的组件的当前状态
 			\nLifecycleRegistry：负责控制state的转换、接受分发event事件
 </string>
-	
-	<string name="coordinator_behavior">CoordinatorLayout.Behavior&lt;T&gt;，T是指这个Child,而不是dependency。Child是指这个CoordinatorLayout的子控件，dependency是指这个Child所依赖的View，即Child依赖于dependency的变化。
+
+    <string name="coordinator_behavior">CoordinatorLayout.Behavior&lt;T&gt;，T是指这个Child,而不是dependency。Child是指这个CoordinatorLayout的子控件，dependency是指这个Child所依赖的View，即Child依赖于dependency的变化。
 		\n这是一个观察者模式的运用，Child向CoordinatorLayout注册一个回调，告知CoordinatorLayout在dependency发生变化时通知它，这样当dependency发生变化时，Child会得到这个通知。</string>
-	
-	<string name="app_bar_behavior">com.example.wp.awesomemmz.skill.behavior.AppBarBehavior</string>
-	
-	<!-- TODO: Remove or change this placeholder text -->
-	<string name="hello_blank_fragment">Hello blank fragment</string>
-	<string name="title_activity_transition">TransitionActivity</string>
-	
-	<string name="startlocation">开始定位</string>
-	<string name="stoplocation">停止定位</string>
+
+    <string name="app_bar_behavior">com.example.wp.awesomemmz.skill.behavior.AppBarBehavior</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_transition">TransitionActivity</string>
+
+    <string name="startlocation">开始定位</string>
+    <string name="stoplocation">停止定位</string>
 </resources>
