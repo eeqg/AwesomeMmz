@@ -8,47 +8,38 @@ import android.view.View;
 import com.example.wp.awesomemmz.R;
 import com.example.wp.resource.widget.bezier.BezierView2;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 public class BezierTestActivity2 extends AppCompatActivity {
-	
-	@BindView(R.id.bezier)
-	BezierView2 bezierView2;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_bezier2);
-		
-		ButterKnife.bind(this);
-		
-		int color;
-		try {
-			color = Color.parseColor("1234567999999");
-		} catch (Exception e) {
-			color = 0x30000000;
-		}
-		bezierView2.setBackgroundColor(color);
-		
-		bezierView2.setPointsNum(5)
-				.setRadius(35)
-				.setStrokeColor(Color.parseColor("#9022ff55"));
-	}
-	
-	@OnClick({R.id.btnLast, R.id.btnNext, R.id.btnSet})
-	public void onViewClicked(View view) {
-		switch (view.getId()) {
-			case R.id.btnLast:
-				bezierView2.bounceLast();
-				break;
-			case R.id.btnNext:
-				bezierView2.bounceNext();
-				break;
-			case R.id.btnSet:
-				bezierView2.bounceTo(3);
-				break;
-		}
-	}
+
+    private BezierView2 bezierView2;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_bezier2);
+
+        int color;
+        try {
+            color = Color.parseColor("1234567999999");
+        } catch (Exception e) {
+            color = 0x30000000;
+        }
+        bezierView2 = findViewById(R.id.bezier);
+        bezierView2.setBackgroundColor(color);
+
+        bezierView2.setPointsNum(5)
+                .setRadius(35)
+                .setStrokeColor(Color.parseColor("#9022ff55"));
+    }
+
+    public void onLast(View view) {
+        bezierView2.bounceLast();
+    }
+
+    public void onSet(View view) {
+        bezierView2.bounceTo(3);
+    }
+
+    public void onNext(View view) {
+        bezierView2.bounceNext();
+    }
 }

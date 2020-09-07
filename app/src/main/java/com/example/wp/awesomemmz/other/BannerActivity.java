@@ -3,6 +3,7 @@ package com.example.wp.awesomemmz.other;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -10,8 +11,6 @@ import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -23,6 +22,7 @@ import com.example.wp.awesomemmz.HeaderAdapter;
 import com.example.wp.awesomemmz.R;
 import com.example.wp.awesomemmz.common.GlideImageLoader;
 import com.example.wp.awesomemmz.common.GlideImageLoader2;
+import com.example.wp.awesomemmz.databinding.ActivityBannerBinding;
 import com.example.wp.resource.base.BaseActivity;
 import com.example.wp.resource.utils.ColorUtil;
 import com.example.wp.resource.utils.LogUtils;
@@ -50,7 +50,6 @@ import com.example.wp.resource.widget.banner.transformer.ZoomOutSlideTransformer
 import com.example.wp.resource.widget.banner.transformer.ZoomOutTranformer;
 import com.wp.picture.banner.callback.BindViewCallBack;
 import com.wp.picture.banner.callback.CreateViewCallBack;
-import com.wp.picture.banner.callback.CreateViewCaller;
 import com.wp.picture.banner.callback.OnClickBannerListener;
 import com.wp.picture.utils.CommUtil;
 import com.wp.picture.video.SimpleVideoView;
@@ -60,26 +59,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class BannerActivity extends BaseActivity implements OnBannerListener {
 
-    @BindView(R.id.bannerContainer2)
-    View bannerContainer2;
-    @BindView(R.id.banner2)
-    Banner banner2;
-    @BindView(R.id.banner3)
-    com.wp.picture.banner.Banner banner3;
-    @BindView(R.id.bannerContainer3)
-    View bannerContainer3;
-    @BindView(R.id.videoPager)
-    CommonViewPager videoPager;
-    @BindView(R.id.viewPager)
-    CommonViewPager viewPager;
+//    @BindView(R.id.bannerContainer2)
+//    View bannerContainer2;
+//    @BindView(R.id.banner2)
+//    Banner banner2;
+//    @BindView(R.id.banner3)
+//    com.wp.picture.banner.Banner banner3;
+//    @BindView(R.id.bannerContainer3)
+//    View bannerContainer3;
+//    @BindView(R.id.videoPager)
+//    CommonViewPager videoPager;
+//    @BindView(R.id.viewPager)
+//    CommonViewPager viewPager;
 
     private String videoUrl = "https://flv2.bn.netease.com/videolib1/1811/26/OqJAZ893T/HD/OqJAZ893T-mobile.mp4";
 
+    private ActivityBannerBinding dataBinding;
     Banner banner;
     String[] colorsStr;
     private SimpleVideoView simpleVideoView;
@@ -87,8 +84,7 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_banner);
-        ButterKnife.bind(this);
+        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_banner);
 
         setupTitleBar("Banner");
 
@@ -299,13 +295,13 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
     private void observerBannerBg() {
         String[] urls = getResources().getStringArray(R.array.url4);
         List<String> images = Arrays.asList(urls);
-        banner2.setImages(images)
+        dataBinding.banner2.setImages(images)
                 .setImageLoader(new GlideImageLoader2())
                 .setOnBannerListener(this) //click
                 .start();
         // banner2.setOffscreenPageLimit(5);
         // banner.setIndicatorGravity(BannerConfig.RIGHT);
-        banner2.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        dataBinding.banner2.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             ValueAnimator valueAnimator;
             int dtColor;
 
@@ -314,14 +310,14 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
                 int curColor = Color.parseColor(colorsStr[position]);
                 int nextColor = Color.parseColor(colorsStr[(position + 1 == colorsStr.length ? 0 : position + 1)]);
                 dtColor = ColorUtil.calculateGradientColor(curColor, nextColor, positionOffset);
-                bannerContainer2.setBackgroundColor(dtColor);
+                dataBinding.bannerContainer2.setBackgroundColor(dtColor);
             }
 
             @Override
             public void onPageSelected(final int position) {
                 // bannerContainer2.setBackgroundColor(Color.parseColor(colorsStr[position]));
 
-                ColorUtil.startGradientColorAnimator(dtColor, Color.parseColor(colorsStr[position]), bannerContainer2);
+                ColorUtil.startGradientColorAnimator(dtColor, Color.parseColor(colorsStr[position]), dataBinding.bannerContainer2);
 
                 // int curColor = Color.parseColor(colorsStr[position]);
                 // Log.d("test_wp", "curColor = " + curColor);
@@ -385,7 +381,7 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
         // banner3.setLayoutParams(bannerLp);
         // setLayoutParams(bannerLp);
 
-        banner3.setViewIndex(1)
+        dataBinding.banner3.setViewIndex(1)
                 // .createView(CreateViewCaller.build())
                 .createView(new CreateViewCallBack() {
                     @Override
@@ -412,12 +408,12 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
                         int curColor = Color.parseColor(colorsStr[position]);
                         int nextColor = Color.parseColor(colorsStr[(position + 1 == colorsStr.length ? 0 : position + 1)]);
                         dtColor = ColorUtil.calculateGradientColor(curColor, nextColor, positionOffset);
-                        bannerContainer3.setBackgroundColor(dtColor);
+                        dataBinding.bannerContainer3.setBackgroundColor(dtColor);
                     }
 
                     @Override
                     public void onPageSelected(int position) {
-                        ColorUtil.startGradientColorAnimator(dtColor, Color.parseColor(colorsStr[position]), bannerContainer3);
+                        ColorUtil.startGradientColorAnimator(dtColor, Color.parseColor(colorsStr[position]), dataBinding.bannerContainer3);
                     }
 
                     @Override
@@ -479,7 +475,7 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
         String[] urls = getResources().getStringArray(R.array.fruits);
         List<String> images = Arrays.asList(urls);
 
-        viewPager
+        dataBinding.viewPager
                 .createItemView(new CommonViewPager.ViewCreator<View, String>() {
                     @Override
                     public View onCreateView(int position) {

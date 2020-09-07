@@ -1,239 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:background="@color/colorWhite"
-	android:orientation="vertical"
-	tools:context=".image.ImageActivity">
-	
-	<android.support.v4.widget.NestedScrollView
-		android:id="@+id/scrollView"
+<layout>
+	<FrameLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
-		
-		<LinearLayout
+		android:layout_height="match_parent"
+		android:background="@color/colorWhite"
+		android:orientation="vertical"
+		tools:context=".image.ImageActivity">
+
+		<android.support.v4.widget.NestedScrollView
+			android:id="@+id/scrollView"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:orientation="vertical">
-			
-			<com.wp.picture.widget.RatioImageView
-				android:id="@+id/ivHead"
+			android:layout_height="match_parent">
+
+			<LinearLayout
 				android:layout_width="match_parent"
-				android:layout_height="0dp"
-				android:background="@mipmap/image3"
-				android:transitionName="myimage"
-				app:height_to_width_ratio="1"
-				tools:ignore="UnusedAttribute" />
-			
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="1, 阴影" />
-			
-			<TextView
-				android:id="@+id/ivShadow"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_margin="8dp"
-				android:padding="5dp"
-				android:text="shadow" />
-			
-			<ImageView
-				android:id="@+id/ivShadow2"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:background="@drawable/ic_shadow"
-				android:scaleType="fitXY"
-				android:src="@mipmap/image4" />
-			
-			<View
-				android:id="@+id/ivShadow3"
-				android:layout_width="150dp"
-				android:layout_height="150dp"
-				android:padding="2dp" />
-			
-			<com.dd.ShadowLayout
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				app:sl_dx="2dp"
-				app:sl_dy="2dp"
-				app:sl_shadowColor="#44FF1234"
-				app:sl_shadowRadius="10dp">
-				
+				android:layout_height="match_parent"
+				android:orientation="vertical">
+
+				<com.wp.picture.widget.RatioImageView
+					android:id="@+id/ivHead"
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:background="@mipmap/image3"
+					android:transitionName="myimage"
+					app:height_to_width_ratio="1"
+					tools:ignore="UnusedAttribute" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="1, 阴影" />
+
+				<TextView
+					android:id="@+id/ivShadow"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_margin="8dp"
+					android:padding="5dp"
+					android:text="shadow" />
+
 				<ImageView
-					android:layout_width="150dp"
-					android:layout_height="150dp"
+					android:id="@+id/ivShadow2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="@drawable/ic_shadow"
 					android:scaleType="fitXY"
 					android:src="@mipmap/image4" />
-			
-			</com.dd.ShadowLayout>
-			
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical"
-				android:padding="10dp">
-				
-				<TextView
+
+				<View
+					android:id="@+id/ivShadow3"
+					android:layout_width="150dp"
+					android:layout_height="150dp"
+					android:padding="2dp" />
+
+				<com.dd.ShadowLayout
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="2, sharp" />
-				
-				<ImageView
-					android:id="@+id/ivSharp1"
+					app:sl_dx="2dp"
+					app:sl_dy="2dp"
+					app:sl_shadowColor="#44FF1234"
+					app:sl_shadowRadius="10dp">
+
+					<ImageView
+						android:layout_width="150dp"
+						android:layout_height="150dp"
+						android:scaleType="fitXY"
+						android:src="@mipmap/image4" />
+
+				</com.dd.ShadowLayout>
+
+				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="10dp"
-					android:src="@mipmap/image3" />
-				
-				<ImageView
-					android:id="@+id/ivSharp2"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="10dp"
-					android:src="@mipmap/image3" />
-				
-				<ImageView
-					android:id="@+id/ivSharp3"
-					android:layout_width="200dp"
-					android:layout_height="100dp"
-					android:layout_marginTop="10dp"
-					android:src="@mipmap/image3" />
-			</LinearLayout>
-			
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical"
-				android:padding="15dp">
-				
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="3, pictureLayout" />
-				
-				<com.wp.picture.picker.PictureLayout
-					android:id="@+id/pictureLayout"
+					android:orientation="vertical"
+					android:padding="10dp">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="2, sharp" />
+
+					<ImageView
+						android:id="@+id/ivSharp1"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="10dp"
+						android:src="@mipmap/image3" />
+
+					<ImageView
+						android:id="@+id/ivSharp2"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="10dp"
+						android:src="@mipmap/image3" />
+
+					<ImageView
+						android:id="@+id/ivSharp3"
+						android:layout_width="200dp"
+						android:layout_height="100dp"
+						android:layout_marginTop="10dp"
+						android:src="@mipmap/image3" />
+				</LinearLayout>
+
+				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					app:picture_editDrawable="@mipmap/ic_del"
-					app:picture_horizontalPadding="5dp"
-					app:picture_insertBackground="@mipmap/ic_tianjiatupian"
-					app:picture_maxCount="10"
-					app:picture_pictureRatio="1"
-					app:picture_rowCount="5"
-					app:picture_supportInsert="true"
-					app:picture_verticalPadding="5dp" />
-			</LinearLayout>
-			
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_margin="10dp"
-				android:background="@color/colorThemeDivider"
-				android:orientation="vertical"
-				android:padding="15dp">
-				
+					android:orientation="vertical"
+					android:padding="15dp">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="3, pictureLayout" />
+
+					<com.wp.picture.picker.PictureLayout
+						android:id="@+id/pictureLayout"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						app:picture_editDrawable="@mipmap/ic_del"
+						app:picture_horizontalPadding="5dp"
+						app:picture_insertBackground="@mipmap/ic_tianjiatupian"
+						app:picture_maxCount="10"
+						app:picture_pictureRatio="1"
+						app:picture_rowCount="5"
+						app:picture_supportInsert="true"
+						app:picture_verticalPadding="5dp" />
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp"
+					android:background="@color/colorThemeDivider"
+					android:orientation="vertical"
+					android:padding="15dp">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="4, camera" />
+
+					<Button
+						android:id="@+id/btnCamera"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="camera" />
+
+					<ImageView
+						android:id="@+id/ivShowCamera"
+						android:layout_width="100dp"
+						android:layout_height="100dp" />
+				</LinearLayout>
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp"
+					android:background="@color/colorThemeDivider"
+					android:orientation="vertical"
+					android:padding="15dp">
+
+					<ImageView
+						android:id="@+id/ivTest"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content" />
+				</LinearLayout>
+
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="4, camera" />
-				
-				<Button
-					android:id="@+id/btnCamera"
+					android:layout_marginTop="20dp"
+					android:text="--- NineGridImageView ---" />
+
+				<com.wp.picture.ninegrid.NineGridView
+					android:id="@+id/nineGridView"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp" />
+
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="8dp"
+					android:background="@color/colorThemeDivider" />
+
+				<ImageView
+					android:id="@+id/ivDisplay1"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="camera" />
-				
+					android:layout_marginTop="8dp" />
+
 				<ImageView
-					android:id="@+id/ivShowCamera"
-					android:layout_width="100dp"
-					android:layout_height="100dp" />
-			</LinearLayout>
-			
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_margin="10dp"
-				android:background="@color/colorThemeDivider"
-				android:orientation="vertical"
-				android:padding="15dp">
-				
-				<ImageView
-					android:id="@+id/ivTest"
+					android:id="@+id/ivDisplay2"
 					android:layout_width="wrap_content"
-					android:layout_height="wrap_content" />
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp" />
+
+				<ImageView
+					android:id="@+id/ivDisplay4"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp" />
+
+				<ImageView
+					android:id="@+id/ivDisplay3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp" />
+
+				<ImageView
+					android:id="@+id/ivDisplay5"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp"
+					android:background="#90000000"/>
+
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="8dp"
+					android:background="@color/colorThemeDivider" />
 			</LinearLayout>
-			
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="20dp"
-				android:text="--- NineGridImageView ---" />
-			
-			<com.wp.picture.ninegrid.NineGridView
-				android:id="@+id/nineGridView"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_margin="10dp" />
-			
-			<View
-				android:layout_width="match_parent"
-				android:layout_height="8dp"
-				android:background="@color/colorThemeDivider" />
-			
-			<ImageView
-				android:id="@+id/ivDisplay1"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="8dp" />
-			
-			<ImageView
-				android:id="@+id/ivDisplay2"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="8dp" />
-			
-			<ImageView
-				android:id="@+id/ivDisplay4"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="8dp" />
-			
-			<ImageView
-				android:id="@+id/ivDisplay3"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="8dp" />
-			
-			<ImageView
-				android:id="@+id/ivDisplay5"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="8dp"
-				android:background="#90000000"/>
-			
-			<View
-				android:layout_width="match_parent"
-				android:layout_height="8dp"
-				android:background="@color/colorThemeDivider" />
-		</LinearLayout>
-	</android.support.v4.widget.NestedScrollView>
-	
-	<LinearLayout
-		android:id="@+id/titleBarRoot"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical">
-		
-		<View
-			android:id="@+id/testView"
+		</android.support.v4.widget.NestedScrollView>
+
+		<LinearLayout
+			android:id="@+id/titleBarRoot"
 			android:layout_width="match_parent"
-			android:layout_height="0dp" />
-		
-		<include layout="@layout/include_base_title_bar" />
-	</LinearLayout>
-</FrameLayout>
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+
+			<View
+				android:id="@+id/testView"
+				android:layout_width="match_parent"
+				android:layout_height="0dp" />
+
+			<include
+				android:id="@+id/titleBar"
+				layout="@layout/include_base_title_bar" />
+		</LinearLayout>
+	</FrameLayout>
+</layout>

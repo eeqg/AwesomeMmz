@@ -2,18 +2,14 @@ package com.example.wp.awesomemmz.image;
 
 import android.Manifest;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.RequiresPermission;
 import android.support.v4.widget.NestedScrollView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.bilibili.boxing.Boxing;
 import com.bilibili.boxing.model.entity.BaseMedia;
@@ -21,6 +17,7 @@ import com.example.wp.awesomemmz.R;
 import com.example.wp.awesomemmz.common.CustomGlideTransform;
 import com.example.wp.awesomemmz.common.GlideImageLoader;
 import com.example.wp.awesomemmz.common.Picker;
+import com.example.wp.awesomemmz.databinding.ActivityImageBinding;
 import com.example.wp.awesomemmz.skill.aspect.CheckPermission;
 import com.example.wp.resource.base.BaseActivity;
 import com.example.wp.resource.utils.BitmapUtil;
@@ -29,78 +26,27 @@ import com.example.wp.resource.utils.StatusBarUtil;
 import com.example.wp.resource.utils.XBitmapUtils;
 import com.example.wp.resource.widget.ShadowDrawable;
 import com.example.wp.resource.widget.shadow.ShadowDrawableWrapper;
-import com.wp.picture.ninegrid.NineGridView;
 import com.wp.picture.picker.PictureLayout;
 import com.wp.picture.preview.PPView;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ImageActivity extends BaseActivity {
 
     private final int CODE_CAMERA = 1;
     private final int CODE_PICK_MULTI = 2;
 
-    @BindView(R.id.titleBarRoot)
-    LinearLayout titleBarRoot;
-    @BindView(R.id.ivBack)
-    ImageView ivBack;
-    @BindView(R.id.titleBar)
-    View titleBar;
-    @BindView(R.id.tvTitle)
-    TextView tvTitle;
-    @BindView(R.id.ivHead)
-    ImageView ivHead;
-    @BindView(R.id.scrollView)
-    NestedScrollView scrollView;
-    @BindView(R.id.ivShadow)
-    View ivShadow;
-    @BindView(R.id.ivShadow3)
-    View ivShadow3;
-    @BindView(R.id.ivSharp1)
-    ImageView ivSharp1;
-    @BindView(R.id.ivSharp2)
-    ImageView ivSharp2;
-    @BindView(R.id.ivSharp3)
-    ImageView ivSharp3;
-    @BindView(R.id.testView)
-    View testView;
-    @BindView(R.id.ivTest)
-    ImageView ivTest;
-    @BindView(R.id.pictureLayout)
-    PictureLayout pictureLayout;
-    @BindView(R.id.btnCamera)
-    Button btnCamera;
-    @BindView(R.id.ivShowCamera)
-    ImageView ivShowCamera;
-    @BindView(R.id.nineGridView)
-    NineGridView nineGridView;
-    @BindView(R.id.ivDisplay1)
-    ImageView ivDisplay1;
-    @BindView(R.id.ivDisplay2)
-    ImageView ivDisplay2;
-    @BindView(R.id.ivDisplay3)
-    ImageView ivDisplay3;
-    @BindView(R.id.ivDisplay4)
-    ImageView ivDisplay4;
-    @BindView(R.id.ivDisplay5)
-    ImageView ivDisplay5;
-
+    private ActivityImageBinding dataBinding;
     private Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTranslucentStatus();
-        setContentView(R.layout.activity_image);
-        ButterKnife.bind(this);
+        dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image);
 
         Uri uri = getIntent().getData();
         if (uri != null) {
@@ -118,20 +64,20 @@ public class ImageActivity extends BaseActivity {
         observeNineGridView();
         observeBitmap();
 
-        GlideImageLoader.getInstance().load(ivTest, "https://t00img.yangkeduo.com/goods/images/2019-03-20/14ab95e7-7cee-4c1a-acd6-cb94b8b4a951.jpg");
+        GlideImageLoader.getInstance().load(dataBinding.ivTest, "https://t00img.yangkeduo.com/goods/images/2019-03-20/14ab95e7-7cee-4c1a-acd6-cb94b8b4a951.jpg");
     }
 
     private void observeBar() {
-        titleBarRoot.addView(StatusBarUtil.createTranslucentStatusBarView(this, 0), 0);
-        titleBar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-        ivBack.setImageResource(R.mipmap.ic_back_white);
-        tvTitle.setText("image");
-        tvTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+        dataBinding.titleBarRoot.addView(StatusBarUtil.createTranslucentStatusBarView(this, 0), 0);
+        dataBinding.titleBar.titleBar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        dataBinding.titleBar.ivBack.setImageResource(R.mipmap.ic_back_white);
+        dataBinding.titleBar.tvTitle.setText("image");
+        dataBinding.titleBar.tvTitle.setTextColor(getResources().getColor(R.color.colorWhite));
 
-        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+        dataBinding.scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView nestedScrollView, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                int height = ivHead.getMeasuredHeight();
+                int height = dataBinding.ivHead.getMeasuredHeight();
                 // LogUtils.d("-----height = " + height);
                 // LogUtils.d("-----scrollY = " + scrollY);
                 float percent = scrollY * 1.2F / height;
@@ -141,25 +87,25 @@ public class ImageActivity extends BaseActivity {
 
                 int color = changeAlpha(getResources().getColor(R.color.colorTitleBar), percent);
                 // LogUtils.d("-----color = " + color);
-                titleBarRoot.setBackgroundColor(color);
+                dataBinding.titleBarRoot.setBackgroundColor(color);
             }
         });
     }
 
     private void observeViewShadow() {
-        ShadowDrawable.setShadowDrawable(ivShadow, Color.parseColor("#801122FF"), 50,
+        ShadowDrawable.setShadowDrawable(dataBinding.ivShadow, Color.parseColor("#801122FF"), 50,
                 Color.parseColor("#88FE5891"), 50, 0, 0);
 
         ShadowDrawableWrapper shadowDrawableWrapper = new ShadowDrawableWrapper(this,
                 getResources().getDrawable(R.mipmap.image4), 10, 15, 15);
-        ivShadow3.setBackgroundDrawable(shadowDrawableWrapper);
+        dataBinding.ivShadow3.setBackgroundDrawable(shadowDrawableWrapper);
     }
 
     private void observeSharp() {
-        GlideImageLoader.getInstance().load(ivSharp1, "http://img.zcool.cn/community/01700557a7f42f0000018c1bd6eb23.jpg");
-        GlideImageLoader.getInstance().load(ivSharp2, "http://img.zcool.cn/community/01700557a7f42f0000018c1bd6eb23.jpg",
+        GlideImageLoader.getInstance().load(dataBinding.ivSharp1, "http://img.zcool.cn/community/01700557a7f42f0000018c1bd6eb23.jpg");
+        GlideImageLoader.getInstance().load(dataBinding.ivSharp2, "http://img.zcool.cn/community/01700557a7f42f0000018c1bd6eb23.jpg",
                 new CustomGlideTransform(true, 0, 2, getResources().getColor(R.color.colorPrimary)));
-        GlideImageLoader.getInstance().load(ivSharp3, "http://img.zcool.cn/community/01700557a7f42f0000018c1bd6eb23.jpg",
+        GlideImageLoader.getInstance().load(dataBinding.ivSharp3, "http://img.zcool.cn/community/01700557a7f42f0000018c1bd6eb23.jpg",
                 new CustomGlideTransform(false, 10, 4, 0xFFFFFF00));
     }
 
@@ -172,25 +118,25 @@ public class ImageActivity extends BaseActivity {
     }
 
     private void observePictureLayout() {
-        pictureLayout.setOnPictureListener(new PictureLayout.OnPictureListener() {
+        dataBinding.pictureLayout.setOnPictureListener(new PictureLayout.OnPictureListener() {
             @Override
             public void onInsert() {
                 // pictureLayout.addPictureUrl("http://img.zcool.cn/community/01700557a7f42f0000018c1bd6eb23.jpg");
                 Picker.pickMulti(ImageActivity.this, CODE_PICK_MULTI,
-                        pictureLayout.getMaxCount() - pictureLayout.size());
+                        dataBinding.pictureLayout.getMaxCount() - dataBinding.pictureLayout.size());
             }
 
             @Override
             public void onEdit(int position, Uri pictureUri) {
                 LogUtils.d("-----position = " + position);
-                pictureLayout.removePictureUri(position);
+                dataBinding.pictureLayout.removePictureUri(position);
             }
 
             @Override
             public void onSelect(int position, Uri pictureUri) {
                 LogUtils.d("-----position = " + position);
                 ArrayList<String> imgList = new ArrayList<>();
-                for (Uri uri : pictureLayout.getPictureList()) {
+                for (Uri uri : dataBinding.pictureLayout.getPictureList()) {
                     imgList.add(uri.toString());
                 }
                 PPView.build().urlList(imgList).position(position).show(ImageActivity.this);
@@ -216,7 +162,7 @@ public class ImageActivity extends BaseActivity {
         info0.isVideo = true;
         info0.videoUrl = "https://cloud.video.taobao.com/play/u/2683201295/p/2/e/6/t/1/226176442207.mp4?appKey=38829";
         imageInfo.add(0, info0);
-        nineGridView.setAdapter(new NineGridImageAdapter(this, imageInfo));
+        dataBinding.nineGridView.setAdapter(new NineGridImageAdapter(this, imageInfo));
     }
 
     private void observeBitmap() {
@@ -229,26 +175,26 @@ public class ImageActivity extends BaseActivity {
         // }
         // Bitmap bitmap1 = BitmapFactory.decodeStream(inputStream);
         LogUtils.d("-----bitmap1: " + bitmap1.getByteCount());
-        ivDisplay1.setImageBitmap(bitmap1);
+        dataBinding.ivDisplay1.setImageBitmap(bitmap1);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = false;
         options.inSampleSize = 2;
         Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(), R.mipmap.image3, options);
         LogUtils.d("-----bitmap2: " + bitmap2.getByteCount());
-        ivDisplay2.setImageBitmap(bitmap2);
+        dataBinding.ivDisplay2.setImageBitmap(bitmap2);
         Bitmap bitmap3 = BitmapUtil.qualityCompress(bitmap1, 50);
         LogUtils.d("-----bitmap3: " + bitmap3.getByteCount());
-        ivDisplay3.setImageBitmap(bitmap3);
+        dataBinding.ivDisplay3.setImageBitmap(bitmap3);
         Bitmap bitmap4 = BitmapUtil.scaleCompress(bitmap1, 0.5f);
         LogUtils.d("-----bitmap4: " + bitmap4.getByteCount());
-        ivDisplay4.setImageBitmap(bitmap4);
+        dataBinding.ivDisplay4.setImageBitmap(bitmap4);
 
-        ivDisplay5.setImageBitmap(XBitmapUtils.createReflectionBitmap(bitmap1));
+        dataBinding.ivDisplay5.setImageBitmap(XBitmapUtils.createReflectionBitmap(bitmap1));
     }
 
     // @RequiresPermission(Manifest.permission.CAMERA)
     private void observeCamera() {
-        btnCamera.setOnClickListener(new View.OnClickListener() {
+        dataBinding.btnCamera.setOnClickListener(new View.OnClickListener() {
             @CheckPermission({Manifest.permission.CAMERA})
             @Override
             public void onClick(View v) {
@@ -267,7 +213,7 @@ public class ImageActivity extends BaseActivity {
                         LogUtils.d("----uri = " + uri);
                         //将拍摄的照片显示出来
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-                        ivShowCamera.setImageBitmap(bitmap);
+                        dataBinding.ivShowCamera.setImageBitmap(bitmap);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -279,7 +225,7 @@ public class ImageActivity extends BaseActivity {
                     if (medias != null && medias.size() > 0) {
                         for (BaseMedia media : medias) {
                             LogUtils.d("-----" + media.getPath());
-                            pictureLayout.addPictureUrl(media.getPath());
+                            dataBinding.pictureLayout.addPictureUrl(media.getPath());
                         }
                     }
                 }

@@ -1,48 +1,51 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-	ext.kotlin_version = '1.3.71'
+    ext.kotlin_version = '1.3.71'
 
-	
-	repositories {
-		google()
-		jcenter()
-	}
-	dependencies {
-		classpath 'com.android.tools.build:gradle:3.4.2'
-		
-		classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.6'//aop: hujiang.aspectjx
-		
-		// NOTE: Do not place your application dependencies here; they belong
-		// in the individual module build.gradle files
-	classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" }
 
-    
+    repositories {
+        mavenCentral()
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.2'
+
+        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.6'//aop: hujiang.aspectjx
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
     }
 
+
+}
+
 allprojects {
-	repositories {
-		jcenter()
-		google()
-		maven {
-			url "https://jitpack.io"
-		}
-	}
+    repositories {
+        jcenter()
+        google()
+        maven {
+            url "https://jitpack.io"
+        }
+    }
 }
 
 task clean(type: Delete) {
-	delete rootProject.buildDir
+    delete rootProject.buildDir
 }
 
 ext {
-	// Sdk and tools
-	compileSdkVersion = 28
-	buildToolsVersion = '28.0.3'
-	minSdkVersion = 16
-	targetSdkVersion = 28
-	appTargetSdkVersion = 28
-	
-	libAppcompatV7 = 'com.android.support:appcompat-v7:28.0.0'
-	libRecyclerView = 'com.android.support:recyclerview-v7:28.0.0'
-	libDesign = 'com.android.support:design:28.0.0'
+    // Sdk and tools
+    compileSdkVersion = 28
+    buildToolsVersion = '28.0.3'
+    minSdkVersion = 16
+    targetSdkVersion = 28
+    appTargetSdkVersion = 28
+
+    libAppcompatV7 = 'com.android.support:appcompat-v7:28.0.0'
+    libRecyclerView = 'com.android.support:recyclerview-v7:28.0.0'
+    libDesign = 'com.android.support:design:28.0.0'
 }

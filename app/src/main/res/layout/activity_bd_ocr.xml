@@ -10,6 +10,11 @@
         android:orientation="vertical"
         tools:context=".other.BdOcrActivity">
 
+        <ImageView
+            android:id="@+id/ivPicture"
+            android:layout_width="360dp"
+            android:layout_height="360dp"/>
+
         <TextView
             android:id="@+id/tvShow"
             android:layout_width="match_parent"
