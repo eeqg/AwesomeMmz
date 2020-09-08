@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="#30909090" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:text="title"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintLeft_toRightOf="@+id/view"
+            app:layout_constraintTop_toTopOf="@+id/view" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

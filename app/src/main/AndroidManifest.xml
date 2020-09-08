@@ -29,7 +29,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".javaz.reflects.ReflectActivity"></activity>
+        <activity android:name=".skill.RecyclerSwitchActivity"></activity>
+        <activity android:name=".javaz.reflects.ReflectActivity" />
         <activity android:name=".index.provider.CustProviderActivity" />
         <activity android:name=".other.BdOcrActivity" />
         <activity android:name=".skill.NestedScrollingActivity" />

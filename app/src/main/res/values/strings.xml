@@ -25,4 +25,6 @@
 
     <string name="startlocation">开始定位</string>
     <string name="stoplocation">停止定位</string>
+    <string name="list_normal">list_normal</string>
+    <string name="list_grid">list grid</string>
 </resources>
