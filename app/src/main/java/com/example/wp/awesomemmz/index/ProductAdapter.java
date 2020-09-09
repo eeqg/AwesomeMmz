@@ -1,6 +1,7 @@
 package com.example.wp.awesomemmz.index;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
@@ -9,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.wp.awesomemmz.R;
 import com.example.wp.awesomemmz.index.bean.Product;
-import com.example.wp.resource.widget.SpaceItemDecoration;
 import com.example.wp.resource.widget.flow.FlowLayoutManager;
 
 import java.util.List;
@@ -122,5 +122,22 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private int dp2px(float value) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, context.getResources().getDisplayMetrics());
+    }
+
+    private class SpaceItemDecoration extends RecyclerView.ItemDecoration {
+
+        private int space;
+
+        public SpaceItemDecoration(int space) {
+            this.space = space;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            outRect.top = space;
+            outRect.left = space;
+            outRect.right = space;
+            outRect.bottom = space;
+        }
     }
 }

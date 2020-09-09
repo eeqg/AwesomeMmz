@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="4dp">
+            android:padding="6dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -35,9 +35,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
-                android:src="@{mode == 1 ? @drawable/ic_list_grid : @drawable/ic_list_normal}"
+                android:src="@{mode == 0 ? @drawable/ic_list_grid : @drawable/ic_list_normal}"
                 tools:src="@drawable/ic_list_normal" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#d0d3d9"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"

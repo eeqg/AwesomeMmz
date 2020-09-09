@@ -27,7 +27,7 @@ public class SpecActivity extends BaseActivity {
 				.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						LaunchUtil.launchActivity(getBaseContext(), ProductActivity.class);
+						LaunchUtil.launchActivity(SpecActivity.this, ProductActivity.class);
 					}
 				});
 	}

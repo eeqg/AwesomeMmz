@@ -25,6 +25,7 @@
 	<color name="colorThemeAssisted">#CCCCCC</color>
 	
 	<!-- 分割线 -->
+	<color name="colorDivider">#D0D3D9</color>
 	<color name="colorThemeDivider">#E5E5E5</color>
 	
 	<color name="colorWhite">#FFFFFFFF</color>
