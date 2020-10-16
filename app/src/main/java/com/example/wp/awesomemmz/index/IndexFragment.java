@@ -145,6 +145,19 @@ public class IndexFragment extends Fragment {
 		data.add(new ClassInfoBean("map & location", LocationActivity.class.getName()));
 		data.add(new ClassInfoBean("ContentProvider", CustProviderActivity.class.getName()));
 		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("...", ""));
+		data.add(new ClassInfoBean("...", ""));
 	}
 	
 	private void addTinyView() {

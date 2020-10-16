@@ -80,6 +80,7 @@ class CustProviderActivity : AppCompatActivity() {
     private fun queryBy() {
         var info: PersonInfo? = null
         val ids = dataBinding.etIds.text.toString()
+        if (TextUtils.isEmpty(ids)) return
         when (dataBinding.rg.checkedRadioButtonId) {
             R.id.rbId -> {
                 info = cpAdapter.getPersonById(ids.toLong())
@@ -95,6 +96,7 @@ class CustProviderActivity : AppCompatActivity() {
     private fun deleteBy() {
         var result: Boolean? = null
         val ids = dataBinding.etIds.text.toString()
+        if (TextUtils.isEmpty(ids)) return
         when (dataBinding.rg.checkedRadioButtonId) {
             R.id.rbId -> {
                 result = cpAdapter.deletePersonById(ids.toLong())
