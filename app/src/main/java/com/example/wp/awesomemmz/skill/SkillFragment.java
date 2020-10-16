@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import com.example.wp.awesomemmz.R;
 import com.example.wp.awesomemmz.index.IndexAdapter;
 import com.example.wp.awesomemmz.index.bean.ClassInfoBean;
+import com.example.wp.awesomemmz.skill.aidls.AidlsActivity;
 import com.example.wp.awesomemmz.skill.font.TextFontActivity;
 import com.example.wp.resource.utils.LaunchUtil;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -123,7 +124,7 @@ public class SkillFragment extends Fragment {
         data.add(new ClassInfoBean("RecyclerView-显示切换", RecyclerSwitchActivity.class.getName()));
         data.add(new ClassInfoBean("AspectJ test", AspectTestActivity.class.getName()));
         data.add(new ClassInfoBean("scheme跳转页面", SchemeTestActivity.class.getName()));
-        data.add(new ClassInfoBean("...", ""));
+        data.add(new ClassInfoBean("AIDL", AidlsActivity.class.getName()));
         data.add(new ClassInfoBean("...", ""));
         data.add(new ClassInfoBean("...", ""));
         data.add(new ClassInfoBean("...", ""));

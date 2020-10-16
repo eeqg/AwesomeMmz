@@ -16,6 +16,7 @@ import com.example.wp.awesomemmz.common.PPViewGlideLoader;
 import com.example.wp.awesomemmz.common.PictureLayoutImageLoader;
 import com.example.wp.awesomemmz.map.service.LocationService;
 import com.example.wp.resource.base.BaseApp;
+import com.example.wp.resource.utils.LogUtils;
 import com.wp.picture.picker.PictureLayout;
 import com.wp.picture.preview.PPView;
 
@@ -35,6 +36,8 @@ public class APP extends BaseApp {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		LogUtils.d("-----App onCreate()");
+
 		initPictureLayout();
 		initBoxing();
 		initPicturePreview();
