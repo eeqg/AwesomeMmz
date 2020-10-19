@@ -29,13 +29,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
+
         <activity android:name=".skill.aidls.AidlsActivity" />
 
         <service
             android:name=".book.BookManagerService"
             android:enabled="true"
             android:exported="true"
-            android:process=":remote" />
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.example.wp.awesomemmz.BookManagerService"/>
+            </intent-filter>
+        </service>
 
         <activity android:name=".skill.RecyclerSwitchActivity" />
         <activity android:name=".javaz.reflects.ReflectActivity" />

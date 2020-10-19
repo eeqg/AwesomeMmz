@@ -3,6 +3,8 @@ package com.example.wp.awesomemmz.book;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created by wp on 2020/10/16.
  *
@@ -16,13 +18,22 @@ import android.os.Parcelable;
  * }
  */
 
-class Book implements Parcelable {
+public class Book implements Parcelable {
     public String id;
     public String name;
 
     public Book(String id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    @NotNull
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     protected Book(Parcel in) {

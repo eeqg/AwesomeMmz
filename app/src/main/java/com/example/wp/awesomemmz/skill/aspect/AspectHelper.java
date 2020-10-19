@@ -188,7 +188,7 @@ public class AspectHelper {
 
         //方法执行完成
         long end = System.currentTimeMillis();
-        // Log.i(TAG, behaviorTrace.value() + "(" + behaviorTrace.type() + ")" + " 耗时：" +  (end - begin) + "ms");
+         Log.i(TAG, behaviorTrace.value() + "(" + behaviorTrace.type() + ")" + " 耗时：" +  (end - begin) + "ms");
         Log.i(TAG, monitor.value() + "(" + monitor.type() + ")" + " 耗时：" + (end - begin) + "ms");
     }
 
