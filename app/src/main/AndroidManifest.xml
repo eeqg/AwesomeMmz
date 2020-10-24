@@ -41,6 +41,12 @@
                 <action android:name="com.example.wp.awesomemmz.BookManagerService"/>
             </intent-filter>
         </service>
+        <service android:name=".remotes.MessengerService"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.example.wp.awesomemmz.MessengerService"/>
+            </intent-filter>
+        </service>
 
         <activity android:name=".skill.RecyclerSwitchActivity" />
         <activity android:name=".javaz.reflects.ReflectActivity" />

@@ -4,9 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.Bundle
-import android.os.IBinder
-import android.os.RemoteException
+import android.os.*
 import android.support.v7.app.AppCompatActivity
 import com.example.wp.awesomemmz.APP
 import com.example.wp.awesomemmz.R
@@ -22,6 +20,9 @@ class AidlsActivity : AppCompatActivity() {
     private var serviceConnected = false
     private var iBookService: IBookManager? = null
 
+    private var messengerRegistered = false
+    private var mMessenger: Messenger? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_aidls)
@@ -31,6 +32,8 @@ class AidlsActivity : AppCompatActivity() {
         }
         btnAddBook.setOnClickListener { addBook() }
         btnListBook.setOnClickListener { listBook() }
+
+        btnBindMessenger.setOnClickListener { bindMessengerService() }
     }
 
     private fun startRemoteService() {
@@ -85,5 +88,56 @@ class AidlsActivity : AppCompatActivity() {
         val intent = Intent("com.example.wp.awesomemmz.BookManagerService")
         intent.`package` = "com.example.wp.awesomemmz"
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+    }
+
+    // - - - - - - - - - -- - - - - -- - - -- - -- - -- - -
+    private val messengerConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            messengerRegistered = true
+            mMessenger = Messenger(service)
+            val msg = Message.obtain(null, 111)
+            msg.data = Bundle().apply { putString("msg", "msg from client...111") }
+
+            //reply
+            msg.replyTo = Messenger(MessengerHandler())
+
+            try {
+                mMessenger!!.send(msg)
+            } catch (e: RemoteException) {
+                e.printStackTrace()
+            }
+            APP.toast("remote service connected..")
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            messengerRegistered = false
+        }
+    }
+
+    private fun bindMessengerService() {
+        val intent = Intent("com.example.wp.awesomemmz.MessengerService")
+        intent.`package` = "com.example.wp.awesomemmz"
+        bindService(intent, messengerConnection, Context.BIND_AUTO_CREATE)
+    }
+
+    private class MessengerHandler : Handler() {
+        override fun handleMessage(msg: Message) {
+            when (msg.what) {
+                1112 -> {
+                    val message = msg.data.getString("reply")
+                    LogUtils.d("client receive: $message")
+                    APP.toast("client receive: $message}")
+                }
+                else -> super.handleMessage(msg)
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        //unbind service.
+        if (serviceConnected) unbindService(serviceConnection)
+        if (messengerRegistered) unbindService(messengerConnection)
+
+        super.onDestroy()
     }
 }

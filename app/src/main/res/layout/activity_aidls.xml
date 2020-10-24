@@ -34,4 +34,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="list_book" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#d0d3d9" />
+
+    <Button
+        android:id="@+id/btnBindMessenger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="bind messenger-service" />
 </LinearLayout>

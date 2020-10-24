@@ -3,6 +3,7 @@ package com.example.wp.awesomemmz.book
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
+import android.widget.Toast
 import com.example.wp.awesomemmz.APP
 import com.example.wp.resource.utils.LogUtils
 
@@ -28,13 +29,15 @@ class BookManagerService : Service() {
 
     private val stub = object : IBookManager.Stub() {
         override fun listBooks(): MutableList<Book> {
+            LogUtils.d("----BookManagerService--listBooks: thread, ${Thread.currentThread().name}")//binder线程
             return bookList
         }
 
         override fun addBook(book: Book?) {
             LogUtils.d("----BookManagerService--addBook: $book")
             if (book != null) bookList.add(book)
-            APP.toast("add book: $book")
+            //exception: 不是运行在mainThread.
+            Toast.makeText(this@BookManagerService, "add book", Toast.LENGTH_LONG).show()
         }
     }
 
