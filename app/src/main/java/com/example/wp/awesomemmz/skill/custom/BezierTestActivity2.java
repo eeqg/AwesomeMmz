@@ -1,4 +1,4 @@
-package com.example.wp.awesomemmz.custom;
+package com.example.wp.awesomemmz.skill.custom;
 
 import android.graphics.Color;
 import android.os.Bundle;

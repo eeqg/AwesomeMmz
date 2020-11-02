@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -18,6 +17,7 @@ import com.example.wp.awesomemmz.R;
 import com.example.wp.awesomemmz.index.IndexAdapter;
 import com.example.wp.awesomemmz.index.bean.ClassInfoBean;
 import com.example.wp.awesomemmz.skill.aidls.AidlsActivity;
+import com.example.wp.awesomemmz.skill.custom.CustomViewActivity;
 import com.example.wp.awesomemmz.skill.font.TextFontActivity;
 import com.example.wp.resource.utils.LaunchUtil;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -41,7 +41,6 @@ public class SkillFragment extends Fragment {
     private String mParam2;
 
     private View rootView;
-    private ArrayList<ClassInfoBean> data = new ArrayList<>();
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,8 +64,6 @@ public class SkillFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        initData();
     }
 
     @Override
@@ -88,7 +85,7 @@ public class SkillFragment extends Fragment {
         final IndexAdapter indexAdapter = new IndexAdapter(getContext());
         recyclerView.setAdapter(indexAdapter);
 
-        indexAdapter.addAll(data);
+        indexAdapter.addAll(getData());
         indexAdapter.notifyDataSetChanged();
 
         indexAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
@@ -109,7 +106,8 @@ public class SkillFragment extends Fragment {
         });
     }
 
-    private void initData() {
+    private ArrayList<ClassInfoBean> getData() {
+        ArrayList<ClassInfoBean> data = new ArrayList<>();
         data.add(new ClassInfoBean("BottomSheetBehavior实现底部弹窗", BottomSheetBehaviorActivity.class.getName()));
         data.add(new ClassInfoBean("SheetBehavior", SheetBehaviorActivity.class.getName()));
         data.add(new ClassInfoBean("CoordinatorLayout组合使用实现地图背景", CoordinateActivity.class.getName()));
@@ -119,6 +117,7 @@ public class SkillFragment extends Fragment {
         data.add(new ClassInfoBean("RxBus", RxBusActivity.class.getName()));
         data.add(new ClassInfoBean("Transition", TransitionActivity.class.getName()));
         data.add(new ClassInfoBean("Animation", AnimationsActivity.class.getName()));
+        data.add(new ClassInfoBean("customView", CustomViewActivity.class.getName()));
         data.add(new ClassInfoBean("TextFont", TextFontActivity.class.getName()));
         data.add(new ClassInfoBean("RecyclerView-分组", RecyclerViewGroupActivity.class.getName()));
         data.add(new ClassInfoBean("RecyclerView-显示切换", RecyclerSwitchActivity.class.getName()));
@@ -133,6 +132,8 @@ public class SkillFragment extends Fragment {
         data.add(new ClassInfoBean("...", ""));
         data.add(new ClassInfoBean("...", ""));
         data.add(new ClassInfoBean("...", ""));
+
+        return data;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

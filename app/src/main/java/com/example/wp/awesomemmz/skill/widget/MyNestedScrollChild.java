@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.wp.awesomemmz.R;
+import com.example.wp.resource.utils.LogUtils;
 
 /**
  * 具体使用操作流程
@@ -68,6 +69,8 @@ public class MyNestedScrollChild extends LinearLayout implements NestedScrolling
                 lastY = y;
                 if (startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL)
                         && dispatchNestedPreScroll(0, dy, consumed, offset)) {
+                    LogUtils.d("----consumed = "+ consumed[1], "---offsetWindow = "+ offset[1]);
+                    //int remain = dy - offset[1];
                     int remain = dy - consumed[1];
                     if (remain != 0) {
                         scrollBy(0, -remain);
@@ -130,6 +133,14 @@ public class MyNestedScrollChild extends LinearLayout implements NestedScrolling
                 dxUnconsumed, dyUnconsumed, offsetInWindow, type);
     }
 
+    /**
+     * 在子View的onInterceptTouchEvent或者onTouch中，调用该方法通知父View滑动的距离
+     * @param dx  x轴上滑动的距离
+     * @param dy  y轴上滑动的距离
+     * @param consumed 父view消费掉的scroll长度
+     * @param offsetInWindow   子View的窗体偏移量
+     * @return 支持的嵌套的父View 是否处理了 滑动事件
+     */
     @Override
     public boolean dispatchNestedPreScroll(int dx, int dy, @Nullable int[] consumed, @Nullable int[] offsetInWindow, int type) {
         return getNestedScrollingChildHelper().dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow, type);

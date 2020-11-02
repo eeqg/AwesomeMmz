@@ -35,6 +35,7 @@ class CustProviderActivity : AppCompatActivity() {
 
         getDataList()
 
+        //监测数据变化.
         contentResolver.registerContentObserver(CustProviderAdapter.CONTENT_URI,
                 true,
                 object : ContentObserver(Handler()) {

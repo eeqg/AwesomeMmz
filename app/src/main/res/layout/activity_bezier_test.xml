@@ -6,7 +6,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@color/colorWhite"
-	tools:context=".custom.BezierTestActivity">
+	tools:context=".skill.custom.BezierTestActivity">
 	
 	<com.example.wp.resource.widget.bezier.BezierView1
 		android:layout_width="match_parent"

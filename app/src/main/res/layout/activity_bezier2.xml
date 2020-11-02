@@ -7,7 +7,7 @@
 	android:layout_height="match_parent"
 	android:background="@mipmap/img_bg1"
 	android:padding="10dp"
-	tools:context=".custom.BezierTestActivity2">
+	tools:context=".skill.custom.BezierTestActivity2">
 	
 	<com.example.wp.resource.widget.bezier.BezierView2
 		android:id="@+id/bezier"

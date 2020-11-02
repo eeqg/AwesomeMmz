@@ -52,6 +52,7 @@ class ReflectActivity : AppCompatActivity() {
                 try {
                     if (fields != null) {
                         LogUtils.d("-----address: ${fields.get(person) as String}")
+                        APP.toast(fields.get(person) as String)
                     }
                 } catch (e: IllegalAccessException) {
                     e.printStackTrace()

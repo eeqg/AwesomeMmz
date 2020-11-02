@@ -21,7 +21,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.example.wp.awesomemmz.R;
-import com.example.wp.awesomemmz.custom.CustomViewActivity;
 import com.example.wp.awesomemmz.frame.LifecycleActivity;
 import com.example.wp.awesomemmz.frame.LiveDataTestActivity;
 import com.example.wp.awesomemmz.image.ImageActivity;
@@ -138,7 +137,6 @@ public class IndexFragment extends Fragment {
 		data.add(new ClassInfoBean("video", VideoActivity.class.getName()));
 		data.add(new ClassInfoBean("SpecView", SpecActivity.class.getName()));
 		data.add(new ClassInfoBean("recovery", ""));
-		data.add(new ClassInfoBean("customView", CustomViewActivity.class.getName()));
 		data.add(new ClassInfoBean("Lifecycle", LifecycleActivity.class.getName()));
 		data.add(new ClassInfoBean("LiveData", LiveDataTestActivity.class.getName()));
 		data.add(new ClassInfoBean("M-V-VM", ""));
