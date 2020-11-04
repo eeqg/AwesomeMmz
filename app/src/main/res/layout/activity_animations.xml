@@ -1,104 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context=".skill.AnimationsActivity">
-	
-	<android.support.v4.widget.NestedScrollView
-		android:layout_width="match_parent"
-		android:layout_height="match_parent">
-		
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:animateLayoutChanges="true"
-			android:background="@color/colorWhite"
-			android:orientation="vertical"
-			android:padding="8dp">
-			
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="LayoutAnimation" />
-			
-			<android.support.constraint.ConstraintLayout
-				android:id="@+id/clLa"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:background="#20808080"
-				android:layoutAnimation="@anim/anim_item_enter_1"
-				android:minHeight="200dp"
-				android:padding="6dp"
-				android:visibility="gone"
-				tools:visibility="visible">
-				
-				<ImageView
-					android:id="@+id/ivAdd"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:foreground="?android:selectableItemBackground"
-					android:padding="5dp"
-					android:src="@drawable/ic_add_black_24dp" />
-				
-				<ImageView
-					android:id="@+id/ivRemove"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:foreground="?android:selectableItemBackground"
-					android:padding="5dp"
-					android:src="@drawable/ic_remove_black_24dp"
-					app:layout_constraintLeft_toRightOf="@+id/ivAdd" />
-				
-				<LinearLayout
-					android:id="@+id/llContainer"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:minWidth="50dp"
-					android:minHeight="50dp"
-					android:orientation="vertical"
-					app:layout_constraintTop_toBottomOf="@+id/ivAdd" />
-				
-				<LinearLayout
-					android:id="@+id/llSign"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="30dp"
-					android:animateLayoutChanges="true"
-					android:background="@drawable/bg_white_left_round"
-					android:gravity="center_vertical"
-					android:padding="5dp"
-					app:layout_constraintRight_toRightOf="parent"
-					app:layout_constraintTop_toTopOf="parent">
-					
-					<com.wp.picture.widget.CircleImageView
-						android:layout_width="36dp"
-						android:layout_height="36dp"
-						android:scaleType="centerCrop"
-						android:src="@mipmap/ic_test_0"
-						app:border_inside_color="#90FFFF00"
-						app:border_outside_color="#90FF0000"
-						app:border_thickness="2dp" />
-					
-					<TextView
-						android:id="@+id/tvSignName"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginStart="10dp"
-						android:layout_marginLeft="10dp"
-						android:text="sign in"
-						android:textColor="@color/colorTextAccent"
-						android:textSize="@dimen/dimenTextSecondary" />
-				</LinearLayout>
-			</android.support.constraint.ConstraintLayout>
-			
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="10dp"
-				android:text="ObjectAnimator" />
-		</LinearLayout>
-	</android.support.v4.widget.NestedScrollView>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".skill.AnimationsActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LayoutAnimation" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/clLa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#20808080"
+                android:layoutAnimation="@anim/anim_item_enter_1"
+                android:minHeight="200dp"
+                android:padding="6dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/ivAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:foreground="?android:selectableItemBackground"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_add_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/ivRemove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:foreground="?android:selectableItemBackground"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_remove_black_24dp"
+                    app:layout_constraintLeft_toRightOf="@+id/ivAdd" />
+
+                <LinearLayout
+                    android:id="@+id/llContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="50dp"
+                    android:minHeight="50dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/ivAdd" />
+
+                <LinearLayout
+                    android:id="@+id/llSign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:animateLayoutChanges="true"
+                    android:background="@drawable/bg_white_left_round"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.wp.picture.widget.CircleImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/ic_test_0"
+                        app:border_inside_color="#90FFFF00"
+                        app:border_outside_color="#90FF0000"
+                        app:border_thickness="2dp" />
+
+                    <TextView
+                        android:id="@+id/tvSignName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:text="sign in"
+                        android:textColor="@color/colorTextAccent"
+                        android:textSize="@dimen/dimenTextSecondary" />
+                </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="ObjectAnimator" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:cardBackgroundColor="#328899"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/tvOthers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="do something...\ndo something...\ndo something...\ndo something..."
+                        android:textColor="@color/colorWhite" />
+
+                    <TextView
+                        android:id="@+id/tvOther1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="50dp"
+                        android:text="well, you done !!!"
+                        android:visibility="invisible"
+                        android:textColor="@color/colorWhite" />
+
+                    <com.example.wp.awesomemmz.skill.widget.ConfirmButton
+                        android:id="@+id/confirmBtn"
+                        android:layout_width="160dp"
+                        android:layout_height="40dp"
+                        android:paddingLeft="52dp"
+                        android:paddingTop="8dp"
+                        android:paddingRight="52dp"
+                        android:paddingBottom="8dp" />
+
+                    <TextView
+                        android:id="@+id/tvReset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="reset"
+                        android:layout_gravity="end"
+                        android:textColor="@color/colorWhite"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>

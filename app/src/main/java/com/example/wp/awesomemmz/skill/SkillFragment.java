@@ -19,6 +19,7 @@ import com.example.wp.awesomemmz.index.bean.ClassInfoBean;
 import com.example.wp.awesomemmz.skill.aidls.AidlsActivity;
 import com.example.wp.awesomemmz.skill.custom.CustomViewActivity;
 import com.example.wp.awesomemmz.skill.font.TextFontActivity;
+import com.example.wp.resource.common.RxTimerHelper;
 import com.example.wp.resource.utils.LaunchUtil;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -85,9 +86,6 @@ public class SkillFragment extends Fragment {
         final IndexAdapter indexAdapter = new IndexAdapter(getContext());
         recyclerView.setAdapter(indexAdapter);
 
-        indexAdapter.addAll(getData());
-        indexAdapter.notifyDataSetChanged();
-
         indexAdapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -102,6 +100,14 @@ public class SkillFragment extends Fragment {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        RxTimerHelper.get(this).timer(2000, new RxTimerHelper.IRxNext() {
+            @Override
+            public void doNext(long number) {
+                indexAdapter.addAll(getData());
+                indexAdapter.notifyDataSetChanged();
             }
         });
     }
