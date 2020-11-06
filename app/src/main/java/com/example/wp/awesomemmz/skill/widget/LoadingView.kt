@@ -19,7 +19,7 @@ import android.widget.TextView
 /**
  * Created by wp on 2020/11/2.
  */
-class LoadingView : LinearLayout {
+class LoadingView constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
     private var shapeView: GeoShapeView
     private var shadowView: ImageView
     private var textView: TextView
@@ -29,12 +29,6 @@ class LoadingView : LinearLayout {
     private var mGapValue = 16
     private var mDuration = 600L
     private var mText = "loading..."
-
-    constructor(context: Context) : super(context)
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     fun setLoadingText(text: String): LoadingView {
         this.mText = text

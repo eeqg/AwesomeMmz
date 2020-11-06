@@ -127,6 +127,7 @@ public class SkillFragment extends Fragment {
         data.add(new ClassInfoBean("TextFont", TextFontActivity.class.getName()));
         data.add(new ClassInfoBean("RecyclerView-分组", RecyclerViewGroupActivity.class.getName()));
         data.add(new ClassInfoBean("RecyclerView-显示切换", RecyclerSwitchActivity.class.getName()));
+        data.add(new ClassInfoBean("RecyclerView-自定义LayoutManager", AspectTestActivity.class.getName()));
         data.add(new ClassInfoBean("AspectJ test", AspectTestActivity.class.getName()));
         data.add(new ClassInfoBean("scheme跳转页面", SchemeTestActivity.class.getName()));
         data.add(new ClassInfoBean("AIDL", AidlsActivity.class.getName()));

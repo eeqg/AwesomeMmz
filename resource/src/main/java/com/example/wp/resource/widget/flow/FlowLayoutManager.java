@@ -113,7 +113,7 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
             return;
         }
         //onLayoutChildren方法在RecyclerView 初始化时 会执行两遍
-        detachAndScrapAttachedViews(recycler);
+        detachAndScrapAttachedViews(recycler); // 1.detach
         if (getChildCount() == 0) {
             width = getWidth();
             height = getHeight();
@@ -125,11 +125,11 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
 
         for (int i = 0; i < getItemCount(); i++) {
             Log.d(TAG, "index:" + i);
-            View childAt = recycler.getViewForPosition(i);
+            View childAt = recycler.getViewForPosition(i); // 2.get view
             if (View.GONE == childAt.getVisibility()) {
                 continue;
             }
-            measureChildWithMargins(childAt, 0, 0);
+            measureChildWithMargins(childAt, 0, 0); // 3.measure
             int childWidth = getDecoratedMeasuredWidth(childAt);
             int childHeight = getDecoratedMeasuredHeight(childAt);
             int childUseWidth = childWidth;
@@ -201,10 +201,10 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
                 for (int i = 0; i < views.size(); i++) {
                     View scrap = views.get(i).view;
                     measureChildWithMargins(scrap, 0, 0);
-                    addView(scrap);
+                    addView(scrap);                          //4.add view
                     Rect frame = views.get(i).rect;
                     //将这个item布局出来
-                    layoutDecoratedWithMargins(scrap,
+                    layoutDecoratedWithMargins(scrap,       //5.layout
                             frame.left,
                             frame.top - verticalScrollOffset,
                             frame.right,

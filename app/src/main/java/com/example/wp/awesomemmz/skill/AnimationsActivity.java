@@ -3,13 +3,17 @@ package com.example.wp.awesomemmz.skill;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.wp.awesomemmz.R;
+import com.example.wp.awesomemmz.skill.custom.CustomAnimation;
 import com.example.wp.awesomemmz.skill.widget.ConfirmButton;
+import com.example.wp.resource.utils.DrawableUtils;
+import com.example.wp.resource.utils.LogUtils;
 import com.wp.picture.widget.CircleImageView;
 
 import java.util.concurrent.TimeUnit;
@@ -31,6 +35,19 @@ public class AnimationsActivity extends AppCompatActivity {
 
         observeLayoutAnimation();
         observeConfirmBtn();
+        observeCusAnimation();
+    }
+
+    private void observeCusAnimation() {
+        final View ivPicture1 = findViewById(R.id.ivPicture1);
+        final CustomAnimation customAnimation = new CustomAnimation();
+        ivPicture1.setAnimation(customAnimation);
+        ivPicture1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.startAnimation(customAnimation);
+            }
+        });
     }
 
     private void observeConfirmBtn() {
@@ -51,6 +68,7 @@ public class AnimationsActivity extends AppCompatActivity {
             }
         });
         final View tvReset = findViewById(R.id.tvReset);
+        tvReset.setBackground(DrawableUtils.INSTANCE.getGradientDrawable(0, Color.WHITE, 0, 0, 10, 0, 0));
         tvReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
