@@ -32,12 +32,13 @@ import com.example.wp.resource.utils.LogUtils;
 import com.wp.picture.video.SimpleVideoView;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.Locale;
 
 public class VideoActivity extends BaseActivity {
 
-    private final int MSG_UPDATE_TIME = 1;
-    private final int MSG_UPDATE_CONTROLLER = 2;
+    private static final int MSG_UPDATE_TIME = 1;
+    private static final int MSG_UPDATE_CONTROLLER = 2;
 
     public static final int STATE_ERROR = -1;          // 播放错误
     public static final int STATE_IDLE = 0;            // 播放未开始
@@ -55,7 +56,7 @@ public class VideoActivity extends BaseActivity {
     public static final int TYPE_SCREEN_FULL = 1;
     public static final int TYPE_SCREEN_TINY = 2;
 
-    private String videoUrl = "https://flv2.bn.netease.com/videolib1/1811/26/OqJAZ893T/HD/OqJAZ893T-mobile.mp4";
+    //private String videoUrl = "https://flv2.bn.netease.com/videolib1/1811/26/OqJAZ893T/HD/OqJAZ893T-mobile.mp4";
     private String videoUrl2 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-33-30.mp4";
     private String videoUrl3 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-10_10-20-26.mp4";
     private String thumb3 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-10_10-09-58.jpg";
@@ -129,7 +130,7 @@ public class VideoActivity extends BaseActivity {
     private void observeSimpleVideo() {
         simpleVideo = findViewById(R.id.simpleVideoView);
         SimpleVideoView.VideoInfo videoInfo = new SimpleVideoView.VideoInfo(
-                videoUrl
+                videoUrl4
                 , "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-10_10-09-58.jpg",
                 "title");
         simpleVideo.setImageLoader(GlideImageLoader.getInstance()).setup(videoInfo);
@@ -327,7 +328,7 @@ public class VideoActivity extends BaseActivity {
         mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.setDataSource(this, Uri.parse(videoUrl));
+            mediaPlayer.setDataSource(this, Uri.parse(videoUrl4));
             mediaPlayer.setOnPreparedListener(preparedListener);
             mediaPlayer.setOnCompletionListener(completeListener);
             mediaPlayer.setOnErrorListener(errorListener);
@@ -525,23 +526,51 @@ public class VideoActivity extends BaseActivity {
         return String.format(Locale.CHINA, "%02d:%02d", minute, second);
     }
 
-    private Handler mHandler = new Handler() {
+//    private Handler mHandler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            switch (msg.what) {
+//                case MSG_UPDATE_TIME:
+//                    if (mediaPlayer != null) {
+//                        updateTime();
+//                        mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME, 200);
+//                    }
+//                    break;
+//                case MSG_UPDATE_CONTROLLER:
+//                    clController.setVisibility(View.GONE);
+//                    mHandler.removeMessages(MSG_UPDATE_CONTROLLER);
+//                    break;
+//            }
+//        }
+//    };
+
+    public Handler mHandler = new MyHandler(this);
+
+    private static class MyHandler extends Handler {
+        private WeakReference<VideoActivity> extra;
+
+        public MyHandler(VideoActivity videoActivity) {
+            extra = new WeakReference<>(videoActivity);
+        }
+
         @Override
         public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (extra.get() == null) return;
             switch (msg.what) {
                 case MSG_UPDATE_TIME:
-                    if (mediaPlayer != null) {
-                        updateTime();
-                        mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME, 200);
+                    if (extra.get().mediaPlayer != null) {
+                        extra.get().updateTime();
+                        extra.get().mHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME, 200);
                     }
                     break;
                 case MSG_UPDATE_CONTROLLER:
-                    clController.setVisibility(View.GONE);
-                    mHandler.removeMessages(MSG_UPDATE_CONTROLLER);
+                    extra.get().clController.setVisibility(View.GONE);
+                    extra.get().mHandler.removeMessages(MSG_UPDATE_CONTROLLER);
                     break;
             }
         }
-    };
+    }
 
     @Override
     protected void onPause() {
@@ -555,8 +584,13 @@ public class VideoActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //防止内存泄漏
+        if (mHandler != null) {
+            mHandler.removeCallbacksAndMessages(null);
+        }
+        mHandler = null;
         if (mediaPlayer != null) {
-            mHandler.removeMessages(MSG_UPDATE_TIME);
+            //mHandler.removeMessages(MSG_UPDATE_TIME);
             mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = null;
