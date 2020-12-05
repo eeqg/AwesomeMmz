@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.wp.awesomemmz.APP;
 import com.example.wp.awesomemmz.R;
 import com.example.wp.awesomemmz.image.ImageActivity;
+import com.example.wp.awesomemmz.skill.font.TextFontActivity;
 import com.example.wp.resource.utils.LogUtils;
 
 public class TransitionActivity extends AppCompatActivity {
@@ -67,7 +68,8 @@ public class TransitionActivity extends AppCompatActivity {
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	public void customClick(View view) {
-
+		startActivity(new Intent(this, TextFontActivity.class),
+				ActivityOptions.makeSceneTransitionAnimation(this, view, view.getTransitionName()).toBundle());
 	}
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)

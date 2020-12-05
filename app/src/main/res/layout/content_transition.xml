@@ -61,11 +61,16 @@
         android:onClick="fadeClick"
         android:text="fade" />
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:background="@drawable/bg_selector"
         android:onClick="customClick"
-        android:text="custom" />
+        android:lines="1"
+        android:transitionName="message"
+        android:ellipsize="end"
+        android:text="custom: messagemessagemessagemessagemessagemessagemessagemessage" />
 
     <TextView
         android:layout_width="wrap_content"

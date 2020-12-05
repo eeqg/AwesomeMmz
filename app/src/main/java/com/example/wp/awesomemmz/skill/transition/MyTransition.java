@@ -6,6 +6,8 @@ import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.graphics.Rect;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.animation.FastOutLinearInInterpolator;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.transition.Transition;
 import android.transition.TransitionValues;
 import android.util.Log;
@@ -16,11 +18,11 @@ public class MyTransition extends Transition {
     private static final String TOP = "top";
     private static final String HEIGHT = "height";
 
-    private long mPositionDuration;
-    private long mSizeDuration;
+    private long mPositionDuration = 300;
+    private long mSizeDuration = 300;
 
-    private TimeInterpolator mPositionInterpolator;
-    private TimeInterpolator mSizeInterpolator;
+    private TimeInterpolator mPositionInterpolator = new FastOutLinearInInterpolator();
+    private TimeInterpolator mSizeInterpolator = new FastOutSlowInInterpolator();
 
     @Override
     public void captureStartValues(TransitionValues transitionValues) {
@@ -31,7 +33,7 @@ public class MyTransition extends Transition {
         transitionValues.values.put(TOP, rect.top);
         transitionValues.values.put(HEIGHT, view.getHeight());
 
-        Log.d("qibin", "start:" + rect.top + ";" + view.getHeight());
+        Log.d("-----", "start:" + rect.top + ";" + view.getHeight());
     }
 
     @Override
@@ -39,7 +41,7 @@ public class MyTransition extends Transition {
         transitionValues.values.put(TOP, 0);
         transitionValues.values.put(HEIGHT, transitionValues.view.getHeight());
 
-        Log.d("qibin", "end:" + 0 + ";" + transitionValues.view.getHeight());
+        Log.d("-----", "end:" + 0 + ";" + transitionValues.view.getHeight());
     }
 
     @Override
