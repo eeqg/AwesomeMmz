@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<slide xmlns:android="http://schemas.android.com/apk/res/android"
+    android:slideEdge="bottom"
+    android:duration="600">
+    <!--        除了状态栏、导航栏以外其他所有的View进行滑入滑出动画效果-->
+    <targets>
+        <target android:excludeId="@android:id/statusBarBackground"/>
+        <target android:excludeId="@android:id/navigationBarBackground"/>
+<!--        <target android:targetId="@id/image_shared" />-->
+    </targets>
+</slide>

@@ -17,10 +17,11 @@
             android:layout_height="wrap_content"
             android:padding="8dp">
 
-            <View
-                android:id="@+id/view"
+            <ImageView
+                android:id="@+id/ivPicture"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:scaleType="centerCrop"
                 android:background="#30f09090" />
 
             <TextView
@@ -32,8 +33,8 @@
                 android:layout_marginTop="8dp"
                 android:text="title"
                 android:textSize="20sp"
-                app:layout_constraintLeft_toRightOf="@+id/view"
-                app:layout_constraintTop_toTopOf="@+id/view" />
+                app:layout_constraintLeft_toRightOf="@+id/ivPicture"
+                app:layout_constraintTop_toTopOf="@+id/ivPicture" />
 
             <TextView
                 android:layout_width="wrap_content"

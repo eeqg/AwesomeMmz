@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.wp.awesomemmz.R
+import com.example.wp.awesomemmz.common.GlideImageLoader
 import com.example.wp.awesomemmz.databinding.ItemGridListBinding
 import com.example.wp.awesomemmz.databinding.ItemNormalListBinding
+import com.example.wp.resource.utils.LogUtils
 
 /**
  * Created by wp on 2020/9/8.
@@ -25,15 +27,24 @@ class SwitchAdapter(dataList: MutableList<String>) : RecyclerView.Adapter<Switch
         return viewType
     }
 
+    override fun setHasStableIds(hasStableIds: Boolean) {
+        super.setHasStableIds(true)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {
-        if (viewType == 0) {
+        LogUtils.d("-----onCreateViewHolder: ")
+        return if (viewType == 0) {
             val dataBinding = DataBindingUtil.inflate<ItemNormalListBinding>(LayoutInflater.from(parent.context),
                     R.layout.item_normal_list, parent, false)
-            return ViewHolder(dataBinding.root)
+            ViewHolder(dataBinding.root)
         } else {
             val dataBinding = DataBindingUtil.inflate<ItemGridListBinding>(LayoutInflater.from(parent.context),
                     R.layout.item_grid_list, parent, false)
-            return ViewHolder(dataBinding.root)
+            ViewHolder(dataBinding.root)
         }
     }
 
@@ -41,12 +52,17 @@ class SwitchAdapter(dataList: MutableList<String>) : RecyclerView.Adapter<Switch
         return mList.size
     }
 
+    private val thumb4 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-03_12-52-08.jpg"
+
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
+        LogUtils.d("-----onBindViewHolder: position = $p1")
         val dataBinding: ViewDataBinding? = DataBindingUtil.findBinding(p0.itemView)
         if (dataBinding is ItemNormalListBinding) {
-            (dataBinding as ItemNormalListBinding).tvTitle.text = mList[p1]
+            GlideImageLoader.getInstance().load(dataBinding.ivPicture, thumb4)
+            dataBinding.tvTitle.text = mList[p1]
         } else if (dataBinding is ItemGridListBinding) {
-            (dataBinding as ItemGridListBinding).tvTitle.text = mList[p1]
+            GlideImageLoader.getInstance().load(dataBinding.ivPicture, thumb4)
+            dataBinding.tvTitle.text = mList[p1]
         }
     }
 

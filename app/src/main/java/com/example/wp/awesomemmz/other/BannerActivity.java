@@ -74,7 +74,7 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 //    @BindView(R.id.viewPager)
 //    CommonViewPager viewPager;
 
-    private String videoUrl = "https://flv2.bn.netease.com/videolib1/1811/26/OqJAZ893T/HD/OqJAZ893T-mobile.mp4";
+    private String videoUrl = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
 
     private ActivityBannerBinding dataBinding;
     Banner banner;

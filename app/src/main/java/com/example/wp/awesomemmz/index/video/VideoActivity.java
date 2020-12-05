@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.TextureView;
@@ -30,9 +31,12 @@ import com.example.wp.awesomemmz.common.GlideImageLoader;
 import com.example.wp.resource.base.BaseActivity;
 import com.example.wp.resource.utils.LogUtils;
 import com.wp.picture.video.SimpleVideoView;
+import com.wp.picture.widget.CommonViewPager;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 public class VideoActivity extends BaseActivity {
@@ -104,6 +108,42 @@ public class VideoActivity extends BaseActivity {
         observeVideoView();
         observeTextureVideo();
         observeSimpleVideo();
+        observeGsyVideo();
+    }
+
+    private void observeGsyVideo(){
+        String[] urls = getResources().getStringArray(R.array.url);
+        List<String> images = Arrays.asList(urls);
+
+        CommonViewPager viewPager = findViewById(R.id.videoPager);
+        viewPager
+                .createItemView(new CommonViewPager.ViewCreator<FrameLayout, String>() {
+                    @Override
+                    public View onCreateView(int position) {
+                        return LayoutInflater.from(mActivity).inflate(R.layout.view_home_banner, null);
+                    }
+
+                    @Override
+                    public void onBindView(FrameLayout view, String data, int position) {
+                        if (position == 0) {
+
+                        } else {
+                            ImageView ivBanner = view.findViewById(R.id.ivBanner);
+                            GlideImageLoader.getInstance().load(ivBanner, data);
+                        }
+                    }
+                })
+                .setOnItemSelectedListener(new CommonViewPager.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(Object data, int position) {
+                        if (position != 0) {
+//                            if (simpleVideoView.isPlaying()) {
+//                                simpleVideoView.pausePlay();
+//                            }
+                        }
+                    }
+                })
+                .execute(images);
     }
 
     private void observeVideoView() {

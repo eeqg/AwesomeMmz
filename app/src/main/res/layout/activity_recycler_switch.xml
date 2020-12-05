@@ -30,6 +30,22 @@
                 android:text="@{mode == 1 ? @string/list_grid : @string/list_normal }"
                 tools:text="linear" />
 
+            <TextView
+                android:id="@+id/tvRefresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_selector"
+                android:text="refresh" />
+
+            <TextView
+                android:id="@+id/tvRange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/bg_selector"
+                android:text="refreshRange" />
+
             <ImageView
                 android:id="@+id/ivSwitch"
                 android:layout_width="wrap_content"
@@ -42,11 +58,11 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="#d0d3d9"/>
+            android:background="#d0d3d9" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 </layout>

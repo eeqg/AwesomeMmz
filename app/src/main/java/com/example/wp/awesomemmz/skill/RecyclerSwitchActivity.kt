@@ -41,6 +41,9 @@ class RecyclerSwitchActivity : AppCompatActivity() {
             ivSwitch.setOnClickListener {
                 changeMode()
             }
+
+            tvRefresh.setOnClickListener { adapter?.notifyDataSetChanged() }
+            tvRange.setOnClickListener { adapter?.notifyItemRangeChanged(3, 2) }
         }
     }
 

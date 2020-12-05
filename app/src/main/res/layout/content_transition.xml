@@ -1,72 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical"
-	android:padding="8dp"
-	app:layout_behavior="@string/appbar_scrolling_view_behavior"
-	tools:context=".skill.TransitionActivity"
-	tools:showIn="@layout/activity_transition">
-	
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="1dp"
-		android:text="1,android 5.0之前"/>
-	
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:onClick="oldClick"
-		android:text="old"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintTop_toTopOf="parent"/>
-	
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="10dp"
-		android:text="2, 分解、滑动进入、淡入淡出"/>
-	
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:onClick="explodeClick"
-		android:text="explode"/>
-	
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:onClick="slideClick"
-		android:text="slide"/>
-	
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:onClick="fadeClick"
-		android:text="fade"/>
-	
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="10dp"
-		android:text="3, 共享元素"/>
-	
-	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:onClick="transitionClick"
-		android:text="transition"
-		android:transitionName="myimage"
-		tools:ignore="UnusedAttribute"/>
-	
-	<ImageView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="4dp"
-		android:onClick="transitionClick"
-		android:src="@mipmap/ic_test_0"/>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".skill.TransitionActivity"
+    tools:showIn="@layout/activity_transition">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="在Android 4.4 Transition 就已经引入了，但在Android 5.0(API 21)之后，Transition 被更多的应用起来。相对于View Animation或Property Animator，Transition动画更加具有特殊性，Transition可以看作对Property Animator的高度封装。不同于Animator，Transition动画具有视觉连续性的场景切换。" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:background="#f2f2f2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="1,android 5.0之前, overridePendingTransition + animation" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="oldClick"
+        android:text="old"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="2, Transition来实现Activity过渡动画: 分解、滑动进入、淡入淡出..." />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="explodeClick"
+        android:text="explode" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="slideClick"
+        android:text="slide" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="fadeClick"
+        android:text="fade" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="customClick"
+        android:text="custom" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="3, 共享元素" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="transitionClick"
+        android:text="Shared_Element"
+        tools:ignore="UnusedAttribute" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:onClick="transitionClick"
+        android:src="@mipmap/image3" />
 </LinearLayout>

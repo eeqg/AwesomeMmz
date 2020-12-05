@@ -9,10 +9,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
+import android.transition.Transition;
 import android.view.View;
+import android.widget.Toast;
 
+import com.example.wp.awesomemmz.APP;
 import com.example.wp.awesomemmz.R;
 import com.example.wp.awesomemmz.image.ImageActivity;
+import com.example.wp.resource.utils.LogUtils;
 
 public class TransitionActivity extends AppCompatActivity {
 	
@@ -31,6 +36,10 @@ public class TransitionActivity extends AppCompatActivity {
 						.setAction("Action", null).show();
 			}
 		});
+
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//			getWindow().setReenterTransition(new Fade());
+//		}
 	}
 	
 	public void oldClick(View view) {
@@ -55,10 +64,22 @@ public class TransitionActivity extends AppCompatActivity {
 		startActivity(new Intent(this, BottomSheetBehaviorActivity.class),
 				ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 	}
-	
+
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	public void customClick(View view) {
+
+	}
+
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	public void transitionClick(View view) {
 		startActivity(new Intent(this, ImageActivity.class),
 				ActivityOptions.makeSceneTransitionAnimation(this, view, "myimage").toBundle());
+	}
+
+	@Override
+	public void onActivityReenter(int resultCode, Intent data) {
+		super.onActivityReenter(resultCode, data);
+		LogUtils.d("----->>>onActivityReenter");
+		APP.toast("reenter..");
 	}
 }

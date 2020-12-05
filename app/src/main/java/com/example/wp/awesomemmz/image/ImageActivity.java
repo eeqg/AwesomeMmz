@@ -1,14 +1,21 @@
 package com.example.wp.awesomemmz.image;
 
 import android.Manifest;
+import android.app.SharedElementCallback;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
+import android.transition.TransitionSet;
+import android.view.Gravity;
 import android.view.View;
 
 import com.bilibili.boxing.Boxing;
@@ -33,6 +40,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class ImageActivity extends BaseActivity {
 
@@ -45,6 +53,34 @@ public class ImageActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //transition
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //getWindow().setEnterTransition(TransitionInflater.from(this).inflateTransition(R.transition.transition_fade));
+            Transition fade = TransitionInflater.from(this).inflateTransition(R.transition.transition_fade);
+            Slide slide = new Slide(Gravity.BOTTOM);
+            TransitionSet transitionSet = new TransitionSet().setDuration(400);
+            transitionSet.addTransition(fade).addTransition(slide).setOrdering(TransitionSet.ORDERING_TOGETHER);
+            transitionSet.excludeTarget(android.R.id.statusBarBackground, true);
+            transitionSet.excludeTarget(android.R.id.navigationBarBackground, true);
+            getWindow().setEnterTransition(transitionSet);
+            getWindow().setEnterTransition(transitionSet);
+
+            setEnterSharedElementCallback(new SharedElementCallback() {
+                @Override
+                public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+                    super.onMapSharedElements(names, sharedElements);
+                    LogUtils.d("----->>>onMapSharedElements");
+                }
+
+                @Override
+                public void onSharedElementEnd(List<String> sharedElementNames, List<View> sharedElements, List<View> sharedElementSnapshots) {
+                    super.onSharedElementEnd(sharedElementNames, sharedElements, sharedElementSnapshots);
+                    LogUtils.d("----->>>onMapSharedElements");
+                }
+            });
+        }
+
         setTranslucentStatus();
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image);
 
