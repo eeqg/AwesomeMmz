@@ -1,94 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".skill.TransitionActivity"
     tools:showIn="@layout/activity_transition">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/sceneRoot0"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="在Android 4.4 Transition 就已经引入了，但在Android 5.0(API 21)之后，Transition 被更多的应用起来。相对于View Animation或Property Animator，Transition动画更加具有特殊性，Transition可以看作对Property Animator的高度封装。不同于Animator，Transition动画具有视觉连续性的场景切换。" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-        android:background="#f2f2f2" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="在Android 4.4 Transition 就已经引入了，但在Android 5.0(API 21)之后，Transition 被更多的应用起来。相对于View Animation或Property Animator，Transition动画更加具有特殊性，Transition可以看作对Property Animator的高度封装。不同于Animator，Transition动画具有视觉连续性的场景切换。" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:text="1,android 5.0之前, overridePendingTransition + animation" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:background="#f2f2f2" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="oldClick"
-        android:text="old"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="1,android 5.0之前, overridePendingTransition + animation" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="2, Transition来实现Activity过渡动画: 分解、滑动进入、淡入淡出..." />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="oldClick"
+            android:text="old"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="explodeClick"
-        android:text="explode" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="2, Transition来实现Activity过渡动画: 分解、滑动进入、淡入淡出..." />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="slideClick"
-        android:text="slide" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="explodeClick"
+            android:text="explode" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="fadeClick"
-        android:text="fade" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="slideClick"
+            android:text="slide" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        android:background="@drawable/bg_selector"
-        android:onClick="customClick"
-        android:lines="1"
-        android:transitionName="message"
-        android:ellipsize="end"
-        android:text="custom: messagemessagemessagemessagemessagemessagemessagemessage" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="fadeClick"
+            android:text="fade" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="3, 共享元素" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_selector"
+            android:ellipsize="end"
+            android:lines="1"
+            android:onClick="customClick"
+            android:padding="3dp"
+            android:text="custom: messagemessagemessagemessagemessagemessagemessagemessage"
+            android:transitionName="message" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="transitionClick"
-        android:text="Shared_Element"
-        tools:ignore="UnusedAttribute" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="3, 共享元素" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:onClick="transitionClick"
-        android:src="@mipmap/image3" />
-</LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="transitionClick"
+            android:text="Shared_Element"
+            tools:ignore="UnusedAttribute" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:onClick="transitionClick"
+            android:src="@mipmap/image3" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="4, TransitionManager" />
+
+        <LinearLayout
+            android:id="@+id/sceneRoot"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="#f2f2f2"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="1dp">
+
+            <TextView
+                android:id="@+id/tvAwesome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Transitions are awesome!"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btnDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="default"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/btnSlide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="slide"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/btnScale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="scale"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/btnChange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="change"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/sceneRoot2"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="6dp"
+            android:background="#f2f2f2">
+
+            <TextView
+                android:id="@+id/viewTarget2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:background="#52f2f2"
+                android:gravity="center"
+                android:text="A"
+                android:textSize="20sp"
+                android:textColor="#ff0000"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/viewTarget3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:background="#5252f2"
+                app:layout_constraintLeft_toRightOf="@+id/viewTarget2"
+                app:layout_constraintTop_toTopOf="@+id/viewTarget2" />
+
+            <View
+                android:id="@+id/viewTarget4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:background="#52f252"
+                app:layout_constraintTop_toBottomOf="@+id/viewTarget2"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <View
+                android:id="@+id/viewTarget5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:background="#f2f262"
+                app:layout_constraintLeft_toRightOf="@+id/viewTarget4"
+                app:layout_constraintTop_toTopOf="@+id/viewTarget4" />
+
+            <FrameLayout
+                android:id="@+id/view99"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <View
+                    android:id="@+id/viewTarget6"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@color/colorPrimary"/>
+            </FrameLayout>
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/sceneRoot3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="6dp"
+            android:background="#f2f2f2">
+
+            <Button
+                android:id="@+id/btnColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Color"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/btnRotate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rotate"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/btnExplode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Explode"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/btnPath"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Path"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="88dp" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

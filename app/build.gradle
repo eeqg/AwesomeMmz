@@ -124,4 +124,6 @@ dependencies {
 	//完整版引入
 	//implementation 'com.shuyu:GSYVideoPlayer:8.0.0'//androidx
 	implementation 'com.shuyu:GSYVideoPlayer:6.0.1'
+
+	implementation "com.andkulikov:transitionseverywhere:1.7.0"
 }
