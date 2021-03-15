@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -188,7 +189,7 @@ public class TransitionActivity extends AppCompatActivity {
     }
 
     public void oldClick(View view) {
-        startActivity(new Intent(this, ImageActivity.class));
+        startActivityForResult(new Intent(this, ImageActivity.class), 1);
         overridePendingTransition(R.anim.translate_in, R.anim.translate_out);
     }
 
@@ -233,5 +234,15 @@ public class TransitionActivity extends AppCompatActivity {
         super.onActivityReenter(resultCode, data);
         LogUtils.d("----->>>onActivityReenter");
         APP.toast("reenter..");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        LogUtils.d("----->>>onActivityResult--resultCode = "+resultCode);
+        if(data != null){
+            String stringExtra = data.getStringExtra("resultData");
+            LogUtils.d("----->>>onActivityResult--stringExtra = "+stringExtra);
+        }
     }
 }

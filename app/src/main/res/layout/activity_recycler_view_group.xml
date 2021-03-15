@@ -31,5 +31,6 @@
 		android:gravity="center"
 		android:text="A"
 		android:textSize="20sp"
-		android:visibility="gone" />
+		android:visibility="gone"
+		tools:visibility="visible"/>
 </RelativeLayout>

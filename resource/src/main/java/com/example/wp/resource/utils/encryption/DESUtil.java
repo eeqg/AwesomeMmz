@@ -49,8 +49,7 @@ public class DESUtil {
         try {
             SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "DES");
             //创建密码器
-            Cipher cipher = null;
-            cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
+            Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
             //用密钥初始化Cipher对象
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
             //执行加密操作

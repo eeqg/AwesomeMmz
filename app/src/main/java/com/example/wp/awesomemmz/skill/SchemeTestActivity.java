@@ -5,9 +5,11 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.example.wp.awesomemmz.APP;
 import com.example.wp.awesomemmz.R;
 import com.example.wp.resource.utils.LogUtils;
 
@@ -29,22 +31,29 @@ public class SchemeTestActivity extends AppCompatActivity {
         });
 
         WebView webView = findViewById(R.id.webView);
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // Uri uri = Uri.parse(url);
-                LogUtils.d("-----url = " + url);
-                if (url.contains("wp_awesome")) {
-                    int index = url.indexOf("wp_awesome");
-                    String substring = url.substring(index);
-                    LogUtils.d("-----substring = " + substring);
-                    view.loadUrl(substring);
-                } else {
-                    view.loadUrl(url);
-                }
-                return true;
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.addJavascriptInterface(new Object() {
+            @JavascriptInterface
+            public void onPictureSelect(int p) {
+                APP.toast("----"+p);
             }
-        });
+        }, "android");
+//        webView.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                // Uri uri = Uri.parse(url);
+//                LogUtils.d("-----url = " + url);
+//                if (url.contains("wp_awesome")) {
+//                    int index = url.indexOf("wp_awesome");
+//                    String substring = url.substring(index);
+//                    LogUtils.d("-----substring = " + substring);
+//                    view.loadUrl(substring);
+//                } else {
+//                    view.loadUrl(url);
+//                }
+//                return true;
+//            }
+//        });
         webView.loadUrl("file:///android_asset/html/scheme_test.html");
     }
 }

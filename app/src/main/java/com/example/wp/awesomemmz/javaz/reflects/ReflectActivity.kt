@@ -24,10 +24,10 @@ class ReflectActivity : AppCompatActivity() {
 
         dataBinding.run {
             btnConstructor.setOnClickListener {
-                val c1: Constructor<*>? = getConstructor(className)
-                val c2: Constructor<*>? = getConstructor(className, String::class.java, Int::class.java, String::class.java)
-                val c3: Constructor<*>? = getConstructor(className, String::class.java, Int::class.java, String::class.java, String::class.java)
                 try {
+                    val c1: Constructor<*>? = getConstructor(className)
+                    val c2: Constructor<*>? = getConstructor(className, String::class.java, Int::class.java, String::class.java)
+                    val c3: Constructor<*>? = getConstructor(className, String::class.java, Int::class.java, String::class.java, String::class.java)
                     LogUtils.d("c1: " + c1?.newInstance())
 
                     val o = c2?.newInstance("boo", 15, "xiamen...")
@@ -47,12 +47,16 @@ class ReflectActivity : AppCompatActivity() {
             btnField.setOnClickListener {
                 //PersonInfo::class.java.newInstance()
                 val person = PersonInfo("www", 19, "china")
-                val fields = getFields(className, "mAddress")
-                LogUtils.d("----fields: $fields")
                 try {
+                    val fields = getFields(className, "mAddress")
+                    LogUtils.d("----fields: $fields")
                     if (fields != null) {
+                        //get value
                         LogUtils.d("-----address: ${fields.get(person) as String}")
                         APP.toast(fields.get(person) as String)
+                        //set value
+                        fields.set(person, "厦门市")
+                        LogUtils.d("-----person: ${person}")
                     }
                 } catch (e: IllegalAccessException) {
                     e.printStackTrace()
@@ -61,10 +65,9 @@ class ReflectActivity : AppCompatActivity() {
 
             btnMethod.setOnClickListener {
                 val person = PersonInfo("bb", 28, "aaaassssdddd")
-                val method = getMethod(className, "getPhoneInfo")
-                val method2 = getMethod(className, "getPhoneInfo2", String::class.java)
-
                 try {
+                    val method = getMethod(className, "getPhoneInfo")
+                    val method2 = getMethod(className, "getPhoneInfo2", String::class.java)
                     val phone: String = method?.invoke(person) as String
                     APP.toast(phone)
 

@@ -188,7 +188,7 @@ public class AspectHelper {
 
         //方法执行完成
         long end = System.currentTimeMillis();
-         Log.i(TAG, behaviorTrace.value() + "(" + behaviorTrace.type() + ")" + " 耗时：" +  (end - begin) + "ms");
+        Log.i(TAG, behaviorTrace.value() + "(" + behaviorTrace.type() + ")" + " 耗时：" + (end - begin) + "ms");
         Log.i(TAG, monitor.value() + "(" + monitor.type() + ")" + " 耗时：" + (end - begin) + "ms");
     }
 
@@ -278,31 +278,59 @@ public class AspectHelper {
     }
 
     @Around("checkPermission(checkPermission)")
-    public void aroundCheckPermission(ProceedingJoinPoint joinPoint, CheckPermission checkPermission) throws Throwable {
+    public void aroundCheckPermission(final ProceedingJoinPoint joinPoint, CheckPermission checkPermission) throws Throwable {
         //从注解信息中获取声明的权限。
         String[] permissions = checkPermission.value();
-        Log.d(TAG, joinPoint.toShortString());
+        Log.d(TAG, "joinPoint1: " + joinPoint.toShortString());
+        Log.d(TAG, "joinPoint2: " + joinPoint.toLongString());
+        Log.d(TAG, "joinPoint--getTarget: " + joinPoint.getTarget());
+        Log.d(TAG, "joinPoint--getThis: " + joinPoint.getThis());
         StringBuilder stringBuilder = new StringBuilder();
         for (String permission : permissions) {
-            stringBuilder.append(", ");
+            if (stringBuilder.length() == 0) {
+                stringBuilder.append(", ");
+            }
             stringBuilder.append(permission);
         }
         Log.d(TAG, "needed permission is " + stringBuilder.toString());
-        ArrayList<String> permissionsList = MainHelper.getInstance().checkPermission(APP.INSTANCE, permissions);
-        if (!permissionsList.isEmpty()) {
-            StringBuilder builder = new StringBuilder();
-            // String[] strings = new String[permissionsList.size()];
-            for (String permission : permissionsList) {
-                builder.append(", ");
-                builder.append(permission);
-            }
-            Log.d(TAG, "no permission is " + builder.toString());
-            APP.toast("缺少权限");
-            // requestPermissions(permissionsList.toArray(strings), CODE_PERMISSION);
-            // ActivityCompat.requestPermissions(permissions, 1);
-        } else {
-            joinPoint.proceed();
+
+        Object[] args = joinPoint.getArgs();
+        if (args != null && args.length > 0) {
+            Object arg = args[0];
+            LogUtils.d("-----arg[0]: " + arg);
         }
+
+//        ArrayList<String> permissionsList = MainHelper.getInstance().checkPermission(APP.INSTANCE, permissions);
+//        if (!permissionsList.isEmpty()) {
+//            StringBuilder builder = new StringBuilder();
+//            // String[] strings = new String[permissionsList.size()];
+//            for (String permission : permissionsList) {
+//                builder.append(", ");
+//                builder.append(permission);
+//            }
+//            Log.d(TAG, "no permission is " + builder.toString());
+//            APP.toast("缺少权限");
+//            // requestPermissions(permissionsList.toArray(strings), CODE_PERMISSION);
+//            // ActivityCompat.requestPermissions(permissions, 1);
+//        } else {
+//            joinPoint.proceed();
+//        }
+
+        final ProceedingJoinPoint joinPointF = joinPoint;
+        PermissionAspectActivity.Companion.startActivity(APP.INSTANCE, permissions, new PermissionAspectActivity.Callback() {
+            @Override
+            public void onGranted() {
+                try {
+                    joinPointF.proceed();
+                } catch (Throwable ignored) {
+                }
+            }
+
+            @Override
+            public void onDenied() {
+                APP.toast("缺少必要权限");
+            }
+        });
     }
     //------- check permission ------
 }

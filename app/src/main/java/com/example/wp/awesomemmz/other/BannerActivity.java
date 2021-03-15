@@ -450,7 +450,7 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
                             SimpleVideoView.VideoInfo videoInfo = new SimpleVideoView.VideoInfo(
                                     videoUrl
                                     , "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-10_10-09-58.jpg",
-                                    "title");
+                                    "");
                             simpleVideoView.setImageLoader(GlideImageLoader.getInstance()).setup(videoInfo);
                         } else {
                             ImageView ivBanner = view.findViewById(R.id.ivBanner);
@@ -463,7 +463,7 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
                     public void onItemSelected(Object data, int position) {
                         if (position != 0) {
                             if (simpleVideoView.isPlaying()) {
-                                simpleVideoView.pausePlay();
+                                simpleVideoView.onPause();
                             }
                         }
                     }
@@ -553,9 +553,9 @@ public class BannerActivity extends BaseActivity implements OnBannerListener {
 
     @Override
     protected void onStop() {
-        if (simpleVideoView != null) {
-            simpleVideoView.onStop();
-        }
+//        if (simpleVideoView != null) {
+//            simpleVideoView.onStop();
+//        }
         super.onStop();
     }
 

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.webkit.JavascriptInterface
 import com.example.wp.awesomemmz.APP
 import com.example.wp.awesomemmz.R
 import com.example.wp.resource.utils.LogUtils
@@ -23,6 +24,7 @@ class JsBridgeActivity : AppCompatActivity() {
         webView.setDefaultHandler(MyHandlerCallback())
         webView.loadUrl("file:///android_asset/html/jsbridge_test.html")
 
+        //注册一个java函数，来实现js回调的handler
         webView.registerHandler("submitFromWeb",
                 BridgeHandler { data, function ->
                     LogUtils.d("-----$data")
@@ -36,6 +38,13 @@ class JsBridgeActivity : AppCompatActivity() {
             openFile()
             this@JsBridgeActivity.function = function
         }
+
+//        webView.addJavascriptInterface(object : Any() {
+//            @JavascriptInterface
+//            fun startFunction() {
+//                runOnUiThread { promptMessage("show") }
+//            }
+//        }, "android")
 
         //给js发消息
         webView.send("hello")

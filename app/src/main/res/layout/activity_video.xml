@@ -232,7 +232,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="260dp">
 
-                <android.support.v4.view.ViewPager
+                <com.wp.picture.widget.CommonViewPager
                     android:id="@+id/videoPager"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />

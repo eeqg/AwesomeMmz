@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -110,6 +111,16 @@ public class ImageActivity extends BaseActivity {
         dataBinding.titleBar.tvTitle.setText("image");
         dataBinding.titleBar.tvTitle.setTextColor(getResources().getColor(R.color.colorWhite));
 
+        dataBinding.titleBar.titleBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent result = new Intent();
+                result.putExtra("resultData", "result data..");
+                setResult(0, result);
+                finish();
+            }
+        });
+
         dataBinding.scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView nestedScrollView, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -124,6 +135,14 @@ public class ImageActivity extends BaseActivity {
                 int color = changeAlpha(getResources().getColor(R.color.colorTitleBar), percent);
                 // LogUtils.d("-----color = " + color);
                 dataBinding.titleBarRoot.setBackgroundColor(color);
+
+
+                Rect rectGlobal = new Rect();
+                boolean globalVisibleRect = dataBinding.ivShadow2.getGlobalVisibleRect(rectGlobal);
+                LogUtils.d("-----rectGlobal = " + String.format("(%s, %s, %s, %s)", rectGlobal.left, rectGlobal.top, rectGlobal.right, rectGlobal.bottom) + "--globalVisibleRect = " + globalVisibleRect);
+                Rect rectLocal = new Rect();
+                boolean localVisibleRect = dataBinding.ivShadow2.getLocalVisibleRect(rectLocal);
+                LogUtils.d("-----rectLocal = " + String.format("(%s, %s, %s, %s)", rectLocal.left, rectLocal.top, rectLocal.right, rectLocal.bottom) + "--localVisibleRect = " + localVisibleRect);
             }
         });
     }

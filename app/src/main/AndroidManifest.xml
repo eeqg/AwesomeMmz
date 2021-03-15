@@ -30,7 +30,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
-        <activity android:name=".skill.VerticalViewPagerActivity"></activity>
+        <activity android:name=".skill.BbActivity"></activity>
+        <activity android:name=".skill.AaActivity"
+            android:launchMode="singleInstance"/>
+        <activity
+            android:name=".skill.aspect.PermissionAspectActivity"
+            android:theme="@style/TransparentTheme2" />
+        <activity android:name=".skill.VerticalViewPagerActivity" />
         <activity android:name=".skill.aidls.AidlsActivity" />
 
         <service

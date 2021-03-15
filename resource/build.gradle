@@ -47,7 +47,7 @@ dependencies {
 	
 	implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'
 	
-	api 'com.github.eeqg:wp_picture:1.7-alpha3'
+	api 'com.github.eeqg:wp_picture:1.7.6'
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {

@@ -38,7 +38,7 @@ public class XEncryptUtils {
      * @param str 要加密的字符串
      * @return String 加密的字符串
      */
-    public final static String MD5(String str) {
+    public static String MD5(String str) {
         try {
             byte[] strTemp = str.getBytes();
             MessageDigest mdTemp = MessageDigest.getInstance(MD5);
