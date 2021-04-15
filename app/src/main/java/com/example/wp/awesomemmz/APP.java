@@ -40,7 +40,7 @@ public class APP extends BaseApp {
         super.onCreate();
         int pid = Process.myPid();
         LogUtils.d("-----App onCreate()--pid = " + pid);
-        LogUtils.d("-----App onCreate()--pidName0 = " + getProcessName());
+        //LogUtils.d("-----App onCreate()--pidName0 = " + getProcessName());
         LogUtils.d("-----App onCreate()--pidName = " + getProcessName(pid));
 
         if ("com.example.wp.awesomemmz".equals(getProcessName(pid))) {

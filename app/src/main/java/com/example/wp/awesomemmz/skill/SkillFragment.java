@@ -134,7 +134,7 @@ public class SkillFragment extends Fragment {
         data.add(new ClassInfoBean("scheme跳转页面", SchemeTestActivity.class.getName()));
         data.add(new ClassInfoBean("AIDL", AidlsActivity.class.getName()));
         data.add(new ClassInfoBean("Activity", AaActivity.class.getName()));
-        data.add(new ClassInfoBean("...", ""));
+        data.add(new ClassInfoBean("加入购物车动画", GoodsDetailActivity.class.getName()));
         data.add(new ClassInfoBean("...", ""));
         data.add(new ClassInfoBean("...", ""));
         data.add(new ClassInfoBean("...", ""));
