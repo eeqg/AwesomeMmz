@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.ScaleAnimation
+import android.view.animation.TranslateAnimation
 import android.widget.FrameLayout
 import android.widget.ImageView
 import com.example.wp.awesomemmz.R
@@ -16,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_goods_detail.*
 
 
 class GoodsDetailActivity : AppCompatActivity() {
+    var scaleAnim: ScaleAnimation? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_goods_detail)
@@ -24,6 +28,11 @@ class GoodsDetailActivity : AppCompatActivity() {
     }
 
     private fun add2Cart() {
+//        scaleAnim = ScaleAnimation(1f, 1.2f, 1f, 1.2f, flCart.width / 2f, flCart.height / 2f)
+//                .apply {
+//                    duration = 230
+//                }
+
         //create animate view
         val animateView = ImageView(this).apply {
             scaleType = ImageView.ScaleType.CENTER_CROP
@@ -67,13 +76,15 @@ class GoodsDetailActivity : AppCompatActivity() {
         val animator = ObjectAnimator.ofPropertyValuesHolder(animateView, alphaProper, scaleXProper, scaleYProper, translationXProper, translationYProper)
         animator.interpolator = AccelerateDecelerateInterpolator()
         animator.duration = 800
-        animator.addListener(object : Animator.AnimatorListener{
+        animator.addListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {
             }
 
             override fun onAnimationEnd(animation: Animator?) {
                 animateView.visibility = View.GONE
                 rootView.removeView(animateView)
+                //flCart.startAnimation(scaleAnim)
+                startScaleAnim()
             }
 
             override fun onAnimationCancel(animation: Animator?) {
@@ -83,6 +94,15 @@ class GoodsDetailActivity : AppCompatActivity() {
             }
         })
         animator.start()
+    }
 
+    private fun startScaleAnim(){
+        val scaleXProper = PropertyValuesHolder.ofFloat("scaleX", 1f, 1.2f, 1f)
+        val scaleYProper = PropertyValuesHolder.ofFloat("scaleY", 1f, 1.2f, 1f)
+        ObjectAnimator.ofPropertyValuesHolder(flCart, scaleXProper, scaleYProper).run {
+            duration = 260
+            interpolator = AccelerateDecelerateInterpolator()
+            start()
+        }
     }
 }

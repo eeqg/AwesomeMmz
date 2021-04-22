@@ -30,7 +30,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
-        <activity android:name=".skill.GoodsDetailActivity"></activity>
+        <activity android:name=".skill.AddToCartActivity"></activity>
+        <activity android:name=".skill.GoodsDetailActivity" />
         <activity android:name=".skill.BbActivity" />
         <activity
             android:name=".skill.AaActivity"
