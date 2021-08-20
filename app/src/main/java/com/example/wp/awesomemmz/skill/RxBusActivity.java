@@ -29,11 +29,11 @@ public class RxBusActivity extends AppCompatActivity implements RxBusFragment.On
 
         //transition
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Transition slide = new Slide(Gravity.LEFT);
+            Transition slide = new Slide(Gravity.TOP);
             Transition fade = new Fade();
-            TransitionSet transitionSet = new TransitionSet().setDuration(600);
+            TransitionSet transitionSet = new TransitionSet().setDuration(1000);
             transitionSet.addTransition(slide).addTransition(fade);
-            transitionSet.excludeTarget(android.R.id.statusBarBackground, true);
+            //transitionSet.excludeTarget(android.R.id.statusBarBackground, true);
             transitionSet.excludeTarget(android.R.id.navigationBarBackground, true);
             getWindow().setEnterTransition(transitionSet);
             getWindow().setExitTransition(transitionSet);
