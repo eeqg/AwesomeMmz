@@ -33,11 +33,13 @@ android {
 	buildTypes {
 		release {
 			minifyEnabled false
+			zipAlignEnabled false//开启zip压缩
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 			//签名
 			signingConfig signingConfigs.myConfigs
 		}
 		debug {
+			zipAlignEnabled false//开启zip压缩
 			//签名
 			signingConfig signingConfigs.myConfigs
 		}

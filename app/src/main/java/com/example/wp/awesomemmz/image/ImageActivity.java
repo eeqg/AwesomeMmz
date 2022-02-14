@@ -106,12 +106,12 @@ public class ImageActivity extends BaseActivity {
 
     private void observeBar() {
         dataBinding.titleBarRoot.addView(StatusBarUtil.createTranslucentStatusBarView(this, 0), 0);
-        dataBinding.titleBar.titleBar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-        dataBinding.titleBar.ivBack.setImageResource(R.mipmap.ic_back_white);
-        dataBinding.titleBar.tvTitle.setText("image");
-        dataBinding.titleBar.tvTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+        dataBinding.titleBar1.titleBar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        dataBinding.titleBar1.ivBack.setImageResource(R.mipmap.ic_back_white);
+        dataBinding.titleBar1.tvTitle.setText("image");
+        dataBinding.titleBar1.tvTitle.setTextColor(getResources().getColor(R.color.colorWhite));
 
-        dataBinding.titleBar.titleBar.setOnClickListener(new View.OnClickListener() {
+        dataBinding.titleBar1.titleBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent result = new Intent();
