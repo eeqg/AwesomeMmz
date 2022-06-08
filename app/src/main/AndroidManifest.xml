@@ -30,7 +30,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
-        <activity android:name=".skill.AddToCartActivity"></activity>
+        <activity android:name=".notification.NotificationActivity"></activity>
+        <activity android:name=".skill.AddToCartActivity" />
         <activity android:name=".skill.GoodsDetailActivity" />
         <activity android:name=".skill.BbActivity" />
         <activity
@@ -120,6 +121,7 @@
         <activity
             android:name=".image.ImageActivity"
             android:launchMode="singleTop"
+            android:exported="true"
             android:taskAffinity="com.test">
             <intent-filter>
 

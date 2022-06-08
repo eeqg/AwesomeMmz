@@ -23,10 +23,14 @@ public class SchemeTestActivity extends AppCompatActivity {
         findViewById(R.id.btnImage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("xl://goods:8888/goodsDetail?goodsId=10011002"));
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("wp_awesome://image/imageDetail?id=10011002"));
-                startActivity(intent);
+                try {
+                    // Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("xl://goods:8888/goodsDetail?goodsId=10011002"));
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("wp_awesome://image/imageDetail?id=10011002"));
+                    startActivity(intent);
+                }catch (Exception e){
+                
+                }
             }
         });
 

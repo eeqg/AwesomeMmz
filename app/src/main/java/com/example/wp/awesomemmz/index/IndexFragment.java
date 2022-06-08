@@ -29,6 +29,7 @@ import com.example.wp.awesomemmz.index.bean.ClassInfoBean;
 import com.example.wp.awesomemmz.index.provider.CustProviderActivity;
 import com.example.wp.awesomemmz.index.video.VideoActivity;
 import com.example.wp.awesomemmz.map.LocationActivity;
+import com.example.wp.awesomemmz.notification.NotificationActivity;
 import com.example.wp.awesomemmz.other.BannerActivity;
 import com.example.wp.awesomemmz.other.OverScrollActivity;
 import com.example.wp.awesomemmz.other.PageSlideActivity;
@@ -161,7 +162,7 @@ public class IndexFragment extends Fragment {
         data.add(new ClassInfoBean("M-V-VM", ""));
         data.add(new ClassInfoBean("map & location", LocationActivity.class.getName()));
         data.add(new ClassInfoBean("ContentProvider", CustProviderActivity.class.getName()));
-        data.add(new ClassInfoBean("...", ""));
+        data.add(new ClassInfoBean("Notification", NotificationActivity.class.getName()));
         data.add(new ClassInfoBean("...", ""));
         data.add(new ClassInfoBean("...", ""));
         data.add(new ClassInfoBean("...", ""));
