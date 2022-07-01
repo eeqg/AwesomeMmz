@@ -30,7 +30,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon">
-        <activity android:name=".notification.NotificationActivity"></activity>
+        <activity android:name=".skill.CalendarActivity"></activity>
+        <activity android:name=".notification.NotificationActivity" />
         <activity android:name=".skill.AddToCartActivity" />
         <activity android:name=".skill.GoodsDetailActivity" />
         <activity android:name=".skill.BbActivity" />
@@ -120,8 +121,8 @@
         <activity android:name=".other.OverScrollActivity" />
         <activity
             android:name=".image.ImageActivity"
-            android:launchMode="singleTop"
             android:exported="true"
+            android:launchMode="singleTop"
             android:taskAffinity="com.test">
             <intent-filter>
 

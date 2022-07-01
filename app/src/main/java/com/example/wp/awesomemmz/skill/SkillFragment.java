@@ -136,7 +136,7 @@ public class SkillFragment extends Fragment {
         data.add(new ClassInfoBean("Activity", AaActivity.class.getName()));
         data.add(new ClassInfoBean("加入购物车动画", GoodsDetailActivity.class.getName()));
         data.add(new ClassInfoBean("加入购物车动画2", AddToCartActivity.class.getName()));
-        data.add(new ClassInfoBean("...", ""));
+        data.add(new ClassInfoBean("Calendar(自定义日历)", CalendarActivity.class.getName()));
         data.add(new ClassInfoBean("...", ""));
         data.add(new ClassInfoBean("...", ""));
         data.add(new ClassInfoBean("...", ""));
