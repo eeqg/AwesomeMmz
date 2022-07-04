@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.example.wp.awesomemmz.R
 import kotlinx.android.synthetic.main.activity_calendar.*
 import java.time.DayOfWeek
@@ -26,6 +27,8 @@ class CalendarActivity : AppCompatActivity() {
         listAdapter = ListAdapter(this)
         recyclerView.run {
             layoutManager = LinearLayoutManager(this@CalendarActivity)
+            addItemDecoration(FloatingItemDecoration(this@CalendarActivity,
+                FloatingItemDecoration.Config("#000000", 16f, 58)))
             adapter = listAdapter
         }
         
@@ -45,7 +48,7 @@ class CalendarActivity : AppCompatActivity() {
             
             //计算第一天是星期几
             val firstDateIndex = getDayOfWeek(currentMonth.atDay(1)).value
-            if (firstDateIndex > 1){
+            if (firstDateIndex > 1) {
                 val emptyList = (1 until firstDateIndex).map {
                     DayBean(null, null, true)
                 }
@@ -83,13 +86,25 @@ class CalendarActivity : AppCompatActivity() {
 //    }
     
     inner class ListAdapter(val context: Context) :
-        RecyclerView.Adapter<ListAdapter.ItemViewHolder>() {
+        RecyclerView.Adapter<ListAdapter.ItemViewHolder>(), IFloatingAdapter {
         
         private var dataList: List<MonthBean>? = null
         
         fun setDataList(list: List<MonthBean>?) {
             this.dataList = list
             notifyDataSetChanged()
+        }
+    
+        override fun isItemHeader(position: Int): Boolean {
+            return true
+        }
+        
+        override fun getShowText(position: Int): String {
+            return getItem(position).title
+        }
+    
+        private fun getItem(position: Int): MonthBean {
+            return dataList!![position]
         }
         
         override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ItemViewHolder {
@@ -102,7 +117,7 @@ class CalendarActivity : AppCompatActivity() {
                 holder.recyclerView.layoutManager = GridLayoutManager(context, 7)
                 holder.recyclerView.adapter = DayListAdapter(context)
             }
-            (holder.recyclerView.adapter as DayListAdapter).setDataList(dataList!![position].dayList)
+            (holder.recyclerView.adapter as DayListAdapter).setDataList(getItem(position).dayList)
         }
         
         override fun getItemCount(): Int {
@@ -123,13 +138,27 @@ class CalendarActivity : AppCompatActivity() {
                 notifyDataSetChanged()
             }
             
+            private fun getItem(position: Int): DayBean {
+                return dataList!![position]
+            }
+            
             override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ItemViewHolder {
-                val view = LayoutInflater.from(context).inflate(R.layout.item_month_list, p0, false)
+                val view = LayoutInflater.from(context).inflate(R.layout.item_day_list, p0, false)
                 return ItemViewHolder(view)
             }
             
             override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-            
+                val dayInt = getItem(position).date?.dayOfMonth
+                if (dayInt == null){
+                    holder.tvDay.visibility = View.GONE
+                    holder.tvExtra.visibility = View.GONE
+                    holder.tvExtra2.visibility = View.GONE
+                }else{
+                    holder.tvDay.visibility = View.VISIBLE
+                    holder.tvExtra.visibility = View.VISIBLE
+                    holder.tvExtra2.visibility = View.VISIBLE
+                    holder.tvDay.text = dayInt.toString()
+                }
             }
             
             override fun getItemCount(): Int {
@@ -137,7 +166,9 @@ class CalendarActivity : AppCompatActivity() {
             }
             
             inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-                var recyclerView: RecyclerView = itemView.findViewById(R.id.recyclerView)
+                var tvDay: TextView = itemView.findViewById(R.id.tvDay)
+                var tvExtra: TextView = itemView.findViewById(R.id.tvExtra)
+                var tvExtra2: TextView = itemView.findViewById(R.id.tvExtra2)
             }
         }
     }

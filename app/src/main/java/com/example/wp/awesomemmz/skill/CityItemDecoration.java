@@ -11,6 +11,9 @@ import android.view.View;
 
 /**
  * Created by wp on 2019/9/26.
+ *
+ * @see FloatingItemDecoration
+ *
  */
 public class CityItemDecoration extends RecyclerView.ItemDecoration {
 
