@@ -9,4 +9,11 @@ import java.time.LocalDate
  * @date   2022/7/1 16:31
  */
 data class DayBean(val date: LocalDate?, val week: DayOfWeek?, val currentMonth: Boolean) {
+    
+    //var selected: Boolean = false
+    
+    fun isPastDay(): Boolean {
+        return date?.isBefore(LocalDate.now()) ?: false
+    }
+    
 }

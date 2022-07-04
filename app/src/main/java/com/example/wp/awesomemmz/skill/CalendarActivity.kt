@@ -1,6 +1,7 @@
 package com.example.wp.awesomemmz.skill
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.wp.awesomemmz.R
 import kotlinx.android.synthetic.main.activity_calendar.*
@@ -19,17 +21,32 @@ import java.time.temporal.ChronoField
 
 class CalendarActivity : AppCompatActivity() {
     private lateinit var listAdapter: ListAdapter
+    private var startDate: LocalDate? = null
+    private var endDate: LocalDate? = null
+    
+    private var multiSelect = true
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
         
-        listAdapter = ListAdapter(this)
+        listAdapter = ListAdapter(this).apply {
+            setOnSelectedListener { onSelectDate(it) }
+        }
         recyclerView.run {
             layoutManager = LinearLayoutManager(this@CalendarActivity)
             addItemDecoration(FloatingItemDecoration(this@CalendarActivity,
                 FloatingItemDecoration.Config("#000000", 16f, 58)))
             adapter = listAdapter
+            
+            setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                val adapter: ListAdapter = (v as RecyclerView).adapter as ListAdapter
+                val layoutManager = (v as RecyclerView).layoutManager as? LinearLayoutManager
+                layoutManager?.run {
+                    val firstVisiblePosition = findFirstVisibleItemPosition()
+                    tvDateTitle.text = adapter.getShowText(firstVisiblePosition)
+                }
+            }
         }
         
         initData()
@@ -85,16 +102,46 @@ class CalendarActivity : AppCompatActivity() {
 //        return a.getActualMaximum(Calendar.DAY_OF_MONTH)
 //    }
     
+    private fun onSelectDate(date: LocalDate) {
+        if (multiSelect) {
+            if (startDate != null && endDate == null && date.isAfter(startDate)) {
+                endDate = date
+            } else {
+                startDate = date
+                endDate = null
+            }
+        } else {
+            this.startDate = date
+        }
+        listAdapter.setSelectedDate(startDate, endDate)
+    }
+    
     inner class ListAdapter(val context: Context) :
         RecyclerView.Adapter<ListAdapter.ItemViewHolder>(), IFloatingAdapter {
         
+        private var selectedListener: ((LocalDate) -> Unit)? = null
         private var dataList: List<MonthBean>? = null
+        
+        private var startDate: LocalDate? = null
+        private var endDate: LocalDate? = null
         
         fun setDataList(list: List<MonthBean>?) {
             this.dataList = list
             notifyDataSetChanged()
         }
-    
+        
+        fun setOnSelectedListener(l: ((LocalDate) -> Unit)?) {
+            selectedListener = l
+        }
+        
+        fun setSelectedDate(start: LocalDate?, end: LocalDate?) {
+            startDate = start
+            endDate = end
+            if (dataList.isNullOrEmpty()) return
+            //notifyItemMoved(0, dataList!!.size)
+            notifyDataSetChanged()
+        }
+        
         override fun isItemHeader(position: Int): Boolean {
             return true
         }
@@ -102,7 +149,7 @@ class CalendarActivity : AppCompatActivity() {
         override fun getShowText(position: Int): String {
             return getItem(position).title
         }
-    
+        
         private fun getItem(position: Int): MonthBean {
             return dataList!![position]
         }
@@ -117,7 +164,11 @@ class CalendarActivity : AppCompatActivity() {
                 holder.recyclerView.layoutManager = GridLayoutManager(context, 7)
                 holder.recyclerView.adapter = DayListAdapter(context)
             }
-            (holder.recyclerView.adapter as DayListAdapter).setDataList(getItem(position).dayList)
+            (holder.recyclerView.adapter as DayListAdapter).let {
+                it.setDataList(getItem(position).dayList)
+                it.setOnSelectedListener { selectedListener?.invoke(it) }
+                it.setSelectedDate(startDate, endDate)
+            }
         }
         
         override fun getItemCount(): Int {
@@ -131,10 +182,26 @@ class CalendarActivity : AppCompatActivity() {
         inner class DayListAdapter(val context: Context) :
             RecyclerView.Adapter<DayListAdapter.ItemViewHolder>() {
             
+            private var selectedListener: ((LocalDate) -> Unit)? = null
             private var dataList: List<DayBean>? = null
+            
+            private var startDate: LocalDate? = null
+            private var endDate: LocalDate? = null
             
             fun setDataList(list: List<DayBean>?) {
                 this.dataList = list
+                notifyDataSetChanged()
+            }
+            
+            fun setOnSelectedListener(l: ((LocalDate) -> Unit)?) {
+                selectedListener = l
+            }
+            
+            fun setSelectedDate(start: LocalDate?, end: LocalDate?) {
+                startDate = start
+                endDate = end
+                if (dataList.isNullOrEmpty()) return
+                //notifyItemMoved(0, dataList!!.size)
                 notifyDataSetChanged()
             }
             
@@ -148,16 +215,34 @@ class CalendarActivity : AppCompatActivity() {
             }
             
             override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-                val dayInt = getItem(position).date?.dayOfMonth
-                if (dayInt == null){
+                val itemBean = getItem(position)
+                if (itemBean.date == null) {
                     holder.tvDay.visibility = View.GONE
                     holder.tvExtra.visibility = View.GONE
                     holder.tvExtra2.visibility = View.GONE
-                }else{
+                    holder.viewRoot.isSelected = false
+                } else {
                     holder.tvDay.visibility = View.VISIBLE
                     holder.tvExtra.visibility = View.VISIBLE
                     holder.tvExtra2.visibility = View.VISIBLE
-                    holder.tvDay.text = dayInt.toString()
+                    holder.tvDay.text = itemBean.date.dayOfMonth.toString()
+                    holder.viewContainer.isSelected = judgeSelectDate(itemBean.date) == 1
+                    if (judgeSelectDate(itemBean.date) == 2) {
+                        holder.viewRoot.setBackgroundColor(Color.parseColor("#FFF3EC"))
+                    }
+                    
+                    if (getItem(position).isPastDay()) {
+                        holder.tvDay.isEnabled = false
+                        holder.tvExtra.isEnabled = false
+                        holder.tvExtra2.isEnabled = false
+                    } else {
+                        holder.viewRoot.setOnClickListener {
+//                            itemBean.selected = true
+//                            notifyItemChanged(position)
+                            if (itemBean.date == null || getItem(position).isPastDay()) return@setOnClickListener
+                            selectedListener?.invoke(itemBean.date)
+                        }
+                    }
                 }
             }
             
@@ -165,7 +250,21 @@ class CalendarActivity : AppCompatActivity() {
                 return dataList?.size ?: 0
             }
             
+            /**
+             * 0: 普通; 1:选中, 2:区间
+             */
+            private fun judgeSelectDate(date: LocalDate): Int {
+                if (startDate != null && date.isEqual(startDate)) return 1
+                if (endDate != null && date.isEqual(endDate)) return 1
+                if (startDate != null && date.isAfter(startDate)
+                    && endDate != null && date.isBefore(endDate)
+                ) return 2
+                return 0
+            }
+            
             inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+                var viewRoot: ViewGroup = itemView.findViewById(R.id.viewRoot)
+                var viewContainer: RelativeLayout = itemView.findViewById(R.id.viewContainer)
                 var tvDay: TextView = itemView.findViewById(R.id.tvDay)
                 var tvExtra: TextView = itemView.findViewById(R.id.tvExtra)
                 var tvExtra2: TextView = itemView.findViewById(R.id.tvExtra2)
