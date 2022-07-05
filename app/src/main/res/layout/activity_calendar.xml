@@ -94,7 +94,7 @@
             android:background="@color/colorWhite"
             android:elevation="10dp"
             android:gravity="center"
-            android:padding="18dp"
+            android:padding="8dp"
             android:text="2022年6月"
             android:textColor="@android:color/black"
             android:textSize="16dp"

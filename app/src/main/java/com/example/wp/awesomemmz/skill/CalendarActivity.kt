@@ -1,7 +1,6 @@
 package com.example.wp.awesomemmz.skill
 
 import android.content.Context
-import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -36,7 +35,7 @@ class CalendarActivity : AppCompatActivity() {
         recyclerView.run {
             layoutManager = LinearLayoutManager(this@CalendarActivity)
             addItemDecoration(FloatingItemDecoration(this@CalendarActivity,
-                FloatingItemDecoration.Config("#000000", 16f, 58)))
+                FloatingItemDecoration.Config("#000000", 16f, 35)))
             adapter = listAdapter
             
             setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
@@ -65,8 +64,8 @@ class CalendarActivity : AppCompatActivity() {
             
             //计算第一天是星期几
             val firstDateIndex = getDayOfWeek(currentMonth.atDay(1)).value
-            if (firstDateIndex > 1) {
-                val emptyList = (1 until firstDateIndex).map {
+            if (firstDateIndex + 1 > 1) { //UI第一列为星期天
+                val emptyList = (1 until firstDateIndex + 1).map {
                     DayBean(null, null, true)
                 }
                 allDayList.addAll(emptyList)
@@ -221,26 +220,81 @@ class CalendarActivity : AppCompatActivity() {
                     holder.tvExtra.visibility = View.GONE
                     holder.tvExtra2.visibility = View.GONE
                     holder.viewRoot.isSelected = false
+                    holder.viewRoot.background = null
                 } else {
                     holder.tvDay.visibility = View.VISIBLE
                     holder.tvExtra.visibility = View.VISIBLE
                     holder.tvExtra2.visibility = View.VISIBLE
                     holder.tvDay.text = itemBean.date.dayOfMonth.toString()
-                    holder.viewContainer.isSelected = judgeSelectDate(itemBean.date) == 1
-                    if (judgeSelectDate(itemBean.date) == 2) {
-                        holder.viewRoot.setBackgroundColor(Color.parseColor("#FFF3EC"))
-                    }
+                    //holder.viewContainer.isSelected = judgeSelectDate(itemBean.date) == 1
+                    //if (judgeSelectDate(itemBean.date) == 2) {
+                    //    holder.viewRoot.setBackgroundColor(Color.parseColor("#FFF3EC"))
+                    //}
                     
                     if (getItem(position).isPastDay()) {
                         holder.tvDay.isEnabled = false
                         holder.tvExtra.isEnabled = false
                         holder.tvExtra2.isEnabled = false
+                        holder.viewRoot.isSelected = false
+                        holder.viewRoot.background = null
                     } else {
                         holder.viewRoot.setOnClickListener {
-//                            itemBean.selected = true
-//                            notifyItemChanged(position)
-                            if (itemBean.date == null || getItem(position).isPastDay()) return@setOnClickListener
+                            if (getItem(position).isPastDay()) return@setOnClickListener
                             selectedListener?.invoke(itemBean.date)
+                        }
+                        
+                        if (endDate == null) {
+                            holder.viewContainer.isSelected = judgeSelectDate(itemBean.date) == 0
+                            holder.viewRoot.background = null
+                        } else {
+                            when (judgeSelectDate(itemBean.date)) {
+                                0 -> {
+                                    holder.viewContainer.isSelected = true
+                                    if (itemBean.date.dayOfWeek == DayOfWeek.SUNDAY
+                                        || itemBean.date.dayOfWeek == DayOfWeek.SATURDAY
+                                        || itemBean.date.dayOfMonth == itemBean.date.lengthOfMonth()
+                                    ) {
+                                        holder.viewRoot.background = null
+                                    } else {
+                                        holder.viewRoot.setBackgroundResource(R.drawable.bg_select_left)
+                                    }
+                                }
+                                1 -> {
+                                    holder.viewContainer.isSelected = true
+                                    if (itemBean.date.dayOfWeek == DayOfWeek.SUNDAY
+                                        || itemBean.date.dayOfWeek == DayOfWeek.SATURDAY
+                                        || itemBean.date.dayOfMonth == 1
+                                    ) {
+                                        holder.viewRoot.background = null
+                                    } else {
+                                        holder.viewRoot.setBackgroundResource(R.drawable.bg_select_right)
+                                    }
+                                }
+                                2 -> {
+                                    holder.viewContainer.isSelected = false
+                                    if ((itemBean.date.dayOfWeek == DayOfWeek.SUNDAY && itemBean.date.dayOfMonth == itemBean.date.lengthOfMonth())
+                                        || (itemBean.date.dayOfWeek == DayOfWeek.SATURDAY && itemBean.date.dayOfMonth == 1)
+                                    ) {
+                                        holder.viewRoot.setBackgroundResource(R.drawable.bg_select_middle2)
+                                    } else {
+                                        if (itemBean.date.dayOfWeek == DayOfWeek.SUNDAY
+                                            || itemBean.date.dayOfMonth == 1
+                                        ) {
+                                            holder.viewRoot.setBackgroundResource(R.drawable.bg_select_left)
+                                        } else if (itemBean.date.dayOfWeek == DayOfWeek.SATURDAY
+                                            || itemBean.date.dayOfMonth == itemBean.date.lengthOfMonth()
+                                        ) {
+                                            holder.viewRoot.setBackgroundResource(R.drawable.bg_select_right)
+                                        } else {
+                                            holder.viewRoot.setBackgroundResource(R.drawable.bg_select_middle)
+                                        }
+                                    }
+                                }
+                                else -> {
+                                    holder.viewContainer.isSelected = false
+                                    holder.viewRoot.background = null
+                                }
+                            }
                         }
                     }
                 }
@@ -251,15 +305,15 @@ class CalendarActivity : AppCompatActivity() {
             }
             
             /**
-             * 0: 普通; 1:选中, 2:区间
+             * 0: start; 1:end, 2:区间
              */
             private fun judgeSelectDate(date: LocalDate): Int {
-                if (startDate != null && date.isEqual(startDate)) return 1
+                if (startDate != null && date.isEqual(startDate)) return 0
                 if (endDate != null && date.isEqual(endDate)) return 1
                 if (startDate != null && date.isAfter(startDate)
                     && endDate != null && date.isBefore(endDate)
                 ) return 2
-                return 0
+                return -1
             }
             
             inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
