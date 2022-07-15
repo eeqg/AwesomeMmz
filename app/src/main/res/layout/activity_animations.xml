@@ -173,6 +173,31 @@
                     android:src="@mipmap/ic_test_1" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="StateListAnimator" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/bg_4_fec353"
+                    android:text="press"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:stateListAnimator="@animator/selector_anim1"/>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>
