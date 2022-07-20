@@ -28,9 +28,9 @@ class TestKotlin {
                 }
         }
 
-        val g = GlobalScope.launch(Dispatchers.Main) {
-            println("${Thread.currentThread().name}---")
-        }
+//        val g = GlobalScope.launch(Dispatchers.Main) {
+//            println("${Thread.currentThread().name}---")
+//        }
     }
     
     @Test
@@ -54,6 +54,8 @@ class TestKotlin {
             .collect {
                 println("${Thread.currentThread().name}---collect---$it")
             }
+        
+        myDispatcher.close()//关闭线程
     }
     
     //挂起函数
@@ -84,5 +86,21 @@ class TestKotlin {
     @Test
     fun testCoroutine() = runBlocking {
         testCoroutineS()
+    }
+    
+    fun asd(block: () -> Unit){
+        println("-----start------")
+        block.invoke()
+        println("-----end------")
+    }
+    
+    @Test
+    fun testAsd(){
+        asd {
+            println("----1")
+        }
+        asd {
+            println("----2")
+        }
     }
 }
