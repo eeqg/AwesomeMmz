@@ -1,10 +1,7 @@
 package com.example.wp.awesomemmz
 
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import org.junit.Test
 import java.util.*
 import java.util.concurrent.Executors
@@ -197,6 +194,28 @@ class TestKotlin {
             }
             delay(5000L) // 在延迟后退出
             
+        }
+    }
+    
+    private fun simple(): Flow<Int> = flow {
+        try {
+            for (i in 1..30) {
+                delay(1000)
+                println("Emitting $i")
+                emit(i)
+            }
+        }finally {
+            println("Finally in numbers")
+        }
+    }
+    
+    @Test
+    fun testWithTimeoutOrNull(){
+        runBlocking {
+            withTimeoutOrNull(5000) { // 在 5000 毫秒后超时
+                simple().collect { value -> println(value) }
+            }
+            println("Done")
         }
     }
 }

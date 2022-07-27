@@ -216,6 +216,7 @@ class CalendarActivity : AppCompatActivity() {
             override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
                 val itemBean = getItem(position)
                 if (itemBean.date == null) {
+                    holder.viewRoot.isEnabled = false
                     holder.tvDay.visibility = View.GONE
                     holder.tvExtra.visibility = View.GONE
                     holder.tvExtra2.visibility = View.GONE
@@ -232,26 +233,28 @@ class CalendarActivity : AppCompatActivity() {
                     //}
                     
                     if (getItem(position).isPastDay()) {
+                        holder.viewRoot.isEnabled = false
                         holder.tvDay.isEnabled = false
                         holder.tvExtra.isEnabled = false
                         holder.tvExtra2.isEnabled = false
                         holder.viewRoot.isSelected = false
                         holder.viewRoot.background = null
                     } else {
+                        holder.viewRoot.isEnabled = true
                         holder.viewRoot.setOnClickListener {
                             if (getItem(position).isPastDay()) return@setOnClickListener
                             selectedListener?.invoke(itemBean.date)
                         }
                         
                         if (endDate == null) {
+                            //单选
                             holder.viewContainer.isSelected = judgeSelectDate(itemBean.date) == 0
                             holder.viewRoot.background = null
                         } else {
                             when (judgeSelectDate(itemBean.date)) {
                                 0 -> {
                                     holder.viewContainer.isSelected = true
-                                    if (itemBean.date.dayOfWeek == DayOfWeek.SUNDAY
-                                        || itemBean.date.dayOfWeek == DayOfWeek.SATURDAY
+                                    if (itemBean.date.dayOfWeek == DayOfWeek.SATURDAY
                                         || itemBean.date.dayOfMonth == itemBean.date.lengthOfMonth()
                                     ) {
                                         holder.viewRoot.background = null
@@ -262,7 +265,6 @@ class CalendarActivity : AppCompatActivity() {
                                 1 -> {
                                     holder.viewContainer.isSelected = true
                                     if (itemBean.date.dayOfWeek == DayOfWeek.SUNDAY
-                                        || itemBean.date.dayOfWeek == DayOfWeek.SATURDAY
                                         || itemBean.date.dayOfMonth == 1
                                     ) {
                                         holder.viewRoot.background = null
